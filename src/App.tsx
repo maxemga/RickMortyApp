@@ -1,15 +1,16 @@
 import React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import TabsNavigation from './components/Navigation/TabsNavigation';
 import StackNavigation from './components/Navigation/StackNavigation';
+import { ApolloProvider } from '@apollo/client'
+import { client } from './db';
 
-
-const Tabs = createMaterialBottomTabNavigator();
 
 const App = () => {
 
   return (
-    <StackNavigation/>
+    <ApolloProvider client={client}>
+        <StackNavigation/>
+    </ApolloProvider>
+    
   )
 
 }

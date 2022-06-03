@@ -10,9 +10,13 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@react-navigation/material-bottom-tabs": "^6.2.1",
+    "@apollo/client": "^3.6.6",
+    "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
+    "graphql": "^16.5.0",
+    "install": "^0.13.0",
+    "npm": "^8.12.1",
     "react": "17.0.2",
     "react-native": "0.68.2",
     "react-native-paper": "^4.12.1",
