@@ -8,7 +8,7 @@ import { NavigationIconActiveCharater, NavigationIconActiveEpisode, NavigationIc
 import { Screens } from './NavigationRoutes';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Header from '../Header/Header';
-import { colors } from '../../theme/colors';
+import { colors } from '../../theme/config';
 
 
 const Tabs = createBottomTabNavigator()

@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, View } from "react-native"
 import { Text } from 'react-native-paper';
 import styled from 'styled-components/native';
-import { colors } from '../../theme/colors';
+import { colors } from '../../theme/config';
 import { ButtonHeader } from '../Buttons';
 
 interface IHeader {
@@ -11,7 +11,7 @@ interface IHeader {
 
 const Header: React.FC<IHeader>= ({ title }) => {
     return(
-        <SafeAreaView>
+        <HeaderBlock>
             <Wrapper>
                 <HeaderButton>
                     <ButtonHeader title='Filter'/>
@@ -20,9 +20,13 @@ const Header: React.FC<IHeader>= ({ title }) => {
                     <HeaderTitleText>{title}</HeaderTitleText>
                 </HeaderTitle>
             </Wrapper>
-        </SafeAreaView>
+        </HeaderBlock>
     )
 }
+
+const HeaderBlock = styled.SafeAreaView`
+    background-color: rgba(248, 248, 248, 0.92);
+`
 
 const Wrapper = styled.View`
     display: flex;

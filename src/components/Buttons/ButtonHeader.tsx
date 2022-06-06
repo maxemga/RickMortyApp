@@ -2,7 +2,7 @@ import React from 'react'
 import { TouchableOpacity } from "react-native"
 
 import styled from 'styled-components'
-import { colors } from '../../theme/colors'
+import { colors } from '../../theme/config'
 
 interface IButtonHeader {
     title: string
