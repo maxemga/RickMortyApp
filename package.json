@@ -7,9 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "types": "graphql-codegen --config graphqlConfig.yml",
-    "y": "graphql-codegen --config codegen.yml"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@apollo/client": "^3.6.6",

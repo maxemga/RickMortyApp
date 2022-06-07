@@ -6,27 +6,29 @@ import { GET_ALL_USERS } from '../../db/query/requests'
 import { IUsers } from '../../type/types'
 import { ISchemaUsers } from '../../db/query/schema'
 import CharatersContainer from './CharatersCotainer'
+import { ActivityIndicator } from 'react-native-paper'
+import { colors } from '../../theme/config'
 
 
 const CharatersComponent: React.FC = () => {
-    const { data } = useQuery<ISchemaUsers>(GET_ALL_USERS);
+    const { data, loading, error } = useQuery<ISchemaUsers>(GET_ALL_USERS);
     const [users, setUsers] = useState<IUsers[]>([]);
 
     useEffect(() => {
-        setUsers(data?.characters.results)
-    }, [])
+        setUsers(data?.characters.results || [])
+    }, [data])
 
     return(
 
         <Wrapper>                     
-            <FlatList
+            {loading || error ? <ActivityIndicator style={{height: '100%'}} color={colors.violet} size='large'/> :
+            <FlatList               
                 showsVerticalScrollIndicator={false}
                 data={users}
                 renderItem={(el) => <CharatersContainer {...el.item}/>}
-                keyExtractor={(el) => el.id}
+                keyExtractor={(el) => String(el.id)}
                 numColumns={2}
-       
-            />
+            />}
         </Wrapper>
          
     )
