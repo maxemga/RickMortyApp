@@ -1,8 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import LocationPage from '../../screens/LocationPage';
-import CharatersComponent from '../Charaters/CharatersComponent';
+import CharatersProfilePage from '../../screens/CharatersProfilePage';
 import { Screens } from './NavigationRoutes';
 import TabsNavigation from './TabsNavigation';
 
@@ -16,9 +15,7 @@ const StackNavigation = () => {
     <NavigationContainer>
     <Stack.Navigator initialRouteName={Screens.CHARATER_SCREEN}>    
             <Stack.Group>
-                <Stack.Screen name="Home" component={CharatersComponent} />
-                <Stack.Screen name="Details" component={LocationPage} />
-                {/* <Stack.Screen name="fsfaf" component={Test2} />  */}
+                <Stack.Screen name={Screens.CHARATER_PROFILE_SCREEN} component={CharatersProfilePage} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen options={{ headerShown: false }} name={Screens.CHARATER_SCREEN} component={TabsNavigation} />

@@ -4,13 +4,14 @@ import { IUsers } from '../../type/types';
 import styled from 'styled-components'
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
+import { Screens } from '../Navigation/NavigationRoutes';
 
 
 const CharatersContainer: React.FC<IUsers> = ({id, name, image, status}) => {
     const navigation = useNavigation();
     
     return(     
-        <CharatersContainerBlock onPress={() => navigation.navigate('Details')}>
+        <CharatersContainerBlock onPress={() => navigation.navigate(Screens.CHARATER_PROFILE_SCREEN, 'ds')}>
             <CharatersContainerImage>
                 <Image style={{height: 150, width: '100%', borderTopLeftRadius: config.borderRadius, borderTopRightRadius: config.borderRadius}} source={{uri: image}}/>
             </CharatersContainerImage>

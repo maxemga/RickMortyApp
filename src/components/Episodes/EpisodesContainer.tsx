@@ -1,17 +1,18 @@
 import React from 'react'
+import styled from 'styled-components'
 import { View } from 'react-native';
 import { IEpisode } from '../../type/types';
-import styled from 'styled-components'
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
-import { EpisodesArrow } from '../../assets/images/EpisodesIcons/Arrow';
+import { EpisodesArrow } from '../../assets/images/EpisodesIcons/arrow';
+import { Screens } from '../Navigation/NavigationRoutes';
 
 
 const EpisodesContainer: React.FC<IEpisode> = ({id, name, air_date, episode}) => {
     const navigation = useNavigation();
     
     return(     
-        <EpisodesContainerBlock onPress={() => navigation.navigate('Details')}>
+        <EpisodesContainerBlock onPress={() => navigation.navigate(Screens.CHARATER_PROFILE_SCREEN)}>
             <EpisodesContainerContent>
                 <View>
                     <EpisodesContainerCount>{episode}</EpisodesContainerCount>
@@ -32,7 +33,7 @@ const EpisodesContainer: React.FC<IEpisode> = ({id, name, air_date, episode}) =>
 
 const EpisodesContainerBlock = styled.TouchableOpacity`
     borderBottomColor: ${colors.borderColor};
-    borderBottomWidth: 1;
+    borderBottomWidth: 1px;
 `
 
 const EpisodesContainerContent = styled.View`

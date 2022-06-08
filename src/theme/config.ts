@@ -11,3 +11,4 @@ export const colors = {
     textDiscription: '#6E798C',
     borderColor: '#E5E5E5'
 }
+
