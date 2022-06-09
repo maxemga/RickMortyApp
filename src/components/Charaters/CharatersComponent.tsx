@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, ScrollView, Text, TouchableOpacity } from "react-native"
 import { useQuery } from '@apollo/client'
 import { GET_ALL_USERS } from '../../db/query/requests'
-import { IUsers } from '../../type/types'
+import { IUser } from '../../type/types'
 import { ISchemaUsers } from '../../db/query/schema'
 import CharatersContainer from './CharatersCotainer'
 import { ActivityIndicator } from 'react-native-paper'
@@ -12,10 +12,16 @@ import { colors } from '../../theme/config'
 
 const CharatersComponent: React.FC = () => {
     const { data, loading, error } = useQuery<ISchemaUsers>(GET_ALL_USERS);
-    const [users, setUsers] = useState<IUsers[]>([]);
+    const [users, setUsers] = useState<IUser[]>([]);
 
     useEffect(() => {
         setUsers(data?.characters.results || [])
+        if(error) {
+            console.log('fs')
+        }
+        if (loading) {
+            console.log('fsfsf')
+        }
     }, [data])
 
     return(

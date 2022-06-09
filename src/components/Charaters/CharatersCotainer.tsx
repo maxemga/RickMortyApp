@@ -1,17 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { IUsers } from '../../type/types';
+import { IUser } from '../../type/types';
 import styled from 'styled-components'
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '../Navigation/NavigationRoutes';
+import { GET_SINGLE_USER } from '../../db/query/requests';
+import { useQuery } from '@apollo/client';
 
 
-const CharatersContainer: React.FC<IUsers> = ({id, name, image, status}) => {
+const CharatersContainer: React.FC<IUser> = ({id, name, image, status}) => {
     const navigation = useNavigation();
-    
+    const { data, loading, error } = useQuery(GET_SINGLE_USER, {
+        variables: {
+            id: id
+        }
+    });
+
+    const OpenCharaterCard = () => {
+        navigation.navigate(Screens.CHARATER_PROFILE_SCREEN, {
+            characterId: id
+        })
+    }
+
     return(     
-        <CharatersContainerBlock onPress={() => navigation.navigate(Screens.CHARATER_PROFILE_SCREEN, 'ds')}>
+        <CharatersContainerBlock onPress={() => OpenCharaterCard()}>
             <CharatersContainerImage>
                 <Image style={{height: 150, width: '100%', borderTopLeftRadius: config.borderRadius, borderTopRightRadius: config.borderRadius}} source={{uri: image}}/>
             </CharatersContainerImage>
@@ -34,7 +47,7 @@ const CharatersContainerBlock = styled.TouchableOpacity`
     margin-left: 2px;
     margin-right: 15px;
     border: 1px solid ${colors.borderColor};
-    border-radius: ${config.borderRadius}
+    border-radius: ${config.borderRadius}px;
 `
 
 // ${config.borderColor}

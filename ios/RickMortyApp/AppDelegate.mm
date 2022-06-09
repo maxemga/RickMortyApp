@@ -3,7 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import "RNBootSplash.h""
+//#import "RNBootSplash.h"
 
 #import <React/RCTAppSetupUtils.h>
 
@@ -56,7 +56,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
+//  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
   
   return YES;
 }

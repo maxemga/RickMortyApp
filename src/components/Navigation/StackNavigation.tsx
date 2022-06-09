@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import CharatersProfilePage from '../../screens/CharatersProfilePage';
+import { colors } from '../../theme/config';
 import { Screens } from './NavigationRoutes';
 import TabsNavigation from './TabsNavigation';
 
@@ -14,7 +15,9 @@ const StackNavigation = () => {
   return (
     <NavigationContainer>
     <Stack.Navigator initialRouteName={Screens.CHARATER_SCREEN}>    
-            <Stack.Group>
+            <Stack.Group screenOptions={{
+                headerTintColor: colors.violet
+              }}>
                 <Stack.Screen name={Screens.CHARATER_PROFILE_SCREEN} component={CharatersProfilePage} />
             </Stack.Group>
             <Stack.Group>
