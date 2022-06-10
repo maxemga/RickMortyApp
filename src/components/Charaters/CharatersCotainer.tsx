@@ -1,29 +1,25 @@
 import React, { useEffect } from 'react'
-import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { IUser } from '../../type/types';
+import { Image } from 'react-native';
+import { IAllUser, IUser } from '../../type/types';
 import styled from 'styled-components'
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '../Navigation/NavigationRoutes';
-import { GET_SINGLE_USER } from '../../db/query/requests';
-import { useQuery } from '@apollo/client';
 
 
-const CharatersContainer: React.FC<IUser> = ({id, name, image, status}) => {
+const CharatersContainer: React.FC<IAllUser> = ({id, name, image, status}) => {
     const navigation = useNavigation();
-    const { data, loading, error } = useQuery(GET_SINGLE_USER, {
-        variables: {
-            id: id
-        }
-    });
+ 
 
     const OpenCharaterCard = () => {
         navigation.navigate(Screens.CHARATER_PROFILE_SCREEN, {
             characterId: id
         })
+        
     }
 
     return(     
+        
         <CharatersContainerBlock onPress={() => OpenCharaterCard()}>
             <CharatersContainerImage>
                 <Image style={{height: 150, width: '100%', borderTopLeftRadius: config.borderRadius, borderTopRightRadius: config.borderRadius}} source={{uri: image}}/>

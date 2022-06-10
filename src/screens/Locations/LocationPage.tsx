@@ -1,5 +1,5 @@
 import React from 'react';
-import LocationsComponent from '../components/Locations/LocationsComponent';
+import LocationsComponent from '../../components/Locations/LocationsComponent';
 
 
 

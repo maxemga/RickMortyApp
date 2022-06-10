@@ -9,7 +9,6 @@ export interface IUser {
     location: ILocation
     image: string
     episode: Array<IEpisode>
-    created: string
     
 }
 
@@ -18,8 +17,7 @@ export interface ILocation {
     name: string
     type: string
     dimension: string
-    residents: Array<IUser>
-    created: string
+    residents: Array<IAllUser>
 }
 
 export interface IEpisode {
@@ -28,5 +26,29 @@ export interface IEpisode {
     air_date: string
     episode: string
     characters: Array<IUser>
-    created: string
 }
+
+
+
+
+export interface IAllUser {
+    id: number
+    name : string
+    status: string
+    image: string   
+}
+
+export interface IAllLocation {
+    id: number
+    name: string
+    type: string
+}
+
+export interface IAllEpisode {
+    id: number
+    name: string
+    air_date: string
+    episode: string
+}
+
+

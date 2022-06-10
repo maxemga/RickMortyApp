@@ -10,32 +10,7 @@ export const GET_ALL_USERS = gql`
                 id
                 name
                 status
-                species
-                type
-                gender
-                origin {
-                    id
-                    name
-                    type
-                    dimension
-                    created
-                }
-                location {
-                    id
-                    name
-                    type
-                    dimension
-                    created
-                }
                 image
-                episode {
-                    id
-                    name
-                    air_date
-                    episode
-                    created
-                } 
-                created    
             }
         }
     }
@@ -62,7 +37,6 @@ export const GET_SINGLE_USER = gql`
                     name
                     type
                     dimension
-                    created
                 }
                 image
                 episode {
@@ -70,9 +44,8 @@ export const GET_SINGLE_USER = gql`
                     name
                     air_date
                     episode
-                    created
-                } 
-                created   
+     
+                }  
             
   }
 }
@@ -85,19 +58,28 @@ export const GET_ALL_LOCATIONS = gql`
                 id
                 name
                 type
-                dimension
-                residents {
-                    id
-                    name
-                    status
-                    species
-                    type
-                    gender    
-                }
-                created
             }
         }
     }
+`
+
+export const GET_SINGLE_LOCATION = gql`
+   query GetSingleLocation($id: ID!){
+    location(id: $id) {    
+            id
+            name
+            type
+            dimension
+            residents {
+                id
+                name
+                status
+                image
+            }
+            
+            
+  }
+}
 `
 
 export const GET_ALL_EPISODES = gql`
@@ -108,18 +90,27 @@ export const GET_ALL_EPISODES = gql`
                 name
                 air_date
                 episode
-                characters {
-                    id
-                    name
-                    status
-                    species
-                    type
-                    gender 
-                }
-                created
             }
         }
     }
+`
+
+export const GET_SINGLE_EPISODE = gql`
+   query GetSingleEpisode($id: ID!){
+    episode(id: $id) {    
+            id
+            name
+            air_date
+            episode
+            characters {
+                id
+                name
+                status
+                image
+            }
+            
+  }
+}
 `
 
 

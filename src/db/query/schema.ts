@@ -11,16 +11,26 @@ export interface ISchemaUser {
 }
 
 
-export interface ISchemaLocation {
+export interface ISchemaLocations {
   locations: {
     results: Array<ILocation>
   }
 }
 
+export interface ISchemaLocation {
+  location: ILocation
+}
+
+
 export interface ISchemaEpisodes {
   episodes: {
     results: Array<IEpisode>
 }
+}
+
+export interface ISchemaEpisode {
+  episode: IEpisode
+
 }
 
 

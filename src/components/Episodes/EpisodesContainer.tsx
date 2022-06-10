@@ -1,18 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
 import { View } from 'react-native';
-import { IEpisode } from '../../type/types';
+import { IAllEpisode, IEpisode } from '../../type/types';
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
 import { EpisodesArrow } from '../../assets/images/EpisodesIcons/arrow';
 import { Screens } from '../Navigation/NavigationRoutes';
 
 
-const EpisodesContainer: React.FC<IEpisode> = ({id, name, air_date, episode}) => {
+const EpisodesContainer: React.FC<IAllEpisode> = ({id, name, air_date, episode}) => {
     const navigation = useNavigation();
     
+    const OpenEpisodeCard = () => {
+        navigation.navigate(Screens.EPISODES_CARD_SCREEN, {
+            episodeId: id
+        })
+    }
+
     return(     
-        <EpisodesContainerBlock onPress={() => navigation.navigate(Screens.CHARATER_PROFILE_SCREEN)}>
+        <EpisodesContainerBlock onPress={() => OpenEpisodeCard()}>
             <EpisodesContainerContent>
                 <View>
                     <EpisodesContainerCount>{episode}</EpisodesContainerCount>

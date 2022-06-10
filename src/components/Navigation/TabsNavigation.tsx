@@ -1,14 +1,14 @@
 
 import React from 'react';
-import CharatersPage from '../../screens/CharatersPage';
+import CharatersPage from '../../screens/Charaters/CharatersPage';
 import { NavigationIconCharater, NavigationIconEpisode, NavigationIconLocation } from '../../assets/images/NavigationIcons/Inactive';
 import { NavigationIconActiveCharater, NavigationIconActiveEpisode, NavigationIconActiveLocation } from '../../assets/images/NavigationIcons/Active';
 import { Screens } from './NavigationRoutes';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Header from '../Header/Header';
 import { colors } from '../../theme/config';
-import LocationPage from '../../screens/LocationPage';
-import EpisodesPage from '../../screens/EpisodesPage';
+import LocationPage from '../../screens/Locations/LocationPage';
+import EpisodesPage from '../../screens/Episodes/EpisodesPage';
 
 
 const Tabs = createBottomTabNavigator()

@@ -1,16 +1,22 @@
 import React from 'react'
-import { Image } from 'react-native';
-import { ILocation } from '../../type/types';
+import { IAllLocation } from '../../type/types';
 import styled from 'styled-components'
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
+import { Screens } from '../Navigation/NavigationRoutes';
 
 
-const LocationsContainer: React.FC<ILocation> = ({id, name, type}) => {
+const LocationsContainer: React.FC<IAllLocation> = ({id, name, type}) => {
     const navigation = useNavigation();
-    
+
+    const OpenLocationCard = () => {
+        navigation.navigate(Screens.LOCATIONS_CARD_SCREEN, {
+            locationId: id
+        });
+    }
+
     return(     
-        <LocationsContainerBlock onPress={() => navigation.navigate('Details')}>
+        <LocationsContainerBlock onPress={() => OpenLocationCard()}>
             <LocationsContainerContent>
                 <LocationsContainerDiscription>{type}</LocationsContainerDiscription>
                 <LocationsContainerTitle>{name}</LocationsContainerTitle>

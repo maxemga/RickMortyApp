@@ -1,5 +1,5 @@
 import React from 'react';
-import EpisodesComponent from '../components/Episodes/EpisodesComponent';
+import EpisodesComponent from '../../components/Episodes/EpisodesComponent';
 
 
 

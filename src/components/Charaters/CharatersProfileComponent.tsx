@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useEffect } from 'react'
 import { FlatList, Image, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
@@ -7,18 +7,25 @@ import { EpisodesArrow } from '../../assets/images/EpisodesIcons/arrow'
 import { GET_SINGLE_USER } from '../../db/query/requests'
 import { colors, config } from '../../theme/config'
 import { ISchemaUser } from '../../db/query/schema'
-import { ActivityIndicator } from 'react-native-paper'
-import CharatersContainer from './CharatersCotainer'
 import EpisodesContainer from '../Episodes/EpisodesContainer'
+import { Screens } from '../Navigation/NavigationRoutes'
 
 
 const CharatersProfileComponent = () => {
     const route = useRoute()
+    const navigation = useNavigation();
     const { data, loading, error } = useQuery<ISchemaUser>(GET_SINGLE_USER, {
         variables: {
             id: route.params.characterId
         }
     });
+
+
+    const OpenLocationCard = () => {
+        navigation.navigate(Screens.LOCATIONS_CARD_SCREEN, {
+            locationId: data?.character.location.id
+        });
+    }
 
     return(
         <CharatersProfileBlock>     
@@ -33,9 +40,9 @@ const CharatersProfileComponent = () => {
 
                         <CharatersContentImageCard>
                             <Wrapper style={{display: 'flex', alignItems: 'center'}}>
-                                <CharatersContentImageCardStatus>{data?.character.status}</CharatersContentImageCardStatus>
-                                <CharatersContentImageCardName>{data?.character.name}</CharatersContentImageCardName>
-                                <CharatersContentImageGender>{data?.character.species}</CharatersContentImageGender>
+                                {error || loading ? <ErrorBlock style={{width: '50%'}}/> : <CharatersContentImageCardStatus>{data?.character.status}</CharatersContentImageCardStatus>}
+                                {error || loading ? <ErrorBlock style={{width: '80%', height: 20}}/> : <CharatersContentImageCardName>{data?.character.name}</CharatersContentImageCardName>}
+                                {error || loading ? <ErrorBlock style={{width: '50%'}}/> : <CharatersContentImageGender>{data?.character.species}</CharatersContentImageGender>}
                             </Wrapper>
                         </CharatersContentImageCard>
 
@@ -45,34 +52,35 @@ const CharatersProfileComponent = () => {
                                 <CharasetInfoBlock>
                                     <CharaterInfoTitle>Informations</CharaterInfoTitle>
                                 </CharasetInfoBlock>
-
+                             
                                 <CharaterInfoContainer>
-                                    <View>
+                                    <Flex>
                                         <CharasetInfoContainerTitle>Gender</CharasetInfoContainerTitle>
-                                        <CharasetInfoContainerSubTitle>{data?.character.gender}</CharasetInfoContainerSubTitle>
-                                    </View>
+                                        { loading || error ? <ErrorBlock/> : 
+                                        <CharasetInfoContainerSubTitle>{data?.character.origin.name}</CharasetInfoContainerSubTitle>}  
+                                    </Flex>
                                 </CharaterInfoContainer>
 
                                 <CharaterInfoContainer>
-                                    <View>
+                                    <Flex>
                                         <CharasetInfoContainerTitle>Origin</CharasetInfoContainerTitle>
-                                        <CharasetInfoContainerSubTitle>{data?.character.origin.name}</CharasetInfoContainerSubTitle>
-                                    </View>
+                                        {loading || error ? <ErrorBlock/> : <CharasetInfoContainerSubTitle>{data?.character.origin.name}</CharasetInfoContainerSubTitle>}
+                                    </Flex>
                                 </CharaterInfoContainer>
 
                                 <CharaterInfoContainer>
-                                    <View>
+                                    <Flex>
                                         <CharasetInfoContainerTitle>Type</CharasetInfoContainerTitle>
-                                        <CharasetInfoContainerSubTitle>{data?.character.type.length == 0 ? 'Unknown' : data?.character.type}</CharasetInfoContainerSubTitle>
-                                    </View>
+                                        { loading || error ? <ErrorBlock/> : <CharasetInfoContainerSubTitle>{data?.character.type.length == 0 ? 'Unknown' : data?.character.type}</CharasetInfoContainerSubTitle>}
+                                    </Flex>
                                 </CharaterInfoContainer>
 
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => OpenLocationCard()}>
                                     <CharaterInfoContainer>
-                                        <View>
+                                        <Flex>
                                             <CharasetInfoContainerTitle>Location</CharasetInfoContainerTitle>
-                                            <CharasetInfoContainerSubTitle>{data?.character.location.name}</CharasetInfoContainerSubTitle>
-                                        </View>
+                                            { loading || error ? <ErrorBlock/> : <CharasetInfoContainerSubTitle>{data?.character.location.name}</CharasetInfoContainerSubTitle>}
+                                        </Flex>
                                         <View>
                                             <EpisodesArrow/>
                                         </View>
@@ -81,13 +89,14 @@ const CharatersProfileComponent = () => {
                             </Wrapper>
                         </CharaterContentInfo>
 
-                        <CharaterContentInfo>
+                        <CharaterContentInfo style={{paddingBottom: 50}}>
                             <Wrapper>
                                 <CharasetInfoBlock style={{marginTop: 40}}>
                                     <CharaterInfoTitle>Episodes</CharaterInfoTitle>
                                 </CharasetInfoBlock>
                                     
                                     <FlatList
+                                        scrollEnabled={false}
                                         showsVerticalScrollIndicator={false}
                                         data={data?.character.episode}
                                         renderItem={(el) => <EpisodesContainer {...el.item}/>}
@@ -151,6 +160,7 @@ const CharatersContentImageCardName = styled.Text`
     color: ${colors.textTitle};
     font-weight: bold;
     font-size: 30px;
+    text-align: center;
 `
 const CharatersContentImageGender = styled.Text`
     font-weight: bold;
@@ -182,6 +192,7 @@ const CharaterInfoContainer = styled.View`
    flex-direction: row;
    justify-content: space-between;
    align-items: center;
+   width: 100%;
 `
 
 const CharasetInfoContainerTitle = styled.Text`
@@ -189,10 +200,23 @@ const CharasetInfoContainerTitle = styled.Text`
    font-weight: bold;
    font-size: ${config.textSizeContainerTitle};
 `
+
 const CharasetInfoContainerSubTitle = styled.Text`
    color: ${colors.textDiscription};
    font-size: 15px;
    margin-top: 3px;
+`
+
+const Flex = styled.View`
+    width: 100%;
+`
+
+const ErrorBlock = styled.View`
+    background-color: #CFCFCF;
+    border-radius: 15px;
+    width: 100%;
+    height: 15px;
+    margin-top: 3px;
 `
 
 
