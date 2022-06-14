@@ -53,8 +53,11 @@ export const GET_SINGLE_USER = gql`
 `
 
 export const GET_ALL_LOCATIONS = gql`
-    query {
-        locations {
+    query GetAllLocations($page: Int){
+        locations(page: $page) {
+            info {
+                next
+            }
             results {
                 id
                 name
@@ -84,8 +87,11 @@ export const GET_SINGLE_LOCATION = gql`
 `
 
 export const GET_ALL_EPISODES = gql`
-    query GetAllEpisodes{
-        episodes {
+    query GetAllEpisodes($page: Int){
+        episodes(page: $page) {
+            info {
+                next
+            }
             results {
                 id
                 name

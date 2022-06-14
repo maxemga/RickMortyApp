@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, memo } from 'react'
 import { Image } from 'react-native';
 import { IAllUser, IUser } from '../../type/types';
 import styled from 'styled-components'
@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Screens } from '../Navigation/NavigationRoutes';
 
 
-const CharatersContainer: React.FC<IAllUser> = ({id, name, image, status}) => {
+const CharatersContainer: React.FC<IAllUser> = React.memo(({id, name, image, status}) => {
     const navigation = useNavigation();
  
 
@@ -31,7 +31,7 @@ const CharatersContainer: React.FC<IAllUser> = ({id, name, image, status}) => {
         </CharatersContainerBlock>    
         
     )
-}
+})
 
 
 

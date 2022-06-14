@@ -17,6 +17,9 @@ export interface ISchemaUser {
 
 export interface ISchemaLocations {
   locations: {
+    info: {
+      next: number
+    }
     results: Array<ILocation>
   }
 }
@@ -28,6 +31,9 @@ export interface ISchemaLocation {
 
 export interface ISchemaEpisodes {
   episodes: {
+    info: {
+      next: number
+    }
     results: Array<IEpisode>
 }
 }

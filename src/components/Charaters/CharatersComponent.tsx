@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
 import { FlatList } from "react-native"
-import { useQuery } from '@apollo/client'
+import { ObservableQuery, useQuery } from '@apollo/client'
 import { GET_ALL_USERS } from '../../db/query/requests'
 import { IAllUser } from '../../type/types'
 import CharatersContainer from './CharatersCotainer'
@@ -11,18 +11,32 @@ import { ISchemaUsers } from '../../db/query/schema'
 
 
 const CharatersComponent: React.FC = () => {
-    const [users, setUsers] = useState<IAllUser[]>([]);
+    const { data, loading, error, fetchMore, client } = useQuery<ISchemaUsers>(GET_ALL_USERS);
 
-    const { data, loading, error, fetchMore } = useQuery<ISchemaUsers>(GET_ALL_USERS, {
-        variables: {
-            page: 1
+    const fun = () => {
+        if(data?.characters.info.next == null) {
+            client.stop();
         }
-    });
+        else {
+            fetchMore({
+                variables: {
+                    page: data?.characters.info.next
+                },
+                updateQuery: (prevResult, { fetchMoreResult }) => {
+                    fetchMoreResult.characters.results = [
+                        ...prevResult.characters.results,
+                        ...fetchMoreResult.characters.results
+                    ];
+              
+                    return fetchMoreResult;
+                }
+            })
+        }
+       
+        console.log(data?.characters.info.next)
+        console.log(data?.characters.results.length)
+    }
 
-    // const fun = () => {
-    //     setUsers(prevCharater => [...prevCharater, ...data?.characters.results || []])
-    //     console.log(users.length)
-    // }
 
     return(
 
@@ -32,26 +46,15 @@ const CharatersComponent: React.FC = () => {
               
                 data={data?.characters.results}
                 renderItem={(el) => <CharatersContainer {...el.item}/>}
-                // keyExtractor={(el) => String(el.id)}
-                keyExtractor={() => String(Math.random())}
+                keyExtractor={(el) => String(el.id)}
+              
                 numColumns={2}
-                // onEndReachedThreshold={2000}
-                // onEndReached={() => fetchMore({
-                //     variables: {
-                //         page: data?.characters.info.next
-                //     },
-                //     updateQuery: (prevResult, { fetchMoreResult }) => {
-                //         fetchMoreResult.characters.results = [
-                //             ...prevResult.characters.results,
-                //             ...fetchMoreResult.characters.results
-                //         ];
-                  
-                //         return fetchMoreResult;
-                //     }
-                // })}
+                onEndReachedThreshold={3}
+                onEndReached={() => fun()}
             />}
+            {loading || error ? <ActivityIndicator style={{height: '100%'}} color={colors.violet} size='large'/> : null}
         </Wrapper>
-         
+      
     )
 }
 
@@ -62,3 +65,14 @@ const Wrapper = styled.View`
 `
 
 export default CharatersComponent;
+
+
+
+
+
+
+
+
+
+
+

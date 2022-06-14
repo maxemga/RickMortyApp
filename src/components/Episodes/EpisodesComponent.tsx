@@ -12,12 +12,41 @@ import { colors } from '../../theme/config'
 
 
 const EpisodesComponent: React.FC = () => {
-    const { data, loading, error, fetchMore } = useQuery<ISchemaEpisodes>(GET_ALL_EPISODES);
+    const { data, loading, error, fetchMore, client } = useQuery<ISchemaEpisodes>(GET_ALL_EPISODES, {
+        variables: {
+            page: 1
+        }
+    });
     // const [episodes, setEpisodes] = useState<IAllEpisode[]>([]);
 
     // useEffect(() => {
     //     setEpisodes(data?.episodes.results || [])
     // }, [data])
+
+    const fun = () => {
+        if(data?.episodes.info.next == null) {
+            client.stop();      
+        }
+        else {
+            fetchMore({
+                variables: {
+                    page: data?.episodes.info.next
+                },
+                updateQuery: (prevResult, { fetchMoreResult }) => {
+                    fetchMoreResult.episodes.results = [
+                        ...prevResult.episodes.results,
+                        ...fetchMoreResult.episodes.results
+                    ];
+                
+                    return fetchMoreResult;
+                }
+            })
+            console.log(data?.episodes.info.next)
+            console.log(data?.episodes.results.length)
+        }
+    }
+  
+
 
     return(
 
@@ -29,20 +58,9 @@ const EpisodesComponent: React.FC = () => {
              renderItem={(el) => <EpisodesContainer {...el.item}/>}
              keyExtractor={(el) => String(el.id)}
              numColumns={1}
-            // onEndReachedThreshold={10}
-            // onEndReached={() => fetchMore({
-            //     variables: {
-            //         page: 2
-            //     },
-            //     updateQuery: (prevResult, { fetchMoreResult }) => {
-            //         fetchMoreResult.episodes.results = [
-            //             ...prevResult.episodes.results,
-            //             ...fetchMoreResult.episodes.results
-            //         ];
-                
-            //         return fetchMoreResult;
-            //     }
-            // })}
+            onEndReachedThreshold={0.5}
+            onEndReached={() => fun()}
+          
             />}
         </Wrapper>
          
