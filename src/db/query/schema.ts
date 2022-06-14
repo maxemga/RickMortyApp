@@ -1,7 +1,11 @@
 import { IEpisode, ILocation, IUser } from "../../type/types"
 
 export interface ISchemaUsers {
+
   characters: {
+    info: {
+      next: number
+    }
     results: Array<IUser>
   }
 }

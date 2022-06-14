@@ -2,6 +2,7 @@ export const config  = {
     borderRadius: 15,
     textSizeContainerTitle: '17px',
     textSizeContainerDiscription: '11px',
+    textSizeTitleModal: '16px'
 }
 
 export const colors = {

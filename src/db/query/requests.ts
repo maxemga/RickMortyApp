@@ -1,11 +1,12 @@
  import { gql } from '@apollo/client'
-import { IEpisode } from '../../type/types'
-
 
 
 export const GET_ALL_USERS = gql`
-    query {
-        characters{
+    query GetAllUsers($page: Int){
+        characters(page: $page) {
+            info {
+                next
+            }
             results {
                 id
                 name
@@ -83,7 +84,7 @@ export const GET_SINGLE_LOCATION = gql`
 `
 
 export const GET_ALL_EPISODES = gql`
-    query {
+    query GetAllEpisodes{
         episodes {
             results {
                 id

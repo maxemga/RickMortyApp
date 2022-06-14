@@ -57,7 +57,7 @@ const CharatersProfileComponent = () => {
                                     <Flex>
                                         <CharasetInfoContainerTitle>Gender</CharasetInfoContainerTitle>
                                         { loading || error ? <ErrorBlock/> : 
-                                        <CharasetInfoContainerSubTitle>{data?.character.origin.name}</CharasetInfoContainerSubTitle>}  
+                                        <CharasetInfoContainerSubTitle>{data?.character.gender}</CharasetInfoContainerSubTitle>}  
                                     </Flex>
                                 </CharaterInfoContainer>
 

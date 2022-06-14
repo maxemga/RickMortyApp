@@ -12,12 +12,12 @@ import { colors } from '../../theme/config'
 
 
 const EpisodesComponent: React.FC = () => {
-    const { data, loading, error } = useQuery<ISchemaEpisodes>(GET_ALL_EPISODES);
-    const [episodes, setEpisodes] = useState<IAllEpisode[]>([]);
+    const { data, loading, error, fetchMore } = useQuery<ISchemaEpisodes>(GET_ALL_EPISODES);
+    // const [episodes, setEpisodes] = useState<IAllEpisode[]>([]);
 
-    useEffect(() => {
-        setEpisodes(data?.episodes.results || [])
-    }, [data])
+    // useEffect(() => {
+    //     setEpisodes(data?.episodes.results || [])
+    // }, [data])
 
     return(
 
@@ -25,10 +25,24 @@ const EpisodesComponent: React.FC = () => {
             {loading || error ? <ActivityIndicator style={{height: '100%'}} color={colors.violet} size='large'/> :
              <FlatList
              showsVerticalScrollIndicator={false}
-             data={episodes}
+             data={data?.episodes.results}
              renderItem={(el) => <EpisodesContainer {...el.item}/>}
              keyExtractor={(el) => String(el.id)}
              numColumns={1}
+            // onEndReachedThreshold={10}
+            // onEndReached={() => fetchMore({
+            //     variables: {
+            //         page: 2
+            //     },
+            //     updateQuery: (prevResult, { fetchMoreResult }) => {
+            //         fetchMoreResult.episodes.results = [
+            //             ...prevResult.episodes.results,
+            //             ...fetchMoreResult.episodes.results
+            //         ];
+                
+            //         return fetchMoreResult;
+            //     }
+            // })}
             />}
         </Wrapper>
          

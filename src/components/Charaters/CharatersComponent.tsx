@@ -1,33 +1,54 @@
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
-import { FlatList, ScrollView, Text, TouchableOpacity } from "react-native"
+import { FlatList } from "react-native"
 import { useQuery } from '@apollo/client'
 import { GET_ALL_USERS } from '../../db/query/requests'
-import { IAllUser, IUser } from '../../type/types'
-import { ISchemaUsers } from '../../db/query/schema'
+import { IAllUser } from '../../type/types'
 import CharatersContainer from './CharatersCotainer'
-import { ActivityIndicator } from 'react-native-paper'
+import { ActivityIndicator, Checkbox } from 'react-native-paper'
 import { colors } from '../../theme/config'
+import { ISchemaUsers } from '../../db/query/schema'
 
 
 const CharatersComponent: React.FC = () => {
-    const { data, loading, error } = useQuery<ISchemaUsers>(GET_ALL_USERS);
     const [users, setUsers] = useState<IAllUser[]>([]);
 
-    useEffect(() => {
-        setUsers(data?.characters.results || [])
-    }, [data])
+    const { data, loading, error, fetchMore } = useQuery<ISchemaUsers>(GET_ALL_USERS, {
+        variables: {
+            page: 1
+        }
+    });
+
+    // const fun = () => {
+    //     setUsers(prevCharater => [...prevCharater, ...data?.characters.results || []])
+    //     console.log(users.length)
+    // }
 
     return(
 
-        <Wrapper>                     
+        <Wrapper>         
             {loading || error ? <ActivityIndicator style={{height: '100%'}} color={colors.violet} size='large'/> :
             <FlatList               
-                showsVerticalScrollIndicator={false}
-                data={users}
+              
+                data={data?.characters.results}
                 renderItem={(el) => <CharatersContainer {...el.item}/>}
-                keyExtractor={(el) => String(el.id)}
+                // keyExtractor={(el) => String(el.id)}
+                keyExtractor={() => String(Math.random())}
                 numColumns={2}
+                // onEndReachedThreshold={2000}
+                // onEndReached={() => fetchMore({
+                //     variables: {
+                //         page: data?.characters.info.next
+                //     },
+                //     updateQuery: (prevResult, { fetchMoreResult }) => {
+                //         fetchMoreResult.characters.results = [
+                //             ...prevResult.characters.results,
+                //             ...fetchMoreResult.characters.results
+                //         ];
+                  
+                //         return fetchMoreResult;
+                //     }
+                // })}
             />}
         </Wrapper>
          

@@ -5,7 +5,7 @@ import { client } from './db';
 
 
 const App = () => {
-
+ 
   return (
     <ApolloProvider client={client}>
         <StackNavigation/>
