@@ -8,7 +8,7 @@ import { EpisodesArrow } from '../../assets/images/EpisodesIcons/arrow';
 import { Screens } from '../Navigation/NavigationRoutes';
 
 
-const EpisodesContainer: React.FC<IAllEpisode> = ({id, name, air_date, episode}) => {
+export const EpisodesContainer: React.FC<IAllEpisode> = React.memo(({id, name, air_date, episode}) => {
     const navigation = useNavigation();
     
     const OpenEpisodeCard = () => {
@@ -32,7 +32,7 @@ const EpisodesContainer: React.FC<IAllEpisode> = ({id, name, air_date, episode})
         </EpisodesContainerBlock>    
         
     )
-}
+})
 
 
 
@@ -72,4 +72,3 @@ const EpisodesContainerDate = styled.Text`
 
 
 
-export default EpisodesContainer;

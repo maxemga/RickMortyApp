@@ -67,6 +67,7 @@ export const GET_ALL_LOCATIONS = gql`
     }
 `
 
+
 export const GET_SINGLE_LOCATION = gql`
    query GetSingleLocation($id: ID!){
     location(id: $id) {    

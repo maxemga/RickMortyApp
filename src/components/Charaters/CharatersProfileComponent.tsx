@@ -7,7 +7,7 @@ import { EpisodesArrow } from '../../assets/images/EpisodesIcons/arrow'
 import { GET_SINGLE_USER } from '../../db/query/requests'
 import { colors, config } from '../../theme/config'
 import { ISchemaUser } from '../../db/query/schema'
-import EpisodesContainer from '../Episodes/EpisodesContainer'
+import { EpisodesContainer } from '../Episodes/EpisodesContainer'
 import { Screens } from '../Navigation/NavigationRoutes'
 
 

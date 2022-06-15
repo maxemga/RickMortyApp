@@ -1,21 +1,21 @@
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
-import { FlatList } from "react-native"
-import { ObservableQuery, useQuery } from '@apollo/client'
+import { FlatList, View } from "react-native"
+import { useQuery } from '@apollo/client'
 import { GET_ALL_USERS } from '../../db/query/requests'
-import { IAllUser } from '../../type/types'
-import CharatersContainer from './CharatersCotainer'
-import { ActivityIndicator, Checkbox } from 'react-native-paper'
+import { CharatersContainer }  from './CharatersCotainer'
+import { ActivityIndicator, RadioButton } from 'react-native-paper'
 import { colors } from '../../theme/config'
 import { ISchemaUsers } from '../../db/query/schema'
 
 
 const CharatersComponent: React.FC = () => {
     const { data, loading, error, fetchMore, client } = useQuery<ISchemaUsers>(GET_ALL_USERS);
-
-    const fun = () => {
+    const [checked, setChecked] = useState<boolean>(true);
+    const FetchData = () => {
         if(data?.characters.info.next == null) {
             client.stop();
+            return null;
         }
         else {
             fetchMore({
@@ -27,7 +27,7 @@ const CharatersComponent: React.FC = () => {
                         ...prevResult.characters.results,
                         ...fetchMoreResult.characters.results
                     ];
-              
+                
                     return fetchMoreResult;
                 }
             })
@@ -37,22 +37,32 @@ const CharatersComponent: React.FC = () => {
         console.log(data?.characters.results.length)
     }
 
-
+        useEffect(() => {
+            console.log('1')
+        }, [error, loading])
     return(
 
-        <Wrapper>         
+        <Wrapper> 
+            <View style={{display: 'flex'}}>
+            <RadioButton
+        value="first"
+        status={ checked ? 'checked' : 'unchecked' }
+        onPress={() => setChecked(!checked)}
+      />
+      
+                
+            </View>
+
             {loading || error ? <ActivityIndicator style={{height: '100%'}} color={colors.violet} size='large'/> :
             <FlatList               
               
                 data={data?.characters.results}
                 renderItem={(el) => <CharatersContainer {...el.item}/>}
-                keyExtractor={(el) => String(el.id)}
-              
+                keyExtractor={(el) => String(el.id)}  
                 numColumns={2}
-                onEndReachedThreshold={3}
-                onEndReached={() => fun()}
+                onEndReachedThreshold={0}
+                onEndReached={() => FetchData()}
             />}
-            {loading || error ? <ActivityIndicator style={{height: '100%'}} color={colors.violet} size='large'/> : null}
         </Wrapper>
       
     )

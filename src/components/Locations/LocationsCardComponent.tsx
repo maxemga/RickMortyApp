@@ -1,14 +1,14 @@
 
 import { useQuery } from '@apollo/client'
 import { useRoute } from '@react-navigation/native'
-import React, { useEffect } from 'react'
-import { FlatList, Text, View } from 'react-native'
+import React from 'react'
+import { FlatList, View } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import styled from 'styled-components'
-import { GET_ALL_USERS, GET_SINGLE_EPISODE, GET_SINGLE_LOCATION } from '../../db/query/requests'
-import { ISchemaEpisode, ISchemaLocation, ISchemaUsers } from '../../db/query/schema'
+import { GET_SINGLE_LOCATION } from '../../db/query/requests'
+import { ISchemaLocation } from '../../db/query/schema'
 import { colors } from '../../theme/config'
-import CharatersContainer from '../Charaters/CharatersCotainer'
+import {CharatersContainer} from '../Charaters/CharatersCotainer'
 
 
 

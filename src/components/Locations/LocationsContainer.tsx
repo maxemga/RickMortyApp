@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Screens } from '../Navigation/NavigationRoutes';
 
 
-const LocationsContainer: React.FC<IAllLocation> = ({id, name, type}) => {
+export const LocationsContainer: React.FC<IAllLocation> = React.memo(({id, name, type}) => {
     const navigation = useNavigation();
 
     const OpenLocationCard = () => {
@@ -24,7 +24,7 @@ const LocationsContainer: React.FC<IAllLocation> = ({id, name, type}) => {
         </LocationsContainerBlock>    
         
     )
-}
+})
 
 
 
@@ -56,4 +56,3 @@ const LocationsContainerDiscription = styled.Text`
     font-size: ${config.textSizeContainerDiscription}
 `
 
-export default LocationsContainer;

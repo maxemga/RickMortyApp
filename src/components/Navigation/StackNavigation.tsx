@@ -21,10 +21,8 @@ const StackNavigation = () => {
     <NavigationContainer>
     <Stack.Navigator initialRouteName={Screens.CHARATER_SCREEN}>   
             <Stack.Group screenOptions={{ presentation: 'modal' }}>
-                <Stack.Screen name={Screens.CHARATER_MODAL} component={CharatersModal} options={{
-                  
-                  header: () => <CharatersModalHeader/>
-                  
+                <Stack.Screen name={Screens.CHARATER_MODAL} component={CharatersModal} options={{               
+                    header: () => <CharatersModalHeader/>              
                   }}></Stack.Screen>
                 <Stack.Screen name={Screens.CHARATER_MODAL_NAME} component={CharatersModalName}></Stack.Screen>
             </Stack.Group>

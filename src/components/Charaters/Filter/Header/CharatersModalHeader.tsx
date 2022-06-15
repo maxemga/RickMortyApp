@@ -9,9 +9,10 @@ const CharatersModalHeader = () => {
         <CharatersHeader>
             <Wrapper>
                 <SwipeLine/>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-    
-                    <CharatersHeaderTitle>Filter</CharatersHeaderTitle>
+                <View style={{position: 'relative'}}>
+                    <CharatersHeaderTitle>
+                        Filter
+                    </CharatersHeaderTitle>
                     <CharatersHeaderButton>
                         <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>APPLY</Text>
                     </CharatersHeaderButton>
@@ -28,11 +29,8 @@ const Wrapper = styled.View`
 `
 
 const CharatersHeader = styled.View`
-    background-color: white;
-  
+    background-color: white; 
     padding-bottom: 20px;
-    borderBottomWidth: 1px;
-    borderBottomColor: ${colors.borderColor};
 `
 
 const CharatersHeaderTitle = styled.Text`
@@ -40,8 +38,9 @@ const CharatersHeaderTitle = styled.Text`
     color: ${colors.textTitle};
     font-size: ${config.textSizeTitleModal};
     font-weight: bold;
-
     margin: 0 auto;
+    padding-top: 5px;
+    padding-bottom: 15px;
 
 `
 
@@ -49,7 +48,8 @@ const CharatersHeaderButton = styled.TouchableOpacity`
     background-color: ${colors.violet};
     padding: 5px 10px;
     border-radius: 20px;
-
+    position: absolute;
+    right: 0;
 `
 
 

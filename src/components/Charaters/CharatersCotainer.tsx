@@ -1,15 +1,13 @@
-import React, { useEffect, memo } from 'react'
-import { Image } from 'react-native';
-import { IAllUser, IUser } from '../../type/types';
+import React from 'react'
 import styled from 'styled-components'
+import { Image } from 'react-native';
+import { IAllUser } from '../../type/types';
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '../Navigation/NavigationRoutes';
 
-
-const CharatersContainer: React.FC<IAllUser> = React.memo(({id, name, image, status}) => {
+export const CharatersContainer: React.FC<IAllUser> = React.memo(({id, name, image, status}) => {
     const navigation = useNavigation();
- 
 
     const OpenCharaterCard = () => {
         navigation.navigate(Screens.CHARATER_PROFILE_SCREEN, {
@@ -46,7 +44,6 @@ const CharatersContainerBlock = styled.TouchableOpacity`
     border-radius: ${config.borderRadius}px;
 `
 
-// ${config.borderColor}
 
 const CharatersContainerImage = styled.View`
 `
@@ -67,4 +64,3 @@ const CharatersContainerDiscription = styled.Text`
     font-size: ${config.textSizeContainerDiscription}
 `
 
-export default CharatersContainer;

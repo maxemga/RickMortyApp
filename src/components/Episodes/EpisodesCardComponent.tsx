@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { GET_ALL_USERS, GET_SINGLE_EPISODE } from '../../db/query/requests'
 import { ISchemaEpisode, ISchemaUsers } from '../../db/query/schema'
 import { colors } from '../../theme/config'
-import CharatersContainer from '../Charaters/CharatersCotainer'
+import {CharatersContainer} from '../Charaters/CharatersCotainer'
 
 
 
