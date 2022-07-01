@@ -2,7 +2,8 @@ export const config  = {
     borderRadius: 15,
     textSizeContainerTitle: '17px',
     textSizeContainerDiscription: '11px',
-    textSizeTitleModal: '16px'
+    textSizeContainerModalTitle: '17px',
+    textSizeContainerModalDescription: '15px'
 }
 
 export const colors = {

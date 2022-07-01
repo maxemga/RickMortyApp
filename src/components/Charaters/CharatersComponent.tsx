@@ -11,7 +11,7 @@ import { ISchemaUsers } from '../../db/query/schema'
 
 const CharatersComponent: React.FC = () => {
     const { data, loading, error, fetchMore, client } = useQuery<ISchemaUsers>(GET_ALL_USERS);
-    const [checked, setChecked] = useState<boolean>(true);
+
     const FetchData = () => {
         if(data?.characters.info.next == null) {
             client.stop();
@@ -32,9 +32,6 @@ const CharatersComponent: React.FC = () => {
                 }
             })
         }
-       
-        console.log(data?.characters.info.next)
-        console.log(data?.characters.results.length)
     }
 
         useEffect(() => {
@@ -43,16 +40,6 @@ const CharatersComponent: React.FC = () => {
     return(
 
         <Wrapper> 
-            <View style={{display: 'flex'}}>
-            <RadioButton
-        value="first"
-        status={ checked ? 'checked' : 'unchecked' }
-        onPress={() => setChecked(!checked)}
-      />
-      
-                
-            </View>
-
             {loading || error ? <ActivityIndicator style={{height: '100%'}} color={colors.violet} size='large'/> :
             <FlatList               
               

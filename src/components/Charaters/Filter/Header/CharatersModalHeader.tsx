@@ -36,7 +36,7 @@ const CharatersHeader = styled.View`
 const CharatersHeaderTitle = styled.Text`
     background-color: white;
     color: ${colors.textTitle};
-    font-size: ${config.textSizeTitleModal};
+    font-size: 16px;
     font-weight: bold;
     margin: 0 auto;
     padding-top: 5px;
