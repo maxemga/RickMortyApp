@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export interface IUser {
     id: number
     name : string
@@ -52,3 +54,15 @@ export interface IAllEpisode {
 }
 
 
+
+
+export interface IFilterContext {
+    activeName?: string,
+    setActiveName?: Dispatch<SetStateAction<string>>;
+    activeStatus?: string,
+    setActiveStatus?: Dispatch<SetStateAction<string>>,
+    activeGender?: string,
+    setActiveGender?: Dispatch<SetStateAction<string>>,
+    activeSpecies?: string,
+    setActiveSpecies?: Dispatch<SetStateAction<string>>
+}

@@ -2,6 +2,7 @@ export enum Screens {
     CHARATER_SCREEN = 'Charater',
     CHARATER_MODAL = 'CharaterModal',
     CHARATER_MODAL_NAME = 'CharaterModalName',
+    CHARATER_MODAL_SPECIES = 'CharaterModalSpecies',
     LOCATIONS_SCREEN = 'Location',
     EPISODE_SCREEN = 'Episode',
     CHARATER_PROFILE_SCREEN = 'CharaterProfile',

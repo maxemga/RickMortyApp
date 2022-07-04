@@ -11,15 +11,14 @@ import { ISchemaUsers } from '../../../db/query/schema';
 import { GET_ALL_USERS } from '../../../db/query/requests';
 import { FilterContext } from '../../../context/filterContext';
 import { IFilterContext } from '../../../type/types';
-import { useRoute } from '@react-navigation/native';
 
 
-const CharatersModalName = () => {
-    const { activeName, setActiveName } = useContext<IFilterContext>(FilterContext);
-    
+const CharatersModalSpecies = () => {
+    const { activeSpecies, setActiveSpecies } = useContext<IFilterContext>(FilterContext);
+
     const { data, loading, error, fetchMore, client } = useQuery<ISchemaUsers>(GET_ALL_USERS, {
         variables: {
-            name: activeName
+            species: activeSpecies
         }
     });
 
@@ -53,8 +52,8 @@ const CharatersModalName = () => {
                     <View style={{position: 'relative'}}>
                         <Input           
                             inlineImageLeft={require('./../../../assets/images/ModalIcons/Search')}
-                            onChangeText={setActiveName}
-                            value={activeName}
+                            onChangeText={setActiveSpecies}
+                            value={activeSpecies}
                             placeholder={'Search'}
                             style={{position: 'relative'}}
                         > 
@@ -115,4 +114,4 @@ const CharatersModalNameInput = styled.View`
     borderBottomWidth: 1px;
     borderBottomColor: ${colors.borderColor};
 `
-export default CharatersModalName;
+export default CharatersModalSpecies;

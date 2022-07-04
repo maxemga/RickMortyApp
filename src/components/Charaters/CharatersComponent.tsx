@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FlatList, View } from "react-native"
 import { useQuery } from '@apollo/client'
 import { GET_ALL_USERS } from '../../db/query/requests'
@@ -7,10 +7,26 @@ import { CharatersContainer }  from './CharatersCotainer'
 import { ActivityIndicator, RadioButton } from 'react-native-paper'
 import { colors } from '../../theme/config'
 import { ISchemaUsers } from '../../db/query/schema'
+import { IFilterContext } from '../../type/types'
+import { FilterContext } from '../../context/filterContext'
 
 
 const CharatersComponent: React.FC = () => {
-    const { data, loading, error, fetchMore, client } = useQuery<ISchemaUsers>(GET_ALL_USERS);
+
+    const { activeName, activeGender, activeSpecies, activeStatus} = useContext<IFilterContext>(FilterContext);
+
+    const { data, loading, error, fetchMore, client } = useQuery<ISchemaUsers>(GET_ALL_USERS, {
+        variables: {
+            name: activeName,
+            gender: activeGender,
+            status: activeStatus,
+            species: activeSpecies
+        }
+    });
+
+    useEffect(() => {
+        console.log(activeGender);
+    }, [activeGender])
 
     const FetchData = () => {
         if(data?.characters.info.next == null) {

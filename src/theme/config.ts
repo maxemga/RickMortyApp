@@ -11,6 +11,8 @@ export const colors = {
     textNavigaion: '#8E8E93',
     textTitle: '#081F32',
     textDiscription: '#6E798C',
-    borderColor: '#E5E5E5'
+    borderColor: '#E5E5E5',
+    backgroundInputColor: 'rgba(118, 118, 128, 0.12)',
+    backgroundProfileColor: '#F2F2F7'
 }
 

@@ -50,7 +50,7 @@ const EpisodesComponent: React.FC = () => {
              keyExtractor={(el) => String(el.id)}
              numColumns={1}
             onEndReachedThreshold={0}
-            onEndReached={() => FetchData()}
+            onEndReached={data?.episodes.info.next? FetchData : null}
           
             />}
         </Wrapper>

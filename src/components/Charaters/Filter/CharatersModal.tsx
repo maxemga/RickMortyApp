@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
 import { EpisodesArrow } from '../../../assets/images/EpisodesIcons/arrow'
@@ -7,13 +7,18 @@ import { colors, config } from '../../../theme/config'
 import { Screens } from '../../Navigation/NavigationRoutes'
 import IconModalNonActive from '../../../assets/images/ModalIcons/IconModalNonActive'
 import IconModalActive from '../../../assets/images/ModalIcons/IconModalActive'
-import { black } from 'react-native-paper/lib/typescript/styles/colors'
+import { useNavigation } from '@react-navigation/native'
+import { FilterContext } from '../../../context/filterContext'
+import { IFilterContext } from '../../../type/types'
+
 
 
 const CharatersModal = () => {
-    const [isCheck, setIsCheck] = useState(false);
-    const [activeStatus, setActiveStatus] = useState('');
-    const [activeGender, setActiveGender] = useState('');
+    const navigation = useNavigation();
+    
+    const { activeName, activeSpecies, activeGender, activeStatus,
+        setActiveGender, setActiveStatus } = useContext<IFilterContext>(FilterContext);
+
 
     const filterElements = {
         status: [
@@ -47,13 +52,13 @@ const CharatersModal = () => {
  
         <>
 
-            <CharatersModalContainer onPress={() => setIsCheck(!isCheck)}>
+            <CharatersModalContainer>
                     <Wrapper>
-                        <CharatersModalContainerContent onPress={() => setIsCheck(!isCheck)} >
+                        <CharatersModalContainerContent onPress={() => navigation.navigate(Screens.CHARATER_MODAL_NAME)} >
                             <CharatersModalContainerContentElements>
 
                                 <CharatersModalContainerContentRadio>
-                                    {isCheck ?
+                                    {activeName != '' ?
                                         <TouchableOpacity>
                                             <IconModalActive/>               
                                         </TouchableOpacity>
@@ -78,13 +83,13 @@ const CharatersModal = () => {
                     </Wrapper>       
             </CharatersModalContainer> 
 
-            <CharatersModalContainer onPress={() => setIsCheck(!isCheck)} style={{marginTop: 25}}>
+            <CharatersModalContainer style={{marginTop: 25}}>
                     <Wrapper>
-                        <CharatersModalContainerContent onPress={() => setIsCheck(!isCheck)} >
+                        <CharatersModalContainerContent onPress={() => navigation.navigate(Screens.CHARATER_MODAL_SPECIES)}>
                             <CharatersModalContainerContentElements>
 
                                 <CharatersModalContainerContentRadio>
-                                    {isCheck ?
+                                    {activeSpecies != '' ?
                                         <TouchableOpacity>
                                             <IconModalActive/>               
                                         </TouchableOpacity>
@@ -111,60 +116,18 @@ const CharatersModal = () => {
 
 
             <Wrapper style={{marginTop: 25, marginBottom: 10}}>
-                <Text style={{fontSize: 15, color: '#000000', opacity: 0.4}}>Status</Text>
+                <CharatersModalOptionsTitle>Status</CharatersModalOptionsTitle>
             </Wrapper>
             <CharatersModalContainer>
                 <Wrapper>
                     <FlatList
+                    
                         scrollEnabled={false}
                         ItemSeparatorComponent={() => <View style={{backgroundColor: colors.borderColor, height: 1}}></View>}
                         data={filterElements.status}
                         renderItem={(el) => {
                             return(
-                                <CharatersModalContainerContent onPress={() => setActiveGender(el.item.title)}>
-                            <CharatersModalContainerContentElements>
-
-                                <CharatersModalContainerContentRadio>
-                                    {activeGender == el.item.title ?
-                                        <TouchableOpacity>
-                                            <IconModalActive/>               
-                                        </TouchableOpacity>
-                                        :
-                                        <TouchableOpacity>
-                                            <IconModalNonActive/>
-                                        </TouchableOpacity>
-                                    }
-                                </CharatersModalContainerContentRadio>
-
-                                <CharatersModalContainerContentStatusText>
-                                    <CharatersModalContainerStatusTitle>{el.item.title}</CharatersModalContainerStatusTitle>
-                                </CharatersModalContainerContentStatusText>
-                                
-                                
-                            </CharatersModalContainerContentElements>
-
-                        </CharatersModalContainerContent>
-                     
-
-                            )
-                                }}
-                        />
-
-                </Wrapper>
-            </CharatersModalContainer>
-            
-            <Wrapper style={{marginTop: 25, marginBottom: 10}}>
-                <Text style={{fontSize: 15, color: '#000000', opacity: 0.4}}>Gender</Text>
-            </Wrapper>
-            <CharatersModalContainer>
-                <Wrapper>
-                    <FlatList
-                        scrollEnabled={false}
-                        ItemSeparatorComponent={() => <View style={{backgroundColor: colors.borderColor, height: 1}}></View>}
-                        data={filterElements.gender}
-                        renderItem={(el) => {
-                            return(
-                                <CharatersModalContainerContent onPress={() => setActiveStatus(el.item.title)}>
+                                <CharatersModalContainerContent onPress={() => activeStatus == el.item.title ? setActiveStatus('') : setActiveStatus(el.item.title)}>
                             <CharatersModalContainerContentElements>
 
                                 <CharatersModalContainerContentRadio>
@@ -181,14 +144,51 @@ const CharatersModal = () => {
 
                                 <CharatersModalContainerContentStatusText>
                                     <CharatersModalContainerStatusTitle>{el.item.title}</CharatersModalContainerStatusTitle>
-                                </CharatersModalContainerContentStatusText>
-                                
+                                </CharatersModalContainerContentStatusText>                  
                                 
                             </CharatersModalContainerContentElements>
 
                         </CharatersModalContainerContent>
-                     
+                            )
+                                }}
+                        />
 
+                </Wrapper>
+            </CharatersModalContainer>
+            
+            <Wrapper style={{marginTop: 25, marginBottom: 10}}>
+                <CharatersModalOptionsTitle>Gender</CharatersModalOptionsTitle>
+            </Wrapper>
+            <CharatersModalContainer>
+                <Wrapper>
+                    <FlatList
+                        scrollEnabled={false}
+                        ItemSeparatorComponent={() => <View style={{backgroundColor: colors.borderColor, height: 1}}></View>}
+                        data={filterElements.gender}
+                        renderItem={(el) => {
+                            return(
+                                <CharatersModalContainerContent onPress={() => activeGender == el.item.title ? setActiveGender('') : setActiveGender(el.item.title)}>
+                            <CharatersModalContainerContentElements>
+
+                                <CharatersModalContainerContentRadio>
+                                    {activeGender == el.item.title ?
+                                        <TouchableOpacity>
+                                            <IconModalActive/>               
+                                        </TouchableOpacity>
+                                        :
+                                        <TouchableOpacity>
+                                            <IconModalNonActive/>
+                                        </TouchableOpacity>
+                                    }
+                                </CharatersModalContainerContentRadio>
+
+                                <CharatersModalContainerContentStatusText>
+                                     <CharatersModalContainerStatusTitle>{el.item.title}</CharatersModalContainerStatusTitle>
+                                </CharatersModalContainerContentStatusText>
+                                
+                            </CharatersModalContainerContentElements>
+
+                        </CharatersModalContainerContent>
                             )
                                 }}
                         />
@@ -257,6 +257,12 @@ const CharatersModalContainerContentStatusText = styled.View`
     marginLeft: 15px;
 
     width: 100%;
+`
+
+const CharatersModalOptionsTitle = styled.Text`
+    font-size: 15px;
+    color: '#000000';
+    opacity: 0.4;
 `
 
 const Wrapper = styled.View`

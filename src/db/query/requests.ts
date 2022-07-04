@@ -2,8 +2,8 @@
 
 
 export const GET_ALL_USERS = gql`
-    query GetAllUsers($page: Int){
-        characters(page: $page) {
+    query GetAllUsers($page: Int, $name: String, $status: String, $gender: String, $species: String){
+        characters(page: $page, filter: {name: $name, status: $status, gender: $gender, species: $species}) {
             info {
                 next
             }

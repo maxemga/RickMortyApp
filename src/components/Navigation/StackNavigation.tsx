@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { NavigationContainer, useRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CharatersProfilePage from '../../screens/Charaters/CharatersProfilePage';
 import EpisodesCardPage from '../../screens/Episodes/EpisodesCardPage';
@@ -10,6 +10,10 @@ import CharatersModalHeader from '../Charaters/Filter/Header/CharatersModalHeade
 import TabsNavigation from './TabsNavigation';
 import { colors } from '../../theme/config';
 import { Screens } from './NavigationRoutes';
+import CharatersModalNameHeader from '../Charaters/Filter/Header/CharatersModalNameHeader';
+import CharatersModalSpecies from '../Charaters/Filter/CharatersModalSpecies';
+import CharatersModalSpeciesHeader from '../Charaters/Filter/Header/CharatersModalSpeciesHeader';
+
 
 
 
@@ -20,14 +24,20 @@ const StackNavigation = () => {
   return (
     <NavigationContainer>
     <Stack.Navigator initialRouteName={Screens.CHARATER_SCREEN}>   
-            <Stack.Group screenOptions={{ presentation: 'modal' }}>
+            <Stack.Group screenOptions={{ presentation: 'modal', contentStyle: {backgroundColor: 'white'} }}>
                 <Stack.Screen name={Screens.CHARATER_MODAL} component={CharatersModal} options={{               
                     header: () => <CharatersModalHeader/>              
                   }}></Stack.Screen>
-                <Stack.Screen name={Screens.CHARATER_MODAL_NAME} component={CharatersModalName}></Stack.Screen>
+                <Stack.Screen name={Screens.CHARATER_MODAL_NAME} component={CharatersModalName} options={{
+                  header: () => <CharatersModalNameHeader/>
+                }}></Stack.Screen>
+                <Stack.Screen name={Screens.CHARATER_MODAL_SPECIES} component={CharatersModalSpecies} options={{
+                  header: () => <CharatersModalSpeciesHeader/>
+                }}></Stack.Screen>
             </Stack.Group>
-            <Stack.Group screenOptions={{
+            <Stack.Group  screenOptions={{
                 headerTintColor: colors.violet
+                // ,contentStyle: {backgroundColor: 'white'}
               }}>
                 <Stack.Screen name={Screens.EPISODES_CARD_SCREEN} component={EpisodesCardPage} />
                 <Stack.Screen name={Screens.CHARATER_PROFILE_SCREEN} component={CharatersProfilePage} />
