@@ -1,31 +1,32 @@
 import React, { useContext } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Platform, Text, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
 import SwipeLine from '../../../Elements/SwipeLine'
 import { colors, config } from '../../../../theme/config'
 import { IFilterContext } from '../../../../type/types'
 import { FilterContext } from '../../../../context/filterContext'
+import { useNavigation } from '@react-navigation/native'
 
 const CharatersModalHeader = () => {
+    const navigation = useNavigation();
 
-    const { activeName, activeGender, activeSpecies, activeStatus,
-        setActiveName, setActiveGender, setActiveSpecies, 
-        setActiveStatus} = useContext<IFilterContext>(FilterContext);
+    const { charatersActiveGender, charatersActiveName, charatersActiveSpecies, charatersActiveStatus,
+    setCharatersActiveGender, setCharatersActiveName, setCharatersActiveSpecies, setCharatersActiveStatus} = useContext<IFilterContext>(FilterContext);
 
     const clearFilter = () => {
-        setActiveName('');
-        setActiveStatus('');
-        setActiveGender('');
-        setActiveSpecies('');
+        setCharatersActiveGender('');
+        setCharatersActiveName('');
+        setCharatersActiveSpecies('');
+        setCharatersActiveStatus('');
     }
-
+    
     return(
         <CharatersHeader>
             <Wrapper>
                 <SwipeLine/>
                 <View style={{position: 'relative'}}>
 
-                    {activeGender || activeName || activeSpecies || activeStatus != '' ? 
+                    {charatersActiveGender || charatersActiveName || charatersActiveSpecies || charatersActiveStatus != '' ? 
                     <CharatersHeaderClear onPress={() => clearFilter()}>
                         <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
                     </CharatersHeaderClear> : null}
@@ -33,9 +34,9 @@ const CharatersModalHeader = () => {
                         <CharatersHeaderTitle>Filter</CharatersHeaderTitle>
                         
                     </CharatersHeaderTitle>
-                    <CharatersHeaderButton>
+                    {/* <CharatersHeaderButton>
                         <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>APPLY</Text>
-                    </CharatersHeaderButton>
+                    </CharatersHeaderButton> */}
 
                 </View>
             </Wrapper>

@@ -1,20 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { View } from 'react-native';
-import { IAllEpisode, IEpisode } from '../../type/types';
+import { IActiveDataContext, IAllEpisode, IEpisode } from '../../type/types';
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
 import { EpisodesArrow } from '../../assets/images/EpisodesIcons/arrow';
 import { Screens } from '../Navigation/NavigationRoutes';
+import { ActiveDataContext } from '../../context/activeData';
 
 
 export const EpisodesContainer: React.FC<IAllEpisode> = React.memo(({id, name, air_date, episode}) => {
     const navigation = useNavigation();
-    
+    const { setEpisodesCardActiveName } = useContext<IActiveDataContext>(ActiveDataContext);
+
     const OpenEpisodeCard = () => {
         navigation.navigate(Screens.EPISODES_CARD_SCREEN, {
             episodeId: id
         })
+        setEpisodesCardActiveName(name);
     }
 
     return(     

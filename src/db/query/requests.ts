@@ -53,8 +53,8 @@ export const GET_SINGLE_USER = gql`
 `
 
 export const GET_ALL_LOCATIONS = gql`
-    query GetAllLocations($page: Int){
-        locations(page: $page) {
+    query GetAllLocations($page: Int, $type: String, $name: String, $dimension: String){
+        locations(page: $page, filter: {name: $name, dimension: $dimension, type: $type}) {
             info {
                 next
             }
@@ -88,8 +88,8 @@ export const GET_SINGLE_LOCATION = gql`
 `
 
 export const GET_ALL_EPISODES = gql`
-    query GetAllEpisodes($page: Int){
-        episodes(page: $page) {
+    query GetAllEpisodes($page: Int, $name: String, $episode: String){
+        episodes(page: $page, filter: {name: $name, episode: $episode}) {
             info {
                 next
             }

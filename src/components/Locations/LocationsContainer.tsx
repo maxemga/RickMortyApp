@@ -1,18 +1,21 @@
-import React from 'react'
-import { IAllLocation } from '../../type/types';
+import React, { useContext } from 'react'
+import { IActiveDataContext, IAllLocation } from '../../type/types';
 import styled from 'styled-components'
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '../Navigation/NavigationRoutes';
+import { ActiveDataContext } from '../../context/activeData';
 
 
 export const LocationsContainer: React.FC<IAllLocation> = React.memo(({id, name, type}) => {
     const navigation = useNavigation();
+    const { setLocationsCardActiveName } = useContext<IActiveDataContext>(ActiveDataContext);
 
     const OpenLocationCard = () => {
         navigation.navigate(Screens.LOCATIONS_CARD_SCREEN, {
             locationId: id
         });
+        setLocationsCardActiveName(name);
     }
 
     return(     
@@ -36,7 +39,7 @@ const LocationsContainerBlock = styled.TouchableOpacity`
     margin-left: 2px;
     margin-right: 15px;
     border: 1px solid ${colors.borderColor};
-    border-radius: ${config.borderRadius}
+    border-radius: ${config.borderRadius}px;
 `
 
 

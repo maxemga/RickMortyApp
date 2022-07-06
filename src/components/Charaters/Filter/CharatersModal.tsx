@@ -9,16 +9,21 @@ import IconModalNonActive from '../../../assets/images/ModalIcons/IconModalNonAc
 import IconModalActive from '../../../assets/images/ModalIcons/IconModalActive'
 import { useNavigation } from '@react-navigation/native'
 import { FilterContext } from '../../../context/filterContext'
-import { IFilterContext } from '../../../type/types'
+import { IFilterContext, ITypeModalContext } from '../../../type/types'
+import { TypeModalContext, TypeModalProvider } from '../../../context/typeModalContext'
 
 
 
 const CharatersModal = () => {
     const navigation = useNavigation();
+    const { activeTypeModal, setActiveTypeModal } = useContext<ITypeModalContext>(TypeModalContext);
     
-    const { activeName, activeSpecies, activeGender, activeStatus,
-        setActiveGender, setActiveStatus } = useContext<IFilterContext>(FilterContext);
+    const { charatersActiveGender, charatersActiveName, charatersActiveSpecies, charatersActiveStatus,
+    setCharatersActiveGender, setCharatersActiveName, setCharatersActiveSpecies, setCharatersActiveStatus} = useContext<IFilterContext>(FilterContext);
 
+    const redirect = () => {
+        navigation.navigate(Screens.CHARATER_MODAL_INPUT)
+    }
 
     const filterElements = {
         status: [
@@ -48,17 +53,21 @@ const CharatersModal = () => {
         ]
     }
 
+
     return(
  
         <>
 
             <CharatersModalContainer>
                     <Wrapper>
-                        <CharatersModalContainerContent onPress={() => navigation.navigate(Screens.CHARATER_MODAL_NAME)} >
+                        <CharatersModalContainerContent onPress={() => {
+                            redirect();
+                            setActiveTypeModal('Name');
+                        }} >
                             <CharatersModalContainerContentElements>
 
                                 <CharatersModalContainerContentRadio>
-                                    {activeName != '' ?
+                                    {charatersActiveName != '' ?
                                         <TouchableOpacity>
                                             <IconModalActive/>               
                                         </TouchableOpacity>
@@ -85,11 +94,14 @@ const CharatersModal = () => {
 
             <CharatersModalContainer style={{marginTop: 25}}>
                     <Wrapper>
-                        <CharatersModalContainerContent onPress={() => navigation.navigate(Screens.CHARATER_MODAL_SPECIES)}>
+                        <CharatersModalContainerContent onPress={() => {
+                            redirect();
+                            setActiveTypeModal('Species')
+                        }}>
                             <CharatersModalContainerContentElements>
 
                                 <CharatersModalContainerContentRadio>
-                                    {activeSpecies != '' ?
+                                    {charatersActiveSpecies != '' ?
                                         <TouchableOpacity>
                                             <IconModalActive/>               
                                         </TouchableOpacity>
@@ -127,11 +139,11 @@ const CharatersModal = () => {
                         data={filterElements.status}
                         renderItem={(el) => {
                             return(
-                                <CharatersModalContainerContent onPress={() => activeStatus == el.item.title ? setActiveStatus('') : setActiveStatus(el.item.title)}>
+                                <CharatersModalContainerContent onPress={() => charatersActiveStatus == el.item.title ? setCharatersActiveStatus('') : setCharatersActiveStatus(el.item.title)}>
                             <CharatersModalContainerContentElements>
 
                                 <CharatersModalContainerContentRadio>
-                                    {activeStatus == el.item.title ?
+                                    {charatersActiveStatus == el.item.title ?
                                         <TouchableOpacity>
                                             <IconModalActive/>               
                                         </TouchableOpacity>
@@ -167,11 +179,11 @@ const CharatersModal = () => {
                         data={filterElements.gender}
                         renderItem={(el) => {
                             return(
-                                <CharatersModalContainerContent onPress={() => activeGender == el.item.title ? setActiveGender('') : setActiveGender(el.item.title)}>
+                                <CharatersModalContainerContent onPress={() => charatersActiveGender == el.item.title ? setCharatersActiveGender('') : setCharatersActiveGender(el.item.title)}>
                             <CharatersModalContainerContentElements>
 
                                 <CharatersModalContainerContentRadio>
-                                    {activeGender == el.item.title ?
+                                    {charatersActiveGender == el.item.title ?
                                         <TouchableOpacity>
                                             <IconModalActive/>               
                                         </TouchableOpacity>

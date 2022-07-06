@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Image } from 'react-native';
-import { IAllUser } from '../../type/types';
+import { IActiveDataContext, IAllUser } from '../../type/types';
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '../Navigation/NavigationRoutes';
+import { ActiveDataContext } from '../../context/activeData';
 
 export const CharatersContainer: React.FC<IAllUser> = React.memo(({id, name, image, status}) => {
     const navigation = useNavigation();
+    const { setCharatersCardActiveName } = useContext<IActiveDataContext>(ActiveDataContext);
 
     const OpenCharaterCard = () => {
         navigation.navigate(Screens.CHARATER_PROFILE_SCREEN, {
             characterId: id
         })
-        
+        setCharatersCardActiveName(name);
     }
 
     return(     

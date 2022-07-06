@@ -6,12 +6,14 @@ import { colors, config } from '../../../../theme/config'
 import { useNavigation } from '@react-navigation/native'
 import { Screens } from '../../../Navigation/NavigationRoutes'
 import ArrowBack from '../../../../assets/images/ModalIcons/Arrow'
-import { IFilterContext } from '../../../../type/types'
+import { IFilterContext, ITypeModalContext } from '../../../../type/types'
 import { FilterContext } from '../../../../context/filterContext'
+import { TypeModalContext } from '../../../../context/typeModalContext'
 
-const CharatersModalSpeciesHeader = () => {
+const CharatersModalInputHeader = () => {
     const navigation = useNavigation();
-    const { activeSpecies, setActiveSpecies } = useContext<IFilterContext>(FilterContext);
+    const { charatersActiveName, charatersActiveSpecies, setCharatersActiveName, setCharatersActiveSpecies } = useContext<IFilterContext>(FilterContext);
+    const { activeTypeModal } = useContext<ITypeModalContext>(TypeModalContext);
 
     return(
         <CharatersHeader>
@@ -19,16 +21,22 @@ const CharatersModalSpeciesHeader = () => {
                 <SwipeLine/>
                 <View style={{position: 'relative'}}>
                     <CharatersHeaderTitle>
-                        Species
+                        {activeTypeModal == 'Name' ? 'Name' : 'Species'}
                     </CharatersHeaderTitle>
                     <CharatersHeaderButton onPress={() => navigation.navigate(Screens.CHARATER_MODAL)}>
                         <ArrowBack/>
                         <Text style={{color: colors.violet, fontSize: 16, marginLeft: 7}}>Back</Text>
-                       
                     </CharatersHeaderButton>
-                    {activeSpecies != '' ? <CharatersHeaderClear onPress={() => setActiveSpecies('')}>
-                        <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
-                    </CharatersHeaderClear> : null}
+                    {activeTypeModal == 'Name' ? 
+                        charatersActiveName != '' ? <CharatersHeaderClear onPress={() => setCharatersActiveName('')}>
+                            <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
+                        </CharatersHeaderClear> : null :
+                        charatersActiveSpecies != '' ? <CharatersHeaderClear onPress={() => setCharatersActiveSpecies('')}>
+                            <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
+                        </CharatersHeaderClear> : null 
+                    }
+
+                    
                 </View>
             </Wrapper>
         </CharatersHeader>
@@ -73,4 +81,4 @@ const CharatersHeaderButton = styled.TouchableOpacity`
 
 
 
-export default CharatersModalSpeciesHeader;
+export default CharatersModalInputHeader;

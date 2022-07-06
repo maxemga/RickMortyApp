@@ -5,10 +5,13 @@ import { NavigationIconCharater, NavigationIconEpisode, NavigationIconLocation }
 import { NavigationIconActiveCharater, NavigationIconActiveEpisode, NavigationIconActiveLocation } from '../../assets/images/NavigationIcons/Active';
 import { Screens } from './NavigationRoutes';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Header from '../Header/Header';
+import Header from '../Charaters/Header/CharatersHeader';
 import { colors } from '../../theme/config';
 import LocationPage from '../../screens/Locations/LocationPage';
 import EpisodesPage from '../../screens/Episodes/EpisodesPage';
+import CharatersHeader from '../Charaters/Header/CharatersHeader';
+import EpisodesHeader from '../Episodes/Header/EpisodesHeader';
+import LocationsHeader from '../Locations/Header/LocationsHeader';
 
 
 const Tabs = createBottomTabNavigator()
@@ -30,7 +33,7 @@ const TabsNavigation = () => {
         <Tabs.Screen name={Screens.CHARATER_SCREEN} component={CharatersPage} options={{
           tabBarLabel: `${Screens.CHARATER_SCREEN}`,
           header: () => {
-            return <Header title={Screens.CHARATER_SCREEN}/>
+            return <CharatersHeader/>
           },
           tabBarIcon: ({focused}) => {
             return focused ? <NavigationIconActiveCharater/> : <NavigationIconCharater/>
@@ -39,7 +42,7 @@ const TabsNavigation = () => {
 
         <Tabs.Screen name={Screens.LOCATIONS_SCREEN} component={LocationPage} options={{
           header: () => {
-            return <Header title={Screens.LOCATIONS_SCREEN}/>
+            return <LocationsHeader/>
           },
           tabBarLabel: `${Screens.LOCATIONS_SCREEN}`,
           tabBarIcon: ({focused}) => {
@@ -50,7 +53,7 @@ const TabsNavigation = () => {
 
         <Tabs.Screen name={Screens.EPISODE_SCREEN} component={EpisodesPage} options={{
           header: () => {
-            return <Header title={Screens.EPISODE_SCREEN}/>
+            return <EpisodesHeader/>
           },
           tabBarLabel: `${Screens.EPISODE_SCREEN}`,
           tabBarIcon: ({focused}) => {

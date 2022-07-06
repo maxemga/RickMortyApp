@@ -2,29 +2,25 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
-import { FilterContext } from '../../context/filterContext';
-import { colors } from '../../theme/config';
-import { IFilterContext } from '../../type/types';
-import { ButtonHeader } from '../Buttons';
-import { Screens } from '../Navigation/NavigationRoutes';
+import { FilterContext } from '../../../context/filterContext';
+import { colors } from '../../../theme/config';
+import { IFilterContext } from '../../../type/types';
+import { Screens } from '../../Navigation/NavigationRoutes';
 
-interface IHeader {
-    title: string
-}
 
-const Header: React.FC<IHeader>= ({ title }) => {
+const LocationsHeader: React.FC = () => {
     const navigation = useNavigation();
-    const { activeName, activeGender, activeSpecies, activeStatus } = useContext<IFilterContext>(FilterContext);
+    const { locationsActiveDimension, locationsActiveName, locationsActiveType } = useContext<IFilterContext>(FilterContext);
 
     return(
         <HeaderBlock>
             <Wrapper>
-                <HeaderButton onPress={() => navigation.navigate(Screens.CHARATER_MODAL)}>
-                    { activeSpecies || activeStatus || activeGender || activeName ? <ButtonIcon/> : null}
+                <HeaderButton onPress={() => navigation.navigate(Screens.LOCATIONS_MODAL)}>
+                    { locationsActiveType || locationsActiveName || locationsActiveDimension ? <ButtonIcon/> : null}
                     <ButtonText>Filter</ButtonText>
                 </HeaderButton>
                 <HeaderTitle>
-                    <HeaderTitleText>{title}</HeaderTitleText>
+                    <HeaderTitleText>Locations</HeaderTitleText>
                 </HeaderTitle>
             </Wrapper>
         </HeaderBlock>
@@ -72,10 +68,10 @@ const HeaderTitle = styled.View`
 const HeaderTitleText = styled.Text`
     font-size: 34px;
     font-weight: bold;
-    color: ${colors.text}
+    color: ${colors.textTitle}
 `
 
 
 
 
-export default Header;
+export default LocationsHeader;

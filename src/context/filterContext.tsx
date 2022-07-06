@@ -1,18 +1,27 @@
 import React, { createContext, useState } from "react";
-import { IFilterContext } from "../type/types";
 
 
 
 export const FilterContext = createContext({});
 
 export const FilterProvider = ({ children }: { children: any }) => {
-    const [activeName, setActiveName]= useState<string>('');
-    const [activeStatus, setActiveStatus] = useState<string>('');
-    const [activeGender, setActiveGender] = useState<string>('');
-    const [activeSpecies, setActiveSpecies] = useState<string>('');
+    const [charatersActiveName, setCharatersActiveName]= useState<string>('');
+    const [charatersActiveStatus, setCharatersActiveStatus] = useState<string>('');
+    const [charatersActiveGender, setCharatersActiveGender] = useState<string>('');
+    const [charatersActiveSpecies, setCharatersActiveSpecies] = useState<string>('');
 
-    return <FilterContext.Provider value={{activeName, setActiveName, activeStatus,
-        setActiveStatus, activeGender, setActiveGender, activeSpecies, setActiveSpecies}}>
+    const [locationsActiveName, setLocationsActiveName]= useState<string>('');
+    const [locationsActiveType, setLocationsActiveType] = useState<string>('');
+    const [locationsActiveDimension, setLocationsActiveDimension] = useState<string>('');
+
+    const [episodesActiveName, setEpisodesActiveName]= useState<string>('');
+    const [episodesActiveEpisode, setEpisodesActiveEpisode] = useState<string>('');
+
+
+    return <FilterContext.Provider value={{charatersActiveName, setCharatersActiveName, charatersActiveStatus,
+        setCharatersActiveStatus, charatersActiveGender, setCharatersActiveGender, charatersActiveSpecies, setCharatersActiveSpecies,
+        locationsActiveName, setLocationsActiveName, locationsActiveType, setLocationsActiveType, setLocationsActiveDimension,
+        locationsActiveDimension, episodesActiveName, setEpisodesActiveName, episodesActiveEpisode, setEpisodesActiveEpisode}}>
             {children}
         </FilterContext.Provider>
 }

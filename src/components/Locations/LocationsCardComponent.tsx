@@ -1,4 +1,3 @@
-
 import { useQuery } from '@apollo/client'
 import { useRoute } from '@react-navigation/native'
 import React from 'react'
