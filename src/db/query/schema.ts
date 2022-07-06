@@ -1,48 +1,45 @@
-import { IEpisode, ILocation, IUser } from "../../type/types"
+import {IEpisode, ILocation, IUser} from '../../type/types';
 
 export interface ISchemaUsers {
-
   characters: {
     info: {
-      next: number
-    }
-    results: Array<IUser>
-  }
+      next: number;
+    };
+    results: Array<IUser>;
+  };
 }
 
 export interface ISchemaUser {
-  character: IUser
+  character: IUser;
 }
-
 
 export interface ISchemaLocations {
   locations: {
     info: {
-      next: number
-    }
-    results: Array<ILocation>
-  }
+      next: number;
+    };
+    results: Array<ILocation>;
+  };
 }
 
 export interface ISchemaLocation {
-  location: ILocation
+  location: ILocation;
 }
-
 
 export interface ISchemaEpisodes {
   episodes: {
     info: {
-      next: number
-    }
-    results: Array<IEpisode>
-}
+      next: number;
+    };
+    results: Array<IEpisode>;
+  };
 }
 
 export interface ISchemaEpisode {
-  episode: IEpisode
-
+  episode: IEpisode;
 }
 
+// FIXME: убрать комменты
 
 // # type Query {
 // #   character(id: ID!): Character
@@ -55,7 +52,6 @@ export interface ISchemaEpisode {
 // #   episodes(page: Int, filter: FilterEpisode): Episodes
 // #   episodesByIds(ids: [ID!]!): [Episode]
 // # }
-
 
 // # type Character {
 // #   id: ID
@@ -71,7 +67,7 @@ export interface ISchemaEpisode {
 // #   created: String
 // # }
 
-// # input FilterCharacter { 
+// # input FilterCharacter {
 // #   name: String
 // #   status: String
 // #   species: String
@@ -79,12 +75,10 @@ export interface ISchemaEpisode {
 // #   gender: String
 // # }
 
-
 // # type Characters {
 // #   info: Info
 // #   results: [Character]
 // # }
-
 
 // # type Location {
 // #   id: ID
@@ -101,18 +95,15 @@ export interface ISchemaEpisode {
 // #   dimension: String
 // # }
 
-
 // # type Locations {
 // #   info: Info
 // #   results: [Location]
 // # }
 
-
 // # input FilterEpisode {
 // #   name: String
 // #   episode: String
 // # }
-
 
 // # type Episode {
 // #   id: ID
@@ -128,8 +119,6 @@ export interface ISchemaEpisode {
 // #   results: [Episode]
 // # }
 
-
-
 // # #
 // # type Info {
 // #   # The length of the response.
@@ -144,4 +133,3 @@ export interface ISchemaEpisode {
 // #   # Number of the previous page (if it exists)
 // #   prev: Int
 // # }
-
