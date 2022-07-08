@@ -15,7 +15,6 @@
 		7699B88040F8A987B510C191 /* libPods-RickMortyApp-RickMortyAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-RickMortyApp-RickMortyAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		CE2646F22850D6950057EFDC /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2646F12850D6940057EFDC /* BootSplash.storyboard */; };
-		CE7CD6552875A5F8003E4321 /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE7CD6542875A5F8003E4321 /* sound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +45,6 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = RickMortyApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-RickMortyApp-RickMortyAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickMortyApp-RickMortyAppTests.release.xcconfig"; path = "Target Support Files/Pods-RickMortyApp-RickMortyAppTests/Pods-RickMortyApp-RickMortyAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		CE2646F12850D6940057EFDC /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = RickMortyApp/BootSplash.storyboard; sourceTree = "<group>"; };
-		CE7CD6542875A5F8003E4321 /* sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sound.mp3; path = ../../../../Desktop/sound.mp3; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -90,7 +88,6 @@
 		13B07FAE1A68108700A75B9A /* RickMortyApp */ = {
 			isa = PBXGroup;
 			children = (
-				CE7CD6542875A5F8003E4321 /* sound.mp3 */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				CE2646F12850D6940057EFDC /* BootSplash.storyboard */,
@@ -248,7 +245,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE7CD6552875A5F8003E4321 /* sound.mp3 in Resources */,
 				CE2646F22850D6950057EFDC /* BootSplash.storyboard in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,

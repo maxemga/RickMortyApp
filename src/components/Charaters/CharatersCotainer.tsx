@@ -1,68 +1,75 @@
-import React, { useContext } from 'react'
-import styled from 'styled-components'
-import { Image } from 'react-native';
-import { IActiveDataContext, IAllUser } from '../../type/types';
-import { colors, config } from '../../theme/config';
-import { useNavigation } from '@react-navigation/native';
-import { Screens } from '../Navigation/NavigationRoutes';
-import { ActiveDataContext } from '../../context/activeData';
+import React, {useContext} from 'react';
+import styled from 'styled-components';
+import {Image} from 'react-native';
+import {IActiveDataContext, IAllUser} from '../../type/types';
+import {colors, config} from '../../theme/config';
+import {useNavigation} from '@react-navigation/native';
+import {Screens} from '../Navigation/NavigationRoutes';
+import {ActiveDataContext} from '../../context/activeData';
 
-export const CharatersContainer: React.FC<IAllUser> = React.memo(({id, name, image, status}) => {
+export const CharatersContainer: React.FC<IAllUser> = React.memo(
+  ({id, name, image, status}) => {
     const navigation = useNavigation();
-    const { setCharatersCardActiveName } = useContext<IActiveDataContext>(ActiveDataContext);
-
+    const {setCharatersCardActiveName} =
+      useContext<IActiveDataContext>(ActiveDataContext);
+    // FIXME: поправить типы
+    // FIXME: функция должна начинаться с маленькой буквы
     const OpenCharaterCard = () => {
-        navigation.navigate(Screens.CHARATER_PROFILE_SCREEN, {
-            characterId: id
-        })
-        setCharatersCardActiveName(name);
-    }
+      navigation.navigate(Screens.CHARATER_PROFILE_SCREEN, {
+        characterId: id,
+      });
+      setCharatersCardActiveName(name);
+    };
 
-    return(     
-        
-        <CharatersContainerBlock onPress={() => OpenCharaterCard()}>
-            <CharatersContainerImage>
-                <Image style={{height: 150, width: '100%', borderTopLeftRadius: config.borderRadius, borderTopRightRadius: config.borderRadius}} source={{uri: image}}/>
-            </CharatersContainerImage>
-            <CharatersContainerContent>
-                <CharatersContainerDiscription>{status}</CharatersContainerDiscription>
-                <CharatersContainerTitle>{name}</CharatersContainerTitle>
-            </CharatersContainerContent>
-        </CharatersContainerBlock>    
-        
-    )
-})
-
-
-
+    return (
+      // FIXME: onPress={openCharacterCard}
+      <CharatersContainerBlock onPress={() => OpenCharaterCard()}>
+        <CharatersContainerImage>
+          <Image
+            style={{
+              height: 150,
+              width: '100%',
+              borderTopLeftRadius: config.borderRadius,
+              borderTopRightRadius: config.borderRadius,
+            }}
+            source={{uri: image}}
+          />
+        </CharatersContainerImage>
+        <CharatersContainerContent>
+          <CharatersContainerDiscription>
+            {status}
+          </CharatersContainerDiscription>
+          <CharatersContainerTitle>{name}</CharatersContainerTitle>
+        </CharatersContainerContent>
+      </CharatersContainerBlock>
+    );
+  },
+);
 
 const CharatersContainerBlock = styled.TouchableOpacity`
-    visible: overflow;
-    width: 47%;
-    margin: 12px;
-    margin-left: 2px;
-    margin-right: 15px;
-    border: 1px solid ${colors.borderColor};
-    border-radius: ${config.borderRadius}px;
-`
+  visible: overflow;
+  width: 47%;
+  margin: 12px;
+  margin-left: 2px;
+  margin-right: 15px;
+  border: 1px solid ${colors.borderColor};
+  border-radius: ${config.borderRadius}px;
+`;
 
-
-const CharatersContainerImage = styled.View`
-`
+const CharatersContainerImage = styled.View``;
 
 const CharatersContainerContent = styled.View`
-    height: 80px;
-    padding: 12px;
-`
+  height: 80px;
+  padding: 12px;
+`;
 
 const CharatersContainerTitle = styled.Text`
-    color: ${colors.textTitle};
-    font-size: ${config.textSizeContainerTitle};
-    font-weight: bold;
-`
+  color: ${colors.textTitle};
+  font-size: ${config.textSizeContainerTitle};
+  font-weight: bold;
+`;
 
 const CharatersContainerDiscription = styled.Text`
-    color: ${colors.textDiscription};
-    font-size: ${config.textSizeContainerDiscription}
-`
-
+  color: ${colors.textDiscription};
+  font-size: ${config.textSizeContainerDiscription};
+`;
