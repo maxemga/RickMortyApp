@@ -1,13 +1,15 @@
-import React, { createContext, useState } from "react";
-
-
+import React, { createContext, useMemo, useState } from "react";
 
 export const TypeModalContext = createContext({});
 
-export const TypeModalProvider = ({ children }: { children: any }) => {
+export const TypeModalProvider = ({ children }: { children: Element }) => {
     const [activeTypeModal, setActiveTypeModal] = useState<string>('');
 
-    return <TypeModalContext.Provider value={{activeTypeModal, setActiveTypeModal}}>
-            {children}
-        </TypeModalContext.Provider>
-}
+    const value = useMemo(() => ({
+        activeTypeModal, setActiveTypeModal
+    }), [activeTypeModal]);
+
+    return <TypeModalContext.Provider value={value}>
+                {children}
+            </TypeModalContext.Provider>
+};

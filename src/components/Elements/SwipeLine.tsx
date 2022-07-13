@@ -1,17 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
-//FIXME: В чем смысл? Можно просто сразу импортнуть SwipeLineBlock
-const SwipeLine = () => {
-  return <SwipeLineBlock />;
-};
-//FIXME: цвет брать из colors
+import styled from 'styled-components/native';
+import { colors } from '../../theme/config';
+
+export const SwipeLine = () => <SwipeLineBlock />;
 
 const SwipeLineBlock = styled.View`
   margin: 10px auto;
-  background-color: #c7c7cc;
+  background-color: ${colors.silver.darkBright};
   height: 5px;
   width: 40px;
   border-radius: 5px;
 `;
 
-export default SwipeLine;
+

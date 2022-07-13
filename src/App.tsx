@@ -1,12 +1,12 @@
 import React from 'react';
-import StackNavigation from './components/Navigation/StackNavigation';
+import {StackNavigation} from './components/Navigation/StackNavigation';
 import {ApolloProvider} from '@apollo/client';
 import {client} from './db';
 import {FilterProvider} from './context/filterContext';
 import {TypeModalProvider} from './context/typeModalContext';
 import {ActiveDataProvider} from './context/activeData';
 
-const App = () => {
+export const App = () => {
   return (
     <ApolloProvider client={client}>
       <FilterProvider>
@@ -19,5 +19,3 @@ const App = () => {
     </ApolloProvider>
   );
 };
-
-export default App;

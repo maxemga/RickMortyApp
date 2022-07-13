@@ -1,19 +1,16 @@
-//FIXME: styled импортируется из styled-components/native
-//FIXME: убрать неиспользуемые импорты
-//FIXME: настроить абсолютные импорты
-import styled from 'styled-components';
-import React, {useContext, useEffect, useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import styled from 'styled-components/native';
+import React, {useContext} from 'react';
+import {FlatList, Text} from 'react-native';
 import {useQuery} from '@apollo/client';
 import {GET_ALL_USERS} from '../../db/query/requests';
 import {CharatersContainer} from './CharatersCotainer';
-import {ActivityIndicator, RadioButton} from 'react-native-paper';
+import {ActivityIndicator} from 'react-native-paper';
 import {colors} from '../../theme/config';
 import {ISchemaUsers} from '../../db/query/schema';
-import {IActiveDataContext, IFilterContext} from '../../type/types';
+import {IFilterContext} from '../../type/types';
 import {FilterContext} from '../../context/filterContext';
 
-const CharatersComponent: React.FC = () => {
+export const CharatersComponent: React.FC = () => {
   const {
     charatersActiveGender,
     charatersActiveName,
@@ -61,8 +58,8 @@ const CharatersComponent: React.FC = () => {
           color={colors.violet}
           size="large"
         />
-      ) : //FIXME: заменить на строгое сравнение
-      data?.characters.results.length != 0 ? (
+      ) : 
+      data?.characters.results.length !== 0 ? (
         <FlatList
           data={data?.characters.results}
           renderItem={el => <CharatersContainer {...el.item} />}
@@ -85,19 +82,18 @@ const Wrapper = styled.View`
   margin: 0 auto;
   width: 90%;
 `;
-//FIXME: можно убрать display: flex, в RN все View по дефолту flex
-const WarningBlock = styled.View`
-  display: flex;
+
+const WarningBlock = styled.View`;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 100%;
 `;
+
 const WarningText = styled.Text`
-  color: ${colors.textDiscription};
+  color: ${colors.blue.dim};
   font-size: 30px;
   opacity: 0.5;
   font-weight: bold;
 `;
-//FIXME: заменить на именованный экспорт
-export default CharatersComponent;
+

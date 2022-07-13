@@ -1,20 +1,16 @@
-import styled from 'styled-components';
-import React, {useContext, useEffect, useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import styled from 'styled-components/native';
+import React, {useContext} from 'react';
+import {FlatList} from 'react-native';
 import {useQuery} from '@apollo/client';
 import {GET_ALL_LOCATIONS} from '../../db/query/requests';
-import {IAllLocation, IFilterContext} from '../../type/types';
-import {
-  ISchemaLocation,
-  ISchemaLocations,
-  ISchemaUsers,
-} from '../../db/query/schema';
+import {IFilterContext} from '../../type/types';
+import {ISchemaLocations,} from '../../db/query/schema';
 import {LocationsContainer} from './LocationsContainer';
 import {ActivityIndicator} from 'react-native-paper';
 import {colors} from '../../theme/config';
 import {FilterContext} from '../../context/filterContext';
 
-const LocationsComponent: React.FC = () => {
+export const LocationsComponent: React.FC = () => {
   const {locationsActiveDimension, locationsActiveName, locationsActiveType} =
     useContext<IFilterContext>(FilterContext);
   const {data, loading, error, fetchMore, client} = useQuery<ISchemaLocations>(
@@ -46,9 +42,6 @@ const LocationsComponent: React.FC = () => {
         },
       });
     }
-    //FIXME: убрать консоль логи
-    console.log(data?.locations.info.next);
-    console.log(data?.locations.results.length);
   };
 
   return (
@@ -78,8 +71,6 @@ const LocationsComponent: React.FC = () => {
   );
 };
 
-//FIXME: дублируются компоненты с одинаковым стилями
-
 const Wrapper = styled.View`
   flex: 1;
   margin: 0 auto;
@@ -87,17 +78,15 @@ const Wrapper = styled.View`
 `;
 
 const WarningBlock = styled.View`
-  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 100%;
 `;
+
 const WarningText = styled.Text`
-  color: ${colors.textDiscription};
+  color: ${colors.blue.dim};
   font-size: 30px;
   opacity: 0.5;
   font-weight: bold;
 `;
-
-export default LocationsComponent;

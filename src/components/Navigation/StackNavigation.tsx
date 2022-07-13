@@ -1,30 +1,30 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {NavigationContainer, useRoute} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import CharatersProfilePage from '../../screens/Charaters/CharatersProfilePage';
-import EpisodesCardPage from '../../screens/Episodes/EpisodesCardPage';
-import LocationsCardPage from '../../screens/Locations/LocationsCardPage';
-import CharatersModal from '../Charaters/Filter/CharatersModal';
-import CharatersModalInput from '../Charaters/Filter/CharatersModalInput';
-import CharatersModalHeader from '../Charaters/Filter/Header/CharatersModalHeader';
-import TabsNavigation from './TabsNavigation';
+import {CharatersProfilePage} from '../../screens/Charaters/CharatersProfilePage';
+import {EpisodesCardPage} from '../../screens/Episodes/EpisodesCardPage';
+import {LocationsCardPage} from '../../screens/Locations/LocationsCardPage';
+import {CharatersModal} from '../Charaters/Filter/CharatersModal';
+import {CharatersModalInput} from '../Charaters/Filter/CharatersModalInput';
+import {CharatersModalHeader} from '../Charaters/Filter/Header/CharatersModalHeader';
+import {TabsNavigation} from './TabsNavigation';
 import {colors} from '../../theme/config';
 import {Screens} from './NavigationRoutes';
-import CharatersModalInputHeader from '../Charaters/Filter/Header/CharatersModalInputHeader';
-import LocationsModal from '../Locations/Filter/LocationsModal';
-import LocationsModalHeader from '../Locations/Filter/Header/LocationsModalHeader';
-import LocationsModalInput from '../Locations/Filter/LocationsModalInput';
-import LocationsModalInputHeader from '../Locations/Filter/Header/LocationsModalInputHeader';
-import EpisodesModal from '../Episodes/Filter/EpisodesModal';
-import EpisodesModalInput from '../Episodes/Filter/EpisodesModalInput';
-import EpisodesModalHeader from '../Episodes/Filter/Header/EpisodesModalHeader';
-import EpisodesModalInputHeader from '../Episodes/Filter/Header/EpisodesModalInputHeader';
+import {CharatersModalInputHeader} from '../Charaters/Filter/Header/CharatersModalInputHeader';
+import {LocationsModal} from '../Locations/Filter/LocationsModal';
+import {LocationsModalHeader} from '../Locations/Filter/Header/LocationsModalHeader';
+import {LocationsModalInput} from '../Locations/Filter/LocationsModalInput';
+import {LocationsModalInputHeader} from '../Locations/Filter/Header/LocationsModalInputHeader';
+import {EpisodesModal} from '../Episodes/Filter/EpisodesModal';
+import {EpisodesModalHeader} from '../Episodes/Filter/Header/EpisodesModalHeader';
+import {EpisodesModalInputHeader} from '../Episodes/Filter/Header/EpisodesModalInputHeader';
 import {IActiveDataContext} from '../../type/types';
 import {ActiveDataContext} from '../../context/activeData';
+import { EpisodesModalInput } from '../Episodes/Filter/EpisodesModalInput';
 
 const Stack = createNativeStackNavigator();
 
-const StackNavigation = () => {
+export const StackNavigation = () => {
   const {
     charatersCardActiveName,
     episodesCardActiveName,
@@ -87,7 +87,7 @@ const StackNavigation = () => {
             name={Screens.EPISODES_CARD_SCREEN}
             options={{
               headerTitle: episodesCardActiveName,
-              headerTitleStyle: {color: colors.textTitle},
+              headerTitleStyle: {color: colors.blue.dark},
             }}
             component={EpisodesCardPage}
           />
@@ -95,7 +95,7 @@ const StackNavigation = () => {
             name={Screens.CHARATER_PROFILE_SCREEN}
             options={{
               headerTitle: charatersCardActiveName,
-              headerTitleStyle: {color: colors.textTitle},
+              headerTitleStyle: {color: colors.blue.dark},
             }}
             component={CharatersProfilePage}
           />
@@ -103,7 +103,7 @@ const StackNavigation = () => {
             name={Screens.LOCATIONS_CARD_SCREEN}
             options={{
               headerTitle: locationsCardActiveName,
-              headerTitleStyle: {color: colors.textTitle},
+              headerTitleStyle: {color: colors.blue.dark},
             }}
             component={LocationsCardPage}
           />
@@ -119,5 +119,3 @@ const StackNavigation = () => {
     </NavigationContainer>
   );
 };
-
-export default StackNavigation;

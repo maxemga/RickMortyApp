@@ -1,29 +1,26 @@
+import React, { useContext } from 'react';
+import { TouchableOpacity, View } from 'react-native';
+import styled from 'styled-components/native';
+import { EpisodesArrow } from '../../../assets/images/EpisodesIcons/arrow';
+import { colors, config } from '../../../theme/config';
+import { Screens } from '../../Navigation/NavigationRoutes';
+import { useNavigation } from '@react-navigation/native';
+import { FilterContext } from '../../../context/filterContext';
+import { IFilterContext, ITypeModalContext } from '../../../type/types';
+import { TypeModalContext } from '../../../context/typeModalContext';
+import { IconModalActive } from '../../../assets/images/ModalIcons/IconModalActive';
+import { IconModalNonActive } from '../../../assets/images/ModalIcons/IconModalNonActive';
 
-import React, { useContext, useState } from 'react'
-import { FlatList, Text, TouchableOpacity, View } from 'react-native'
-import styled from 'styled-components'
-import { EpisodesArrow } from '../../../assets/images/EpisodesIcons/arrow'
-import { colors, config } from '../../../theme/config'
-import { Screens } from '../../Navigation/NavigationRoutes'
-import IconModalNonActive from '../../../assets/images/ModalIcons/IconModalNonActive'
-import IconModalActive from '../../../assets/images/ModalIcons/IconModalActive'
-import { useNavigation } from '@react-navigation/native'
-import { FilterContext } from '../../../context/filterContext'
-import { IFilterContext, ITypeModalContext } from '../../../type/types'
-import { TypeModalContext, TypeModalProvider } from '../../../context/typeModalContext'
-
-
-
-const CharatersModal = () => {
+export const CharatersModal = () => {
     const navigation = useNavigation();
-    const { activeTypeModal, setActiveTypeModal } = useContext<ITypeModalContext>(TypeModalContext);
+    const { setActiveTypeModal } = useContext<ITypeModalContext>(TypeModalContext);
     
     const { charatersActiveGender, charatersActiveName, charatersActiveSpecies, charatersActiveStatus,
-    setCharatersActiveGender, setCharatersActiveName, setCharatersActiveSpecies, setCharatersActiveStatus} = useContext<IFilterContext>(FilterContext);
+    setCharatersActiveGender, setCharatersActiveStatus} = useContext<IFilterContext>(FilterContext);
 
     const redirect = () => {
         navigation.navigate(Screens.CHARATER_MODAL_INPUT)
-    }
+    };
 
     const filterElements = {
         status: [
@@ -51,21 +48,17 @@ const CharatersModal = () => {
                 title: 'Unknown'
             }
         ]
-    }
-
+    };
 
     return(
- 
-        <>
-
+        <CharatersModalBlock>
             <CharatersModalContainer>
-                    <Wrapper>
+                    <Wrapper> 
                         <CharatersModalContainerContent onPress={() => {
                             redirect();
-                            setActiveTypeModal('Name');
+                            setActiveTypeModal?.('Name')
                         }} >
                             <CharatersModalContainerContentElements>
-
                                 <CharatersModalContainerContentRadio>
                                     {charatersActiveName != '' ?
                                         <TouchableOpacity>
@@ -77,31 +70,27 @@ const CharatersModal = () => {
                                         </TouchableOpacity>
                                     }
                                 </CharatersModalContainerContentRadio>
-
                                 <CharatersModalContainerContentText>
                                     <CharatersModalContainerTitle>Name</CharatersModalContainerTitle>
                                     <CharatersModalContainerSubTitle>Give a name</CharatersModalContainerSubTitle>
-                                </CharatersModalContainerContentText>
-                                
+                                </CharatersModalContainerContentText>  
                             </CharatersModalContainerContentElements>
-
                             <View>
                                 <EpisodesArrow/>
                             </View>
                         </CharatersModalContainerContent>
                     </Wrapper>       
             </CharatersModalContainer> 
-
             <CharatersModalContainer style={{marginTop: 25}}>
                     <Wrapper>
                         <CharatersModalContainerContent onPress={() => {
                             redirect();
-                            setActiveTypeModal('Species')
+                            setActiveTypeModal?.('Species')
                         }}>
                             <CharatersModalContainerContentElements>
 
                                 <CharatersModalContainerContentRadio>
-                                    {charatersActiveSpecies != '' ?
+                                    {charatersActiveSpecies !== '' ?
                                         <TouchableOpacity>
                                             <IconModalActive/>               
                                         </TouchableOpacity>
@@ -125,25 +114,18 @@ const CharatersModal = () => {
                         </CharatersModalContainerContent>
                     </Wrapper>       
             </CharatersModalContainer> 
-
-
             <Wrapper style={{marginTop: 25, marginBottom: 10}}>
                 <CharatersModalOptionsTitle>Status</CharatersModalOptionsTitle>
             </Wrapper>
             <CharatersModalContainer>
-                <Wrapper>
-                    <FlatList
-                    
-                        scrollEnabled={false}
-                        ItemSeparatorComponent={() => <View style={{backgroundColor: colors.borderColor, height: 1}}></View>}
-                        data={filterElements.status}
-                        renderItem={(el) => {
+                <Wrapper>    
+                        {filterElements.status.map(el => {
                             return(
-                                <CharatersModalContainerContent onPress={() => charatersActiveStatus == el.item.title ? setCharatersActiveStatus('') : setCharatersActiveStatus(el.item.title)}>
+                                <CharatersModalContainerContent key={Math.random()} onPress={() => charatersActiveStatus == el.title ? setCharatersActiveStatus?.('') : setCharatersActiveStatus?.(el.title)}>
                             <CharatersModalContainerContentElements>
 
                                 <CharatersModalContainerContentRadio>
-                                    {charatersActiveStatus == el.item.title ?
+                                    {charatersActiveStatus == el.title ?
                                         <TouchableOpacity>
                                             <IconModalActive/>               
                                         </TouchableOpacity>
@@ -155,35 +137,25 @@ const CharatersModal = () => {
                                 </CharatersModalContainerContentRadio>
 
                                 <CharatersModalContainerContentStatusText>
-                                    <CharatersModalContainerStatusTitle>{el.item.title}</CharatersModalContainerStatusTitle>
-                                </CharatersModalContainerContentStatusText>                  
-                                
+                                    <CharatersModalContainerStatusTitle>{el.title}</CharatersModalContainerStatusTitle>
+                                </CharatersModalContainerContentStatusText>                           
                             </CharatersModalContainerContentElements>
-
                         </CharatersModalContainerContent>
-                            )
-                                }}
-                        />
-
+                            );
+                        })}
                 </Wrapper>
-            </CharatersModalContainer>
-            
+            </CharatersModalContainer>      
             <Wrapper style={{marginTop: 25, marginBottom: 10}}>
                 <CharatersModalOptionsTitle>Gender</CharatersModalOptionsTitle>
             </Wrapper>
             <CharatersModalContainer>
-                <Wrapper>
-                    <FlatList
-                        scrollEnabled={false}
-                        ItemSeparatorComponent={() => <View style={{backgroundColor: colors.borderColor, height: 1}}></View>}
-                        data={filterElements.gender}
-                        renderItem={(el) => {
+                <Wrapper>    
+                        {filterElements.gender.map(el => {
                             return(
-                                <CharatersModalContainerContent onPress={() => charatersActiveGender == el.item.title ? setCharatersActiveGender('') : setCharatersActiveGender(el.item.title)}>
+                                <CharatersModalContainerContent key={Math.random()} onPress={() => charatersActiveGender == el.title ? setCharatersActiveGender('') : setCharatersActiveGender(el.title)}>
                             <CharatersModalContainerContentElements>
-
                                 <CharatersModalContainerContentRadio>
-                                    {charatersActiveGender == el.item.title ?
+                                    {charatersActiveGender === el.title ?
                                         <TouchableOpacity>
                                             <IconModalActive/>               
                                         </TouchableOpacity>
@@ -193,95 +165,82 @@ const CharatersModal = () => {
                                         </TouchableOpacity>
                                     }
                                 </CharatersModalContainerContentRadio>
-
                                 <CharatersModalContainerContentStatusText>
-                                     <CharatersModalContainerStatusTitle>{el.item.title}</CharatersModalContainerStatusTitle>
-                                </CharatersModalContainerContentStatusText>
-                                
+                                    <CharatersModalContainerStatusTitle>{el.title}</CharatersModalContainerStatusTitle>
+                                </CharatersModalContainerContentStatusText>                           
                             </CharatersModalContainerContentElements>
-
                         </CharatersModalContainerContent>
-                            )
-                                }}
-                        />
+                            );
+                        })}
 
                 </Wrapper>
-            </CharatersModalContainer>
-                        
-        </>
-    )
-}
+            </CharatersModalContainer>                
+        </CharatersModalBlock>
+    );
+};
 
-
+const CharatersModalBlock = styled.ScrollView``;
 
 const CharatersModalContainer = styled.TouchableOpacity`
-    borderTopWidth: 1px;
-    borderBottomWidth: 1px;
-    borderBottomColor: ${colors.borderColor};
-    borderTopColor: ${colors.borderColor};
-`
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-bottom-color: ${colors.silver.white};
+    border-top-color: ${colors.silver.white};
+`;
 
 const CharatersModalContainerContent = styled.TouchableOpacity`
-    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    paddingVertical: 10px;
-`
+    padding-vertical: 10px;
+
+`;
 
 const CharatersModalContainerTitle = styled.Text`
-    color: ${colors.textTitle};
+    color: ${colors.blue.dark};
     fontWeight: bold;
     fontSize: ${config.textSizeContainerModalTitle};
-`
+`;
 
 const CharatersModalContainerStatusTitle = styled.Text`
-    color: ${colors.textTitle};
+    color: ${colors.blue.dark};
     fontSize: ${config.textSizeContainerModalTitle};
-`
+`;
 
 const CharatersModalContainerSubTitle = styled.Text`
-    color: ${colors.textDiscription};
+    color: ${colors.blue.dim};
     fontSize: ${config.textSizeContainerModalDescription};
-`
-
-
+`;
 
 const CharatersModalContainerContentElements = styled.View`
-    flexDirection: row;
-    alignItems: center;
-    display: flex;
-`
+    flex-direction: row;
+    align-items: center;
+`;
 
 const CharatersModalContainerContentRadio = styled.View`
     width: 30px;
     height: 30px;
     align-items: center;
-    justifyContent: center;
-    flexDirection: row;
-`
+    justify-content: center;
+    flex-direction: row;
+`;
 
 const CharatersModalContainerContentText = styled.View`
-    marginLeft: 15px;
-`
+    margin-left: 15px;
+`;
 
 const CharatersModalContainerContentStatusText = styled.View`
-    marginLeft: 15px;
-
+    margin-left: 15px;
     width: 100%;
-`
+`;
 
 const CharatersModalOptionsTitle = styled.Text`
     font-size: 15px;
-    color: '#000000';
+    color: ${colors.black};
     opacity: 0.4;
-`
+`;
 
 const Wrapper = styled.View`
     margin: 0 auto;
     width: 90%;
-`
-
-
-
-export default CharatersModal;
+`;

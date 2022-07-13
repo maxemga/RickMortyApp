@@ -1,8 +1,8 @@
+import React from 'react';
 import {useQuery} from '@apollo/client';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useEffect} from 'react';
-import {FlatList, Image, TouchableOpacity, View} from 'react-native';
-import styled from 'styled-components';
+import {Image, TouchableOpacity, View} from 'react-native';
+import styled from 'styled-components/native';
 import {EpisodesArrow} from '../../assets/images/EpisodesIcons/arrow';
 import {GET_SINGLE_USER} from '../../db/query/requests';
 import {colors, config} from '../../theme/config';
@@ -10,7 +10,7 @@ import {ISchemaUser} from '../../db/query/schema';
 import {EpisodesContainer} from '../Episodes/EpisodesContainer';
 import {Screens} from '../Navigation/NavigationRoutes';
 
-const CharatersProfileComponent = () => {
+export const CharatersProfileComponent = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const {data, loading, error} = useQuery<ISchemaUser>(GET_SINGLE_USER, {
@@ -19,7 +19,7 @@ const CharatersProfileComponent = () => {
     },
   });
 
-  const OpenLocationCard = () => {
+  const openLocationCard = () => {
     navigation.navigate(Screens.LOCATIONS_CARD_SCREEN, {
       locationId: data?.character.location.id,
     });
@@ -47,8 +47,7 @@ const CharatersProfileComponent = () => {
         </CharatersContentImageBackground>
 
         <CharatersContentImageCard>
-          {/*  FIXME: display: 'flex' не нужен */}
-          <Wrapper style={{display: 'flex', alignItems: 'center'}}>
+          <Wrapper style={{alignItems: 'center'}}>
             {error || loading ? (
               <ErrorBlock style={{width: '50%'}} />
             ) : (
@@ -91,7 +90,6 @@ const CharatersProfileComponent = () => {
                 )}
               </Flex>
             </CharaterInfoContainer>
-
             <CharaterInfoContainer>
               <Flex>
                 <CharasetInfoContainerTitle>Origin</CharasetInfoContainerTitle>
@@ -120,7 +118,7 @@ const CharatersProfileComponent = () => {
               </Flex>
             </CharaterInfoContainer>
 
-            <TouchableOpacity onPress={() => OpenLocationCard()}>
+            <TouchableOpacity onPress={() => openLocationCard()}>
               <CharaterInfoContainer>
                 <Flex>
                   <CharasetInfoContainerTitle>
@@ -147,15 +145,9 @@ const CharatersProfileComponent = () => {
             <CharasetInfoBlock style={{marginTop: 40}}>
               <CharaterInfoTitle>Episodes</CharaterInfoTitle>
             </CharasetInfoBlock>
-            {/*FIXME: Flatlist не должен располагаться внутри ScrollView */}
-            <FlatList
-              scrollEnabled={false}
-              showsVerticalScrollIndicator={false}
-              data={data?.character.episode}
-              renderItem={el => <EpisodesContainer {...el.item} />}
-              keyExtractor={el => String(el.id)}
-              numColumns={1}
-            />
+            {data?.character.episode.map((el) => {
+              return <EpisodesContainer key={el.id} {...el} />
+            })}
           </Wrapper>
         </CharaterContentInfo>
       </CharatersProfileContent>
@@ -171,10 +163,9 @@ const Wrapper = styled.View`
 `;
 
 const CharatersProfileContent = styled.View``;
-//FIXME: display: flex здесь не нужен
+
 const CharatersContentImageBackground = styled.View`
   position: relative;
-  display: flex;
   align-items: center;
   z-index: 100;
 `;
@@ -186,55 +177,52 @@ const CharatersContentImageIcon = styled.View`
   width: 150px;
   position: absolute;
   bottom: -75px;
-  //FIXME: брать цвета из colors
-  background-color: #f2f2f7;
+  background-color: ${colors.white.bright};
   margin: 0 auto;
-  //FIXME: неправильно написан стиль
-  borderradius: 100px;
+  border-radius: 100px;
 `;
-//FIXME: брать цвета из colors
+
 const CharatersContentImageCard = styled.View`
-  background-color: #f2f2f7;
+  background-color: ${colors.white.bright};
   padding-top: 90px;
   padding-bottom: 20px;
 `;
 
 const CharatersContentImageCardStatus = styled.Text`
-  color: ${colors.textDiscription};
+  color: ${colors.blue.dim};
 `;
 const CharatersContentImageCardName = styled.Text`
-  color: ${colors.textTitle};
+  color: ${colors.blue.dark};
   font-weight: bold;
   font-size: 30px;
   text-align: center;
 `;
 const CharatersContentImageGender = styled.Text`
     font-weight: bold;
-    color: ${colors.textNavigaion}
+    color: ${colors.silver.bright}
     margin-top: 5px;
 `;
 
 const CharaterContentInfo = styled.View`
-  background-color: white;
+  background-color: ${colors.white.default};
 `;
 
-// FIXME: неправильные стили
 const CharasetInfoBlock = styled.View`
-  borderbottomwidth: 1px;
-  borderbottomcolor: ${colors.borderColor};
-  paddingvertical: 15px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${colors.silver.white};
+  padding-vertical: 15px;
 `;
 
 const CharaterInfoTitle = styled.Text`
-  color: ${colors.textNavigaion};
+  color: ${colors.silver.bright};
   font-size: 22px;
   font-weight: bold;
 `;
 
 const CharaterInfoContainer = styled.View`
   padding: 10px 0;
-  borderbottomwidth: 1px;
-  borderbottomcolor: ${colors.borderColor};
+  border-bottom-width: 1px;
+  border-bottom-color: ${colors.silver.white};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -243,13 +231,13 @@ const CharaterInfoContainer = styled.View`
 `;
 
 const CharasetInfoContainerTitle = styled.Text`
-  color: ${colors.textTitle};
+  color: ${colors.blue.dark};
   font-weight: bold;
   font-size: ${config.textSizeContainerTitle};
 `;
 
 const CharasetInfoContainerSubTitle = styled.Text`
-  color: ${colors.textDiscription};
+  color: ${colors.blue.dim};
   font-size: 15px;
   margin-top: 3px;
 `;
@@ -257,13 +245,11 @@ const CharasetInfoContainerSubTitle = styled.Text`
 const Flex = styled.View`
   width: 100%;
 `;
-//FIXME: брать цвета из colors
+
 const ErrorBlock = styled.View`
-  background-color: #cfcfcf;
+  background-color: ${colors.silver.lunar}
   border-radius: 15px;
   width: 100%;
   height: 15px;
   margin-top: 3px;
 `;
-//FIXME: заменить на именованный экспорт
-export default CharatersProfileComponent;

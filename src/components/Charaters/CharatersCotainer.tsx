@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {Image} from 'react-native';
 import {IActiveDataContext, IAllUser} from '../../type/types';
 import {colors, config} from '../../theme/config';
@@ -12,18 +12,16 @@ export const CharatersContainer: React.FC<IAllUser> = React.memo(
     const navigation = useNavigation();
     const {setCharatersCardActiveName} =
       useContext<IActiveDataContext>(ActiveDataContext);
-    // FIXME: поправить типы
-    // FIXME: функция должна начинаться с маленькой буквы
-    const OpenCharaterCard = () => {
+
+    const openCharaterCard = () => {
       navigation.navigate(Screens.CHARATER_PROFILE_SCREEN, {
         characterId: id,
       });
-      setCharatersCardActiveName(name);
+      setCharatersCardActiveName?.(name);
     };
 
     return (
-      // FIXME: onPress={openCharacterCard}
-      <CharatersContainerBlock onPress={() => OpenCharaterCard()}>
+      <CharatersContainerBlock onPress={() => openCharaterCard()}>
         <CharatersContainerImage>
           <Image
             style={{
@@ -48,11 +46,11 @@ export const CharatersContainer: React.FC<IAllUser> = React.memo(
 
 const CharatersContainerBlock = styled.TouchableOpacity`
   visible: overflow;
-  width: 47%;
+  width: 46%;
   margin: 12px;
-  margin-left: 2px;
-  margin-right: 15px;
-  border: 1px solid ${colors.borderColor};
+  margin-left: 7px;
+  margin-right: 6px;
+  border: 1px solid ${colors.silver.white};
   border-radius: ${config.borderRadius}px;
 `;
 
@@ -64,12 +62,12 @@ const CharatersContainerContent = styled.View`
 `;
 
 const CharatersContainerTitle = styled.Text`
-  color: ${colors.textTitle};
+  color: ${colors.blue.dark};
   font-size: ${config.textSizeContainerTitle};
   font-weight: bold;
 `;
 
 const CharatersContainerDiscription = styled.Text`
-  color: ${colors.textDiscription};
+  color: ${colors.blue.dim};
   font-size: ${config.textSizeContainerDiscription};
 `;

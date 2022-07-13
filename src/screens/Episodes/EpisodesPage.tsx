@@ -1,14 +1,8 @@
 import React from 'react';
-import EpisodesComponent from '../../components/Episodes/EpisodesComponent';
+import {EpisodesComponent} from '../../components/Episodes/EpisodesComponent';
 
-
-
-const EpisodesPage: React.FC = () => {
+export const EpisodesPage: React.FC = () => {
     return(
-        <>
-            <EpisodesComponent/>
-        </>
-    )
-}
-
-export default EpisodesPage;
+        <EpisodesComponent/>
+    );
+};

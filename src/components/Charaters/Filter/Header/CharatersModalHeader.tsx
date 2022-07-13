@@ -1,33 +1,19 @@
 import React, {useContext} from 'react';
-import {Platform, Text, TouchableOpacity, View} from 'react-native';
-import styled from 'styled-components';
-import SwipeLine from '../../../Elements/SwipeLine';
-import {colors, config} from '../../../../theme/config';
+import {Text, View} from 'react-native';
+import styled from 'styled-components/native';
+import {SwipeLine} from '../../../Elements/SwipeLine';
+import {colors} from '../../../../theme/config';
 import {IFilterContext} from '../../../../type/types';
 import {FilterContext} from '../../../../context/filterContext';
-import {useNavigation} from '@react-navigation/native';
 
-const CharatersModalHeader = () => {
-  const navigation = useNavigation();
-
+export const CharatersModalHeader = () => {
   const {
     charatersActiveGender,
     charatersActiveName,
     charatersActiveSpecies,
     charatersActiveStatus,
-    setCharatersActiveGender,
-    setCharatersActiveName,
-    setCharatersActiveSpecies,
-    setCharatersActiveStatus,
+    clearFilter
   } = useContext<IFilterContext>(FilterContext);
-  // FIXME: поправить типы
-  // FIXME: эту функцию будет логичнее вынести в контекст
-  const clearFilter = () => {
-    setCharatersActiveGender('');
-    setCharatersActiveName('');
-    setCharatersActiveSpecies('');
-    setCharatersActiveStatus('');
-  };
 
   return (
     <CharatersHeader>
@@ -37,20 +23,14 @@ const CharatersModalHeader = () => {
           {charatersActiveGender ||
           charatersActiveName ||
           charatersActiveSpecies ||
-          //   FIXME: заменить на строгое сравнение
-          charatersActiveStatus != '' ? (
-            //FIXME: onPress={clearFilter}
-            <CharatersHeaderClear onPress={() => clearFilter()}>
-              {/* FIXME: тернарник можно заменить на && и убрать null */}
+          charatersActiveStatus !== '' ? (
+            <CharatersHeaderClear onPress={() => clearFilter?.('Charaters')}>
               <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
             </CharatersHeaderClear>
           ) : null}
           <CharatersHeaderTitle>
             <CharatersHeaderTitle>Filter</CharatersHeaderTitle>
           </CharatersHeaderTitle>
-          {/* <CharatersHeaderButton>
-                        <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>APPLY</Text>
-                    </CharatersHeaderButton> */}
         </View>
       </Wrapper>
     </CharatersHeader>
@@ -68,7 +48,7 @@ const CharatersHeader = styled.View`
 `;
 
 const CharatersHeaderTitle = styled.Text`
-  color: ${colors.textTitle};
+  color: ${colors.blue.dark};
   font-size: 16px;
   font-weight: bold;
   margin: 0 auto;
@@ -81,13 +61,3 @@ const CharatersHeaderClear = styled.TouchableOpacity`
   top: 6px;
   left: 0px;
 `;
-
-const CharatersHeaderButton = styled.TouchableOpacity`
-  background-color: ${colors.violet};
-  padding: 5px 10px;
-  border-radius: 20px;
-  position: absolute;
-  right: 0;
-`;
-
-export default CharatersModalHeader;

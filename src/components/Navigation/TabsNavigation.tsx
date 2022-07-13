@@ -1,28 +1,24 @@
-import React from 'react';
-import CharatersPage from '../../screens/Charaters/CharatersPage';
-import {
-  NavigationIconCharater,
-  NavigationIconEpisode,
-  NavigationIconLocation,
-} from '../../assets/images/NavigationIcons/Inactive';
-import {
-  NavigationIconActiveCharater,
-  NavigationIconActiveEpisode,
-  NavigationIconActiveLocation,
-} from '../../assets/images/NavigationIcons/Active';
+import React, { useContext } from 'react';
+import {CharatersPage} from '../../screens/Charaters/CharatersPage';
 import {Screens} from './NavigationRoutes';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Header from '../Charaters/Header/CharatersHeader';
 import {colors} from '../../theme/config';
-import LocationPage from '../../screens/Locations/LocationPage';
-import EpisodesPage from '../../screens/Episodes/EpisodesPage';
-import CharatersHeader from '../Charaters/Header/CharatersHeader';
-import EpisodesHeader from '../Episodes/Header/EpisodesHeader';
-import LocationsHeader from '../Locations/Header/LocationsHeader';
+import {LocationPage} from '../../screens/Locations/LocationPage';
+import {EpisodesPage} from '../../screens/Episodes/EpisodesPage';
+import {CharatersHeader} from '../Charaters/Header/CharatersHeader';
+import {EpisodesHeader} from '../Episodes/Header/EpisodesHeader';
+import {LocationsHeader} from '../Locations/Header/LocationsHeader';
+import { NavigationIconActiveCharater } from '../../assets/images/NavigationIcons/Active/CharaterIconActive';
+import { NavigationIconCharater } from '../../assets/images/NavigationIcons/Inactive/CharaterIconinactive';
+import { NavigationIconActiveLocation } from '../../assets/images/NavigationIcons/Active/LocationIconActive';
+import { NavigationIconLocation } from '../../assets/images/NavigationIcons/Inactive/LocationIconInactive';
+import { NavigationIconActiveEpisode } from '../../assets/images/NavigationIcons/Active/EpisodeIconActive';
+import { NavigationIconEpisode } from '../../assets/images/NavigationIcons/Inactive/EpisodeconInactive';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Tabs = createBottomTabNavigator();
 
-const TabsNavigation = () => {
+export const TabsNavigation = () => {
   /* FIXME: неправильно сделана навигация
     Первый таб - Stack с персонажем(главная с персонажем, детальный персонаж)
     следующие табы аналогично
@@ -33,8 +29,9 @@ const TabsNavigation = () => {
       screenOptions={{
         tabBarActiveTintColor: colors.violet,
         tabBarLabelStyle: {fontWeight: 'bold'},
-        tabBarInactiveTintColor: colors.textNavigaion,
+        tabBarInactiveTintColor: colors.silver.bright,
       }}>
+
       <Tabs.Screen
         name={Screens.CHARATER_SCREEN}
         component={CharatersPage}
@@ -45,15 +42,14 @@ const TabsNavigation = () => {
           },
           tabBarIcon: ({focused}) => {
             return focused ? (
-              // FIXME: можно просто менять цвет, а не возращать разные иконки
               <NavigationIconActiveCharater />
             ) : (
               <NavigationIconCharater />
             );
           },
         }}
-      />
-
+      /> 
+   
       <Tabs.Screen
         name={Screens.LOCATIONS_SCREEN}
         component={LocationPage}
@@ -92,5 +88,3 @@ const TabsNavigation = () => {
     </Tabs.Navigator>
   );
 };
-
-export default TabsNavigation;

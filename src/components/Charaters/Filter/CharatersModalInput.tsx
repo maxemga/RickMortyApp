@@ -1,23 +1,20 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
-import { View, TouchableOpacity, FlatList, Text } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import styled from 'styled-components/native';
+import { View, TouchableOpacity, FlatList } from 'react-native';
 import { colors } from '../../../theme/config';
-import IconSearch from '../../../assets/images/ModalIcons/Search';
-import IconDictation from '../../../assets/images/ModalIcons/Dictation';
 import { CharatersContainer } from '../CharatersCotainer';
-import { ActivityIndicator, TouchableRipple } from 'react-native-paper';
+import { ActivityIndicator } from 'react-native-paper';
 import { useQuery } from '@apollo/client';
 import { ISchemaUsers } from '../../../db/query/schema';
 import { GET_ALL_USERS } from '../../../db/query/requests';
 import { FilterContext } from '../../../context/filterContext';
 import { IFilterContext, ITypeModalContext } from '../../../type/types';
 import { TypeModalContext } from '../../../context/typeModalContext';
+import { IconDictation } from '../../../assets/images/ModalIcons/Dictation';
+import { IconSearch } from '../../../assets/images/ModalIcons/Search';
 import Voice from '@react-native-community/voice';
 
-
-
-const CharatersModalInput = () => {
-    const audio = require('./sound.mp3')
+export const CharatersModalInput = () => {
     const { charatersActiveName, charatersActiveSpecies, setCharatersActiveName, setCharatersActiveSpecies } = useContext<IFilterContext>(FilterContext);
     const { activeTypeModal } = useContext<ITypeModalContext>(TypeModalContext);
     const [isRecord, setIsRecord] = useState<boolean>(false);
@@ -27,35 +24,33 @@ const CharatersModalInput = () => {
             name: activeTypeModal == 'Name' ? charatersActiveName : '',
             species: activeTypeModal == 'Species' ? charatersActiveSpecies : '',
         }
-        
     });
 
     useEffect(() => {
         Voice.onSpeechResults = onSpeechResultsHandler;
-        
         return () => {
-            Voice.destroy().then(Voice.removeAllListeners)
+            Voice.destroy().then(Voice.removeAllListeners);
         }
-    }, [])
+    }, []);
 
     const onSpeechResultsHandler = (e: any) => {
         if (activeTypeModal == 'Name') {
-            setCharatersActiveName(e.value[0]);
+            setCharatersActiveName?.(e.value[0]);
         }
         else {
-            setCharatersActiveSpecies(e.value[0]);
+            setCharatersActiveSpecies?.(e.value[0]);
         }
-    }
+    };
 
     const startRecording = async () => {
         await Voice.start('en-Us');
-        setIsRecord(true)
-    }
+        setIsRecord(true);
+    };
 
     const stopRecording = async () => {
         await Voice.stop();
-        setIsRecord(false)
-    }
+        setIsRecord(false);
+    };
 
     const FetchData = () => {
         if(data?.characters.info.next == null) {
@@ -75,23 +70,21 @@ const CharatersModalInput = () => {
                 
                     return fetchMoreResult;
                 }
-            })
+            });
         }
-    }
+    };
 
     return(
         <>
             <CharatersModalNameBlock>
-                <CharatersModalNameInput>
-                    
+                <CharatersModalNameInput> 
                     <Wrapper>
                         <View style={{position: 'relative'}}>
                             <Input           
                                 onChangeText={activeTypeModal == 'Name' ? setCharatersActiveName : setCharatersActiveSpecies }
                                 value={activeTypeModal == 'Name' ? charatersActiveName : charatersActiveSpecies}
                                 placeholder={'Search'}
-                                style={{position: 'relative'}}
-                            > 
+                                style={{position: 'relative'}}> 
                             </Input>
                             <View style={{position: 'absolute', left: 15, top: 13}}>
                                 <IconSearch/>
@@ -107,12 +100,10 @@ const CharatersModalInput = () => {
                         </View>
                     </Wrapper>
                 </CharatersModalNameInput>
-
                 <CharatersModalNameContent>
                     <Wrapper>
                     {loading || error ? <ActivityIndicator style={{height: '100%'}} color={colors.violet} size='large'/> :
-                    <FlatList              
-                    
+                    <FlatList                   
                         data={data?.characters.results}
                         renderItem={(el) => <CharatersContainer {...el.item}/>}
                         keyExtractor={(el) => String(el.id)}  
@@ -123,38 +114,29 @@ const CharatersModalInput = () => {
                     </Wrapper>
                 </CharatersModalNameContent>
             </CharatersModalNameBlock>
-           
         </>
     )
 }
 
-const CharatersModalNameBlock = styled.View`
-
-`
+const CharatersModalNameBlock = styled.View``;
 
 const Input = styled.TextInput`
     height: 40px;
     width: 100%;
-    background: ${colors.backgroundInputColor};
-    paddingHorizontal: 40px;
+    background: ${colors.silver.dark};
+    padding-horizontal: 40px;
     border-radius: 10px;
-`
-
+`;
 
 const Wrapper = styled.View`
     margin: 0 auto;
     width: 90%;
-`
+`;
 
-const CharatersModalNameContent = styled.View`
-    
-`
+const CharatersModalNameContent = styled.View``;
 
 const CharatersModalNameInput = styled.View`
     padding-bottom: 15px;
     borderBottomWidth: 1px;
-    borderBottomColor: ${colors.borderColor};
-`
-
-
-export default CharatersModalInput;
+    borderBottomColor: ${colors.silver.white};
+`;

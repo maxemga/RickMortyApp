@@ -1,16 +1,16 @@
 import React, {useContext} from 'react';
 import {Text, View} from 'react-native';
-import styled from 'styled-components';
-import SwipeLine from '../../../Elements/SwipeLine';
-import {colors, config} from '../../../../theme/config';
+import styled from 'styled-components/native';
+import {SwipeLine} from '../../../Elements/SwipeLine';
+import {colors} from '../../../../theme/config';
 import {useNavigation} from '@react-navigation/native';
 import {Screens} from '../../../Navigation/NavigationRoutes';
-import ArrowBack from '../../../../assets/images/ModalIcons/Arrow';
+import {ArrowBack} from '../../../../assets/images/ModalIcons/Arrow';
 import {IFilterContext, ITypeModalContext} from '../../../../type/types';
 import {FilterContext} from '../../../../context/filterContext';
 import {TypeModalContext} from '../../../../context/typeModalContext';
 
-const CharatersModalInputHeader = () => {
+export const CharatersModalInputHeader = () => {
   const navigation = useNavigation();
   const {
     charatersActiveName,
@@ -26,7 +26,6 @@ const CharatersModalInputHeader = () => {
         <SwipeLine />
         <View style={{position: 'relative'}}>
           <CharatersHeaderTitle>
-            {/* FIXME: вынести условие в отдельную переменную */}
             {activeTypeModal == 'Name' ? 'Name' : 'Species'}
           </CharatersHeaderTitle>
           <CharatersHeaderButton
@@ -38,12 +37,12 @@ const CharatersModalInputHeader = () => {
           </CharatersHeaderButton>
           {activeTypeModal == 'Name' ? (
             charatersActiveName != '' ? (
-              <CharatersHeaderClear onPress={() => setCharatersActiveName('')}>
+              <CharatersHeaderClear onPress={() => setCharatersActiveName?.('')}>
                 <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
               </CharatersHeaderClear>
             ) : null
           ) : charatersActiveSpecies != '' ? (
-            <CharatersHeaderClear onPress={() => setCharatersActiveSpecies('')}>
+            <CharatersHeaderClear onPress={() => setCharatersActiveSpecies?.('')}>
               <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
             </CharatersHeaderClear>
           ) : null}
@@ -62,6 +61,7 @@ const CharatersHeader = styled.View`
   background-color: white;
   padding-bottom: 10px;
 `;
+
 const CharatersHeaderClear = styled.TouchableOpacity`
   position: absolute;
   top: 6px;
@@ -70,7 +70,7 @@ const CharatersHeaderClear = styled.TouchableOpacity`
 
 const CharatersHeaderTitle = styled.Text`
   background-color: white;
-  color: ${colors.textTitle};
+  color: ${colors.blue.dark};
   font-size: 16px;
   font-weight: bold;
   margin: 0 auto;
@@ -86,5 +86,3 @@ const CharatersHeaderButton = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
 `;
-
-export default CharatersModalInputHeader;

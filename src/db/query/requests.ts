@@ -1,6 +1,33 @@
 import {gql} from '@apollo/client';
 
+export const USER_FRAGMENT = gql`
+  fragment UserFragment on Character {
+    id
+    name
+    status
+    image
+  }
+`;
+
+export const LOCATION_FRAGMENT = gql`
+  fragment LocationFragment on Location {
+    id
+    name
+    type
+  }
+`;
+
+export const EPISODE_FRAGMENT = gql`
+  fragment EpisodeFragment on Episode {
+    id
+    name
+    air_date
+    episode
+  }
+`;
+
 export const GET_ALL_USERS = gql`
+  ${USER_FRAGMENT}
   query GetAllUsers(
     $page: Int
     $name: String
@@ -16,24 +43,19 @@ export const GET_ALL_USERS = gql`
         next
       }
       results {
-        id
-        name
-        status
-        image
+        ...UserFragment
       }
     }
   }
 `;
 
-// FIXME: дублирующие поля можно вынести во фрагменты
-// https://www.apollographql.com/docs/react/data/fragments/
-
 export const GET_SINGLE_USER = gql`
+  ${USER_FRAGMENT}
+  ${EPISODE_FRAGMENT}
+  ${LOCATION_FRAGMENT}
   query GetSingleUser($id: ID!) {
     character(id: $id) {
-      id
-      name
-      status
+      ...UserFragment
       species
       type
       gender
@@ -45,23 +67,19 @@ export const GET_SINGLE_USER = gql`
         created
       }
       location {
-        id
-        name
-        type
+        ...LocationFragment
         dimension
       }
-      image
       episode {
-        id
-        name
-        air_date
-        episode
+        ...EpisodeFragment
       }
     }
   }
 `;
 
+
 export const GET_ALL_LOCATIONS = gql`
+  ${LOCATION_FRAGMENT}
   query GetAllLocations(
     $page: Int
     $type: String
@@ -76,99 +94,50 @@ export const GET_ALL_LOCATIONS = gql`
         next
       }
       results {
-        id
-        name
-        type
+        ...LocationFragment
       }
     }
   }
 `;
 
 export const GET_SINGLE_LOCATION = gql`
+  ${USER_FRAGMENT}
+  ${LOCATION_FRAGMENT}
   query GetSingleLocation($id: ID!) {
     location(id: $id) {
-      id
-      name
-      type
+      ...LocationFragment
       dimension
       residents {
-        id
-        name
-        status
-        image
+        ...UserFragment
       }
     }
   }
 `;
 
+
 export const GET_ALL_EPISODES = gql`
+  ${EPISODE_FRAGMENT}
   query GetAllEpisodes($page: Int, $name: String, $episode: String) {
     episodes(page: $page, filter: {name: $name, episode: $episode}) {
       info {
         next
       }
       results {
-        id
-        name
-        air_date
-        episode
+        ...EpisodeFragment
       }
     }
   }
 `;
 
 export const GET_SINGLE_EPISODE = gql`
+  ${USER_FRAGMENT}
+  ${EPISODE_FRAGMENT}
   query GetSingleEpisode($id: ID!) {
     episode(id: $id) {
-      id
-      name
-      air_date
-      episode
+      ...EpisodeFragment
       characters {
-        id
-        name
-        status
-        image
+        ...UserFragment
       }
     }
   }
 `;
-
-// # query GET_ALL_USERS {
-// #     characters{
-// #         results {
-// #         id,
-// #         name,
-// #         image,
-// #         status
-// #         }
-// #     }
-// # }
-
-// #     query GET_ALL_LOCATIONS{
-// #         locations {
-// #             results {
-// #             id
-// #             name
-// #             type
-// #             dimension
-// #             residents {
-// #                 id
-// #                 name
-// #                 status
-// #             }
-// #             created
-// #             }
-// #         }
-// #     }
-
-// #     query GET_ALL_USERS {
-// #         characters{
-// #             results {
-// #             id,
-// #             name,
-// #             image,
-// #             status
-// #             }
-// #         }
-// #     }
