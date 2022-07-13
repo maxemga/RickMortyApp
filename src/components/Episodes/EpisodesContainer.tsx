@@ -4,36 +4,38 @@ import { View } from 'react-native';
 import { IActiveDataContext, IAllEpisode } from '../../type/types';
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
-import { EpisodesArrow } from '../../assets/images/EpisodesIcons/arrow';
 import { Screens } from '../Navigation/NavigationRoutes';
 import { ActiveDataContext } from '../../context/activeData';
+import { EpisodesArrow } from '../icons/EpisodesIcons/arrow';
 
-export const EpisodesContainer: React.FC<IAllEpisode> = React.memo(({id, name, air_date, episode}) => {
-    const navigation = useNavigation();
-    const { setEpisodesCardActiveName } = useContext<IActiveDataContext>(ActiveDataContext);
+export const EpisodesContainer: React.FC<IAllEpisode> = React.memo(
+    ({ id, name, air_date, episode }) => {
+        const navigation = useNavigation();
+        const { setEpisodesCardActiveName } = useContext<IActiveDataContext>(ActiveDataContext);
 
-    const openEpisodeCard = () => {
-        navigation.navigate(Screens.EPISODES_CARD_SCREEN, {
-            episodeId: id
-        })
-        setEpisodesCardActiveName?.(name);
-    };
+        const openEpisodeCard = () => {
+            navigation.navigate(Screens.EPISODES_CARD_SCREEN, {
+                episodeId: id,
+            });
+            setEpisodesCardActiveName?.(name);
+        };
 
-    return(     
-        <EpisodesContainerBlock onPress={() => openEpisodeCard()}>
-            <EpisodesContainerContent>
-                <View>
-                    <EpisodesContainerCount>{episode}</EpisodesContainerCount>
-                    <EpisodesContainerName>{name}</EpisodesContainerName>               
-                    <EpisodesContainerDate>{air_date}</EpisodesContainerDate> 
-                </View>
-                <View>
-                    <EpisodesArrow/>
-                </View>   
-            </EpisodesContainerContent>
-        </EpisodesContainerBlock>       
-    );
-});
+        return (
+            <EpisodesContainerBlock onPress={() => openEpisodeCard()}>
+                <EpisodesContainerContent>
+                    <View>
+                        <EpisodesContainerCount>{episode}</EpisodesContainerCount>
+                        <EpisodesContainerName>{name}</EpisodesContainerName>
+                        <EpisodesContainerDate>{air_date}</EpisodesContainerDate>
+                    </View>
+                    <View>
+                        <EpisodesArrow />
+                    </View>
+                </EpisodesContainerContent>
+            </EpisodesContainerBlock>
+        );
+    },
+);
 
 const EpisodesContainerBlock = styled.TouchableOpacity`
     border-bottom-color: ${colors.silver.white};
@@ -65,6 +67,3 @@ const EpisodesContainerDate = styled.Text`
     font-weight: bold;
     margin-top: 3px;
 `;
-
-
-

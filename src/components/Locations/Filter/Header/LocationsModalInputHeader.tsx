@@ -1,45 +1,59 @@
 import React, { useContext } from 'react';
 import { Text, View } from 'react-native';
 import styled from 'styled-components/native';
-import {SwipeLine} from '../../../Elements/SwipeLine';
+import { SwipeLine } from '../../../Elements/SwipeLine';
 import { colors } from '../../../../theme/config';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '../../../Navigation/NavigationRoutes';
 import { IFilterContext, ITypeModalContext } from '../../../../type/types';
 import { FilterContext } from '../../../../context/filterContext';
 import { TypeModalContext } from '../../../../context/typeModalContext';
-import { ArrowBack } from '../../../../assets/images/ModalIcons/Arrow';
+import { ArrowBack } from '../../../icons/ModalIcons/Arrow';
 
 export const LocationsModalInputHeader = () => {
     const navigation = useNavigation();
-    const { setLocationsActiveDimension, setLocationsActiveName, setLocationsActiveType, locationsActiveDimension, locationsActiveName, locationsActiveType } = useContext<IFilterContext>(FilterContext);
+    const {
+        setLocationsActiveDimension,
+        setLocationsActiveName,
+        setLocationsActiveType,
+        locationsActiveDimension,
+        locationsActiveName,
+        locationsActiveType,
+    } = useContext<IFilterContext>(FilterContext);
     const { activeTypeModal } = useContext<ITypeModalContext>(TypeModalContext);
 
-    return(
+    return (
         <CharatersLocations>
             <Wrapper>
-                <SwipeLine/>
-                <View style={{position: 'relative'}}>
-                    <LocationsHeaderTitle>
-                        {activeTypeModal}
-                    </LocationsHeaderTitle>
-                    <LocaionsHeaderButton onPress={() => navigation.navigate(Screens.LOCATIONS_MODAL)}>
+                <SwipeLine />
+                <View style={{ position: 'relative' }}>
+                    <LocationsHeaderTitle>{activeTypeModal}</LocationsHeaderTitle>
+                    <LocaionsHeaderButton
+                        onPress={() => navigation.navigate(Screens.LOCATIONS_MODAL)}>
                         <ArrowBack />
-                        <Text style={{color: colors.violet, fontSize: 16, marginLeft: 7}}>Back</Text>
+                        <Text style={{ color: colors.violet, fontSize: 16, marginLeft: 7 }}>
+                            Back
+                        </Text>
                     </LocaionsHeaderButton>
-                    {activeTypeModal == 'Name' ? 
-                        locationsActiveName != '' ? <LocationsHeaderClear onPress={() => setLocationsActiveName?.('')}>
-                            <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
-                        </LocationsHeaderClear> : null : 
-                    activeTypeModal == 'Type' ? 
-                        locationsActiveType != '' ? <LocationsHeaderClear onPress={() =>  setLocationsActiveType?.('')}>
-                            <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
-                        </LocationsHeaderClear> : null : 
-                    activeTypeModal == 'Dimension' ? 
-                        locationsActiveDimension != '' ? <LocationsHeaderClear onPress={() => setLocationsActiveDimension?.('')}>
-                            <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
-                        </LocationsHeaderClear> : null : null
-                    }
+                    {activeTypeModal == 'Name' ? (
+                        locationsActiveName != '' ? (
+                            <LocationsHeaderClear onPress={() => setLocationsActiveName?.('')}>
+                                <Text style={{ color: colors.violet, fontSize: 16 }}>Clear</Text>
+                            </LocationsHeaderClear>
+                        ) : null
+                    ) : activeTypeModal == 'Type' ? (
+                        locationsActiveType != '' ? (
+                            <LocationsHeaderClear onPress={() => setLocationsActiveType?.('')}>
+                                <Text style={{ color: colors.violet, fontSize: 16 }}>Clear</Text>
+                            </LocationsHeaderClear>
+                        ) : null
+                    ) : activeTypeModal == 'Dimension' ? (
+                        locationsActiveDimension != '' ? (
+                            <LocationsHeaderClear onPress={() => setLocationsActiveDimension?.('')}>
+                                <Text style={{ color: colors.violet, fontSize: 16 }}>Clear</Text>
+                            </LocationsHeaderClear>
+                        ) : null
+                    ) : null}
                 </View>
             </Wrapper>
         </CharatersLocations>
@@ -52,7 +66,7 @@ const Wrapper = styled.View`
 `;
 
 const CharatersLocations = styled.View`
-    background-color: ${colors.white.default}; 
+    background-color: ${colors.white.default};
     padding-bottom: 10px;
 `;
 

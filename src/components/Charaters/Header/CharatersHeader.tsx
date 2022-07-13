@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 import { FilterContext } from '../../../context/filterContext';
 import { colors } from '../../../theme/config';
@@ -8,13 +9,23 @@ import { Screens } from '../../Navigation/NavigationRoutes';
 
 export const CharatersHeader: React.FC = () => {
     const navigation = useNavigation();
-    const { charatersActiveGender, charatersActiveName, charatersActiveSpecies, charatersActiveStatus} = useContext<IFilterContext>(FilterContext);
+    const {
+        charatersActiveGender,
+        charatersActiveName,
+        charatersActiveSpecies,
+        charatersActiveStatus,
+    } = useContext<IFilterContext>(FilterContext);
 
-    return(
+    return (
         <HeaderBlock>
             <Wrapper>
                 <HeaderButton onPress={() => navigation.navigate(Screens.CHARATER_MODAL)}>
-                    { charatersActiveGender || charatersActiveName || charatersActiveSpecies || charatersActiveStatus ? <ButtonIcon/> : null}
+                    {charatersActiveGender ||
+                    charatersActiveName ||
+                    charatersActiveSpecies ||
+                    charatersActiveStatus ? (
+                        <ButtonIcon />
+                    ) : null}
                     <ButtonText>Filter</ButtonText>
                 </HeaderButton>
                 <HeaderTitle>
@@ -40,6 +51,7 @@ const ButtonText = styled.Text`
     font-size: 17px;
     font-weight: bold;
     margin-left: 5px;
+    ${Platform.OS == 'android' ? 'margin-top: 15px' : null}
 `;
 
 const ButtonIcon = styled.View`
@@ -58,7 +70,6 @@ const HeaderButton = styled.TouchableOpacity`
 const HeaderTitle = styled.View`
     margin-top: 20px;
     margin-bottom: 10px;
-
 `;
 
 const HeaderTitleText = styled.Text`
@@ -66,5 +77,3 @@ const HeaderTitleText = styled.Text`
     font-weight: bold;
     color: ${colors.blue.dark};
 `;
-
-

@@ -52,3 +52,10 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
     }
 }
+
+project.ext.react = [
+        entryFile: 'packages/mobile/index.js',
+        root: '../../../../',
+        enableHermes: false,
+        extraPackagerArgs: [ '--minify=false' ], //Add this!
+]

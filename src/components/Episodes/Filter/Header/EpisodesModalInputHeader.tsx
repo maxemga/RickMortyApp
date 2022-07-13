@@ -1,41 +1,51 @@
 import React, { useContext } from 'react';
 import { Text, View } from 'react-native';
 import styled from 'styled-components/native';
-import {SwipeLine} from '../../../Elements/SwipeLine';
+import { SwipeLine } from '../../../Elements/SwipeLine';
 import { colors } from '../../../../theme/config';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '../../../Navigation/NavigationRoutes';
-import {ArrowBack} from '../../../../assets/images/ModalIcons/Arrow';
 import { IFilterContext, ITypeModalContext } from '../../../../type/types';
 import { FilterContext } from '../../../../context/filterContext';
 import { TypeModalContext } from '../../../../context/typeModalContext';
+import { ArrowBack } from '../../../icons/ModalIcons/Arrow';
 
 export const EpisodesModalInputHeader = () => {
     const navigation = useNavigation();
-    const { episodesActiveEpisode, episodesActiveName, setEpisodesActiveEpisode, setEpisodesActiveName } = useContext<IFilterContext>(FilterContext);
+    const {
+        episodesActiveEpisode,
+        episodesActiveName,
+        setEpisodesActiveEpisode,
+        setEpisodesActiveName,
+    } = useContext<IFilterContext>(FilterContext);
     const { activeTypeModal } = useContext<ITypeModalContext>(TypeModalContext);
 
-    return(
+    return (
         <EpisodesLocations>
             <Wrapper>
-                <SwipeLine/>
-                <View style={{position: 'relative'}}>
-                    <EpisodesHeaderTitle>
-                        {activeTypeModal}
-                    </EpisodesHeaderTitle>
-                    <EpisodesHeaderButton onPress={() => navigation.navigate(Screens.EPISODES_MODAL)}>
-                        <ArrowBack/>
-                        <Text style={{color: colors.violet, fontSize: 16, marginLeft: 7}}>Back</Text>
+                <SwipeLine />
+                <View style={{ position: 'relative' }}>
+                    <EpisodesHeaderTitle>{activeTypeModal}</EpisodesHeaderTitle>
+                    <EpisodesHeaderButton
+                        onPress={() => navigation.navigate(Screens.EPISODES_MODAL)}>
+                        <ArrowBack />
+                        <Text style={{ color: colors.violet, fontSize: 16, marginLeft: 7 }}>
+                            Back
+                        </Text>
                     </EpisodesHeaderButton>
-                    {activeTypeModal == 'Name' ? 
-                        episodesActiveName != '' ? <EpisodesHeaderClear onPress={() => setEpisodesActiveName?.('')}>
-                            <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
-                        </EpisodesHeaderClear> : null : 
-                    activeTypeModal == 'Episode' ? 
-                        episodesActiveEpisode != '' ? <EpisodesHeaderClear onPress={() =>  setEpisodesActiveEpisode?.('')}>
-                            <Text style={{color: colors.violet, fontSize: 16}}>Clear</Text>
-                        </EpisodesHeaderClear> : null : null         
-                    }
+                    {activeTypeModal == 'Name' ? (
+                        episodesActiveName != '' ? (
+                            <EpisodesHeaderClear onPress={() => setEpisodesActiveName?.('')}>
+                                <Text style={{ color: colors.violet, fontSize: 16 }}>Clear</Text>
+                            </EpisodesHeaderClear>
+                        ) : null
+                    ) : activeTypeModal == 'Episode' ? (
+                        episodesActiveEpisode != '' ? (
+                            <EpisodesHeaderClear onPress={() => setEpisodesActiveEpisode?.('')}>
+                                <Text style={{ color: colors.violet, fontSize: 16 }}>Clear</Text>
+                            </EpisodesHeaderClear>
+                        ) : null
+                    ) : null}
                 </View>
             </Wrapper>
         </EpisodesLocations>
@@ -48,7 +58,7 @@ const Wrapper = styled.View`
 `;
 
 const EpisodesLocations = styled.View`
-    background-color: ${colors.white.default}; 
+    background-color: ${colors.white.default};
     padding-bottom: 10px;
 `;
 

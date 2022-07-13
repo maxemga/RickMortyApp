@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 import { FilterContext } from '../../../context/filterContext';
 import { colors } from '../../../theme/config';
@@ -8,13 +9,16 @@ import { Screens } from '../../Navigation/NavigationRoutes';
 
 export const LocationsHeader: React.FC = () => {
     const navigation = useNavigation();
-    const { locationsActiveDimension, locationsActiveName, locationsActiveType } = useContext<IFilterContext>(FilterContext);
+    const { locationsActiveDimension, locationsActiveName, locationsActiveType } =
+        useContext<IFilterContext>(FilterContext);
 
-    return(
+    return (
         <HeaderBlock>
             <Wrapper>
                 <HeaderButton onPress={() => navigation.navigate(Screens.LOCATIONS_MODAL)}>
-                    { locationsActiveType || locationsActiveName || locationsActiveDimension ? <ButtonIcon/> : null}
+                    {locationsActiveType || locationsActiveName || locationsActiveDimension ? (
+                        <ButtonIcon />
+                    ) : null}
                     <ButtonText>Filter</ButtonText>
                 </HeaderButton>
                 <HeaderTitle>
@@ -40,6 +44,7 @@ const ButtonText = styled.Text`
     font-size: 17px;
     font-weight: bold;
     margin-left: 5px;
+    ${Platform.OS == 'android' ? 'margin-top: 15px' : null}
 `;
 
 const ButtonIcon = styled.View`
@@ -63,5 +68,5 @@ const HeaderTitle = styled.View`
 const HeaderTitleText = styled.Text`
     font-size: 34px;
     font-weight: bold;
-    color: ${colors.blue.dark}
+    color: ${colors.blue.dark};
 `;

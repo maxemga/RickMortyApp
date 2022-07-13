@@ -10,34 +10,38 @@ import { GET_ALL_USERS } from '../../../db/query/requests';
 import { FilterContext } from '../../../context/filterContext';
 import { IFilterContext, ITypeModalContext } from '../../../type/types';
 import { TypeModalContext } from '../../../context/typeModalContext';
-import { IconDictation } from '../../../assets/images/ModalIcons/Dictation';
-import { IconSearch } from '../../../assets/images/ModalIcons/Search';
 import Voice from '@react-native-community/voice';
+import { IconDictation } from '../../icons/ModalIcons/Dictation';
+import { IconSearch } from '../../icons/ModalIcons/Search';
 
 export const CharatersModalInput = () => {
-    const { charatersActiveName, charatersActiveSpecies, setCharatersActiveName, setCharatersActiveSpecies } = useContext<IFilterContext>(FilterContext);
+    const {
+        charatersActiveName,
+        charatersActiveSpecies,
+        setCharatersActiveName,
+        setCharatersActiveSpecies,
+    } = useContext<IFilterContext>(FilterContext);
     const { activeTypeModal } = useContext<ITypeModalContext>(TypeModalContext);
     const [isRecord, setIsRecord] = useState<boolean>(false);
-    
+
     const { data, loading, error, fetchMore, client } = useQuery<ISchemaUsers>(GET_ALL_USERS, {
         variables: {
             name: activeTypeModal == 'Name' ? charatersActiveName : '',
             species: activeTypeModal == 'Species' ? charatersActiveSpecies : '',
-        }
+        },
     });
 
     useEffect(() => {
         Voice.onSpeechResults = onSpeechResultsHandler;
         return () => {
             Voice.destroy().then(Voice.removeAllListeners);
-        }
+        };
     }, []);
 
     const onSpeechResultsHandler = (e: any) => {
         if (activeTypeModal == 'Name') {
             setCharatersActiveName?.(e.value[0]);
-        }
-        else {
+        } else {
             setCharatersActiveSpecies?.(e.value[0]);
         }
     };
@@ -53,70 +57,101 @@ export const CharatersModalInput = () => {
     };
 
     const FetchData = () => {
-        if(data?.characters.info.next == null) {
+        if (data?.characters.info.next == null) {
             client.stop();
             return null;
-        }
-        else {
+        } else {
             fetchMore({
                 variables: {
-                    page: data?.characters.info.next
+                    page: data?.characters.info.next,
                 },
                 updateQuery: (prevResult, { fetchMoreResult }) => {
                     fetchMoreResult.characters.results = [
                         ...prevResult.characters.results,
-                        ...fetchMoreResult.characters.results
+                        ...fetchMoreResult.characters.results,
                     ];
-                
+
                     return fetchMoreResult;
-                }
+                },
             });
         }
     };
 
-    return(
+    return (
         <>
             <CharatersModalNameBlock>
-                <CharatersModalNameInput> 
+                <CharatersModalNameInput>
                     <Wrapper>
-                        <View style={{position: 'relative'}}>
-                            <Input           
-                                onChangeText={activeTypeModal == 'Name' ? setCharatersActiveName : setCharatersActiveSpecies }
-                                value={activeTypeModal == 'Name' ? charatersActiveName : charatersActiveSpecies}
+                        <View style={{ position: 'relative' }}>
+                            <Input
+                                onChangeText={
+                                    activeTypeModal == 'Name'
+                                        ? setCharatersActiveName
+                                        : setCharatersActiveSpecies
+                                }
+                                value={
+                                    activeTypeModal == 'Name'
+                                        ? charatersActiveName
+                                        : charatersActiveSpecies
+                                }
                                 placeholder={'Search'}
-                                style={{position: 'relative'}}> 
-                            </Input>
-                            <View style={{position: 'absolute', left: 15, top: 13}}>
-                                <IconSearch/>
+                                style={{ position: 'relative' }}></Input>
+                            <View style={{ position: 'absolute', left: 15, top: 13 }}>
+                                <IconSearch />
                             </View>
-                            {!isRecord ? 
-                            <TouchableOpacity style={{position: 'absolute', right: 8, top: 6, padding: 5, borderRadius: 50}} onPress={startRecording}>                
-                                <IconDictation height='20' width='20' color='#AEAEB2'/>          
-                            </TouchableOpacity>   
-                            :     
-                            <TouchableOpacity style={{position: 'absolute', right: 8, top: 6, backgroundColor: 'red', padding: 5, borderRadius: 50}} onPress={stopRecording}>                            
-                                <IconDictation height='20' width='20' color='#FFFFFF'/>                                        
-                            </TouchableOpacity>}       
+                            {!isRecord ? (
+                                <TouchableOpacity
+                                    style={{
+                                        position: 'absolute',
+                                        right: 8,
+                                        top: 6,
+                                        padding: 5,
+                                        borderRadius: 50,
+                                    }}
+                                    onPress={startRecording}>
+                                    <IconDictation height="20" width="20" color="#AEAEB2" />
+                                </TouchableOpacity>
+                            ) : (
+                                <TouchableOpacity
+                                    style={{
+                                        position: 'absolute',
+                                        right: 8,
+                                        top: 6,
+                                        backgroundColor: 'red',
+                                        padding: 5,
+                                        borderRadius: 50,
+                                    }}
+                                    onPress={stopRecording}>
+                                    <IconDictation height="20" width="20" color="#FFFFFF" />
+                                </TouchableOpacity>
+                            )}
                         </View>
                     </Wrapper>
                 </CharatersModalNameInput>
                 <CharatersModalNameContent>
                     <Wrapper>
-                    {loading || error ? <ActivityIndicator style={{height: '100%'}} color={colors.violet} size='large'/> :
-                    <FlatList                   
-                        data={data?.characters.results}
-                        renderItem={(el) => <CharatersContainer {...el.item}/>}
-                        keyExtractor={(el) => String(el.id)}  
-                        numColumns={2}
-                        onEndReachedThreshold={0}
-                        onEndReached={() => FetchData()}
-                    />}
+                        {loading || error ? (
+                            <ActivityIndicator
+                                style={{ height: '100%' }}
+                                color={colors.violet}
+                                size="large"
+                            />
+                        ) : (
+                            <FlatList
+                                data={data?.characters.results}
+                                renderItem={(el) => <CharatersContainer {...el.item} />}
+                                keyExtractor={(el) => String(el.id)}
+                                numColumns={2}
+                                onEndReachedThreshold={0}
+                                onEndReached={() => FetchData()}
+                            />
+                        )}
                     </Wrapper>
                 </CharatersModalNameContent>
             </CharatersModalNameBlock>
         </>
-    )
-}
+    );
+};
 
 const CharatersModalNameBlock = styled.View``;
 
@@ -137,6 +172,6 @@ const CharatersModalNameContent = styled.View``;
 
 const CharatersModalNameInput = styled.View`
     padding-bottom: 15px;
-    borderBottomWidth: 1px;
-    borderBottomColor: ${colors.silver.white};
+    borderbottomwidth: 1px;
+    borderbottomcolor: ${colors.silver.white};
 `;

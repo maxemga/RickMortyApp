@@ -1,29 +1,30 @@
 import React, { useContext } from 'react';
 import { IActiveDataContext, IAllLocation } from '../../type/types';
-import styled from 'styled-components/native'
+import styled from 'styled-components/native';
 import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
 import { Screens } from '../Navigation/NavigationRoutes';
 import { ActiveDataContext } from '../../context/activeData';
+import { Platform } from 'react-native';
 
-export const LocationsContainer: React.FC<IAllLocation> = React.memo(({id, name, type}) => {
+export const LocationsContainer: React.FC<IAllLocation> = React.memo(({ id, name, type }) => {
     const navigation = useNavigation();
     const { setLocationsCardActiveName } = useContext<IActiveDataContext>(ActiveDataContext);
 
     const openLocationCard = () => {
         navigation.navigate(Screens.LOCATIONS_CARD_SCREEN, {
-            locationId: id
+            locationId: id,
         });
         setLocationsCardActiveName?.(name);
     };
 
-    return(     
+    return (
         <LocationsContainerBlock onPress={() => openLocationCard()}>
             <LocationsContainerContent>
                 <LocationsContainerDiscription>{type}</LocationsContainerDiscription>
-                <LocationsContainerTitle>{name}</LocationsContainerTitle>
+                <LocationsContainerTitle numberOfLines={2}>{name}</LocationsContainerTitle>
             </LocationsContainerContent>
-        </LocationsContainerBlock>       
+        </LocationsContainerBlock>
     );
 });
 
@@ -50,6 +51,5 @@ const LocationsContainerTitle = styled.Text`
 
 const LocationsContainerDiscription = styled.Text`
     color: ${colors.blue.dim};
-    font-size: ${config.textSizeContainerDiscription}
+    font-size: ${config.textSizeContainerDiscription};
 `;
-

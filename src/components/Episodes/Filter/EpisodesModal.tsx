@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
-import { EpisodesArrow } from '../../../assets/images/EpisodesIcons/arrow';
 import { colors, config } from '../../../theme/config';
 import { Screens } from '../../Navigation/NavigationRoutes';
-import {IconModalNonActive} from '../../../assets/images/ModalIcons/IconModalNonActive';
-import {IconModalActive} from '../../../assets/images/ModalIcons/IconModalActive';
 import { useNavigation } from '@react-navigation/native';
 import { FilterContext } from '../../../context/filterContext';
 import { IFilterContext, ITypeModalContext } from '../../../type/types';
 import { TypeModalContext } from '../../../context/typeModalContext';
+import { IconModalActive } from '../../icons/ModalIcons/IconModalActive';
+import { IconModalNonActive } from '../../icons/ModalIcons/IconModalNonActive';
+import { EpisodesArrow } from '../../icons/EpisodesIcons/arrow';
 
 export const EpisodesModal = () => {
     const navigation = useNavigation();
@@ -20,67 +20,73 @@ export const EpisodesModal = () => {
         navigation.navigate(Screens.EPISODES_MODAL_INPUT);
     };
 
-    return(
+    return (
         <>
             <EpisodesModalContainer>
-                    <Wrapper>
-                        <EpisodesModalContainerContent onPress={() => {
+                <Wrapper>
+                    <EpisodesModalContainerContent
+                        onPress={() => {
                             redirectModal();
                             setActiveTypeModal?.('Name');
-                        }} >
-                            <EpisodesModalContainerContentElements>
-                                <EpisodesModalContainerContentRadio>
-                                    {episodesActiveName !== '' ?
-                                        <TouchableOpacity>
-                                            <IconModalActive/>               
-                                        </TouchableOpacity>
-                                        :
-                                        <TouchableOpacity>
-                                            <IconModalNonActive/>
-                                        </TouchableOpacity>
-                                    }
-                                </EpisodesModalContainerContentRadio>
-                                <EpisodesModalContainerContentText>
-                                    <EpisodesModalContainerTitle>Name</EpisodesModalContainerTitle>
-                                    <EpisodesModalContainerSubTitle>Give a name</EpisodesModalContainerSubTitle>
-                                </EpisodesModalContainerContentText>                     
-                            </EpisodesModalContainerContentElements>
-                            <View>
-                                <EpisodesArrow/>
-                            </View>
-                        </EpisodesModalContainerContent>
-                    </Wrapper>       
-            </EpisodesModalContainer> 
-            <EpisodesModalContainer style={{marginTop: 25}}>
-                    <Wrapper>
-                        <EpisodesModalContainerContent onPress={() => {
+                        }}>
+                        <EpisodesModalContainerContentElements>
+                            <EpisodesModalContainerContentRadio>
+                                {episodesActiveName !== '' ? (
+                                    <TouchableOpacity>
+                                        <IconModalActive />
+                                    </TouchableOpacity>
+                                ) : (
+                                    <TouchableOpacity>
+                                        <IconModalNonActive />
+                                    </TouchableOpacity>
+                                )}
+                            </EpisodesModalContainerContentRadio>
+                            <EpisodesModalContainerContentText>
+                                <EpisodesModalContainerTitle>Name</EpisodesModalContainerTitle>
+                                <EpisodesModalContainerSubTitle>
+                                    Give a name
+                                </EpisodesModalContainerSubTitle>
+                            </EpisodesModalContainerContentText>
+                        </EpisodesModalContainerContentElements>
+                        <View>
+                            <EpisodesArrow />
+                        </View>
+                    </EpisodesModalContainerContent>
+                </Wrapper>
+            </EpisodesModalContainer>
+            <EpisodesModalContainer style={{ marginTop: 25 }}>
+                <Wrapper>
+                    <EpisodesModalContainerContent
+                        onPress={() => {
                             redirectModal();
                             setActiveTypeModal?.('Episode');
                         }}>
-                            <EpisodesModalContainerContentElements>
-                                <EpisodesModalContainerContentRadio>
-                                    {episodesActiveEpisode !== '' ?
-                                        <TouchableOpacity>
-                                            <IconModalActive/>               
-                                        </TouchableOpacity>
-                                        :
-                                        <TouchableOpacity>
-                                            <IconModalNonActive/>
-                                        </TouchableOpacity>
-                                    }
-                                </EpisodesModalContainerContentRadio>
+                        <EpisodesModalContainerContentElements>
+                            <EpisodesModalContainerContentRadio>
+                                {episodesActiveEpisode !== '' ? (
+                                    <TouchableOpacity>
+                                        <IconModalActive />
+                                    </TouchableOpacity>
+                                ) : (
+                                    <TouchableOpacity>
+                                        <IconModalNonActive />
+                                    </TouchableOpacity>
+                                )}
+                            </EpisodesModalContainerContentRadio>
 
-                                <EpisodesModalContainerContentText>
-                                    <EpisodesModalContainerTitle>Episode</EpisodesModalContainerTitle>
-                                    <EpisodesModalContainerSubTitle>Select one</EpisodesModalContainerSubTitle>
-                                </EpisodesModalContainerContentText>     
-                            </EpisodesModalContainerContentElements>
-                            <View>
-                                <EpisodesArrow/>
-                            </View>
-                        </EpisodesModalContainerContent>
-                    </Wrapper>       
-            </EpisodesModalContainer>                
+                            <EpisodesModalContainerContentText>
+                                <EpisodesModalContainerTitle>Episode</EpisodesModalContainerTitle>
+                                <EpisodesModalContainerSubTitle>
+                                    Select one
+                                </EpisodesModalContainerSubTitle>
+                            </EpisodesModalContainerContentText>
+                        </EpisodesModalContainerContentElements>
+                        <View>
+                            <EpisodesArrow />
+                        </View>
+                    </EpisodesModalContainerContent>
+                </Wrapper>
+            </EpisodesModalContainer>
         </>
     );
 };
@@ -107,12 +113,12 @@ const EpisodesModalContainerTitle = styled.Text`
 
 const EpisodesModalContainerSubTitle = styled.Text`
     color: ${colors.blue.dim};
-    fontSize: ${config.textSizeContainerModalDescription};
+    fontsize: ${config.textSizeContainerModalDescription};
 `;
 
 const EpisodesModalContainerContentElements = styled.View`
-    flexDirection: row;
-    alignItems: center;
+    flex-direction: row;
+    align-items: center;
 `;
 
 const EpisodesModalContainerContentRadio = styled.View`

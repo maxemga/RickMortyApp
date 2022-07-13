@@ -1,46 +1,69 @@
-
 import { useQuery } from '@apollo/client';
 import { useRoute } from '@react-navigation/native';
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import styled from 'styled-components/native';
 import { GET_SINGLE_EPISODE } from '../../db/query/requests';
 import { ISchemaEpisode } from '../../db/query/schema';
 import { colors } from '../../theme/config';
-import {CharatersContainer} from '../Charaters/CharatersCotainer';
+import { CharatersContainer } from '../Charaters/CharatersCotainer';
 
 export const EpisodesCardComponent = () => {
-    const route = useRoute()
+    const route = useRoute();
     const { data, loading, error } = useQuery<ISchemaEpisode>(GET_SINGLE_EPISODE, {
         variables: {
-            id: route.params.episodeId
-        }
+            id: route.params.episodeId,
+        },
     });
 
-    return(
+    return (
         <EpisodeCardBlock>
             <EpisodeCardHeader>
                 <Wrapper>
                     <EpisodeCardHeaderContent>
-                        { loading || error ? <ErrorBlock style={{width: '50%'}}/> : <EpisodeCardDate>{data?.episode.air_date}</EpisodeCardDate>}
-                        { loading || error ? <ErrorBlock style={{width: '80%', height: 20}}/> : <EpisodeCardName>{data?.episode.name}</EpisodeCardName>}
-                        { loading || error ? <ErrorBlock style={{width: '50%'}}/> : <EpisodeCardNumber>{data?.episode.episode}</EpisodeCardNumber>}
-                    </EpisodeCardHeaderContent>    
+                        {loading || error ? (
+                            <ErrorBlock style={{ width: '50%' }} />
+                        ) : (
+                            <EpisodeCardDate>{data?.episode.air_date}</EpisodeCardDate>
+                        )}
+                        {loading || error ? (
+                            <ErrorBlock style={{ width: '80%', height: 20 }} />
+                        ) : (
+                            <EpisodeCardName>{data?.episode.name}</EpisodeCardName>
+                        )}
+                        {loading || error ? (
+                            <ErrorBlock style={{ width: '50%' }} />
+                        ) : (
+                            <EpisodeCardNumber>{data?.episode.episode}</EpisodeCardNumber>
+                        )}
+                    </EpisodeCardHeaderContent>
                 </Wrapper>
             </EpisodeCardHeader>
             <EpisodeCardContent>
                 <Wrapper>
                     <View>
-                    <EpisodeCardContentTitle>Characters</EpisodeCardContentTitle>
-                    {loading || error ? <ActivityIndicator style={{height: '100%'}} color={colors.violet} size='large'/> :
-                         <View style={{flexDirection: 'row', flexWrap: 'wrap', width: '100%', marginTop: 10}}>
-                         {data?.episode.characters.map((el) => {
-                             return <CharatersContainer key={el.id} {...el} />
-                         })}
-                      </View>
-                    }  
-                     </View>
+                        <EpisodeCardContentTitle>Characters</EpisodeCardContentTitle>
+                        {loading || error ? (
+                            <ActivityIndicator
+                                style={{ height: '100%' }}
+                                color={colors.violet}
+                                size="large"
+                            />
+                        ) : (
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    flexWrap: 'wrap',
+                                    width: '100%',
+                                    marginTop: 10,
+                                }}>
+                                {data?.episode.characters.map((el) => {
+                                    return <CharatersContainer key={el.id} {...el} />;
+                                })}
+                            </View>
+                        )}
+                    </View>
                 </Wrapper>
             </EpisodeCardContent>
         </EpisodeCardBlock>

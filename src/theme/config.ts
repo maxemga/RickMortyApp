@@ -14,16 +14,16 @@ export const colors = {
     white: '#E5E5E5',
     dark: 'rgba(118, 118, 128, 0.12);',
     lunar: '#cfcfcf'
-  }, // textNavigaion
+  }, 
   blue: {
     dim: '#6E798C',
     dark: '#081F32',
     bright: '#5856D6'
-  }, // textTitle
+  }, 
   white: {
     default: '#FFFFFF',
     bright: '#F2F2F7',
     dim: '#f8f8f8'
-  }, // backgroundProfileColor
+  }, 
   black: '#000000'
 };

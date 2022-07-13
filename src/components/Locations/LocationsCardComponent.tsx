@@ -1,45 +1,69 @@
 import { useQuery } from '@apollo/client';
 import { useRoute } from '@react-navigation/native';
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import styled from 'styled-components/native';
 import { GET_SINGLE_LOCATION } from '../../db/query/requests';
 import { ISchemaLocation } from '../../db/query/schema';
 import { colors } from '../../theme/config';
-import {CharatersContainer} from '../Charaters/CharatersCotainer';
+import { CharatersContainer } from '../Charaters/CharatersCotainer';
 
 export const LocaionsCardComponent = () => {
-    const route = useRoute()
+    const route = useRoute();
     const { data, loading, error } = useQuery<ISchemaLocation>(GET_SINGLE_LOCATION, {
         variables: {
-            id: route.params.locationId
-        }
+            id: route.params.locationId,
+        },
     });
 
-    return(
+    return (
         <LocationsCardBlock>
             <LocationCardHeader>
                 <Wrapper>
                     <LocationCardHeaderContent>
-                        { loading || error ? <ErrorBlock style={{ width: '50%'}}/> : <LocationCardDate>{data?.location.type}</LocationCardDate>}
-                        { loading || error ? <ErrorBlock style={{ width: '80%', height: 20}}/> : <LocationCardName>{data?.location.name}</LocationCardName>}
-                        { loading || error ? <ErrorBlock style={{ width: '50%'}}/> : <LocationCardNumber>{data?.location.dimension}</LocationCardNumber>}
-                    </LocationCardHeaderContent>          
+                        {loading || error ? (
+                            <ErrorBlock style={{ width: '50%' }} />
+                        ) : (
+                            <LocationCardDate>{data?.location.type}</LocationCardDate>
+                        )}
+                        {loading || error ? (
+                            <ErrorBlock style={{ width: '80%', height: 20 }} />
+                        ) : (
+                            <LocationCardName>{data?.location.name}</LocationCardName>
+                        )}
+                        {loading || error ? (
+                            <ErrorBlock style={{ width: '50%' }} />
+                        ) : (
+                            <LocationCardNumber>{data?.location.dimension}</LocationCardNumber>
+                        )}
+                    </LocationCardHeaderContent>
                 </Wrapper>
             </LocationCardHeader>
             <LocationCardContent>
                 <Wrapper>
                     <View>
-                    <LocationCardContentTitle>Residents</LocationCardContentTitle>
-                    {loading || error ? <ActivityIndicator style={{height: '100%'}} color={colors.violet} size='large'/> :
-                         <View style={{flexDirection: 'row', flexWrap: 'wrap', width: '100%', marginTop: 10}}>
-                         {data?.location.residents.map((el) => {
-                             return <CharatersContainer key={el.id} {...el} />
-                         })}
-                      </View>
-                    }  
-                     </View>
+                        <LocationCardContentTitle>Residents</LocationCardContentTitle>
+                        {loading || error ? (
+                            <ActivityIndicator
+                                style={{ height: '100%' }}
+                                color={colors.violet}
+                                size="large"
+                            />
+                        ) : (
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    flexWrap: 'wrap',
+                                    width: '100%',
+                                    marginTop: 10,
+                                }}>
+                                {data?.location.residents.map((el) => {
+                                    return <CharatersContainer key={el.id} {...el} />;
+                                })}
+                            </View>
+                        )}
+                    </View>
                 </Wrapper>
             </LocationCardContent>
         </LocationsCardBlock>
