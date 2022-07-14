@@ -10,9 +10,9 @@ import { FilterContext } from '../../../context/filterContext';
 import { IFilterContext, ITypeModalContext } from '../../../type/types';
 import { LocationsContainer } from '../LocationsContainer';
 import { TypeModalContext } from '../../../context/typeModalContext';
-import Voice from '@react-native-community/voice';
 import { IconDictation } from '../../icons/ModalIcons/Dictation';
 import { IconSearch } from '../../icons/ModalIcons/Search';
+import Voice from '@react-native-community/voice';
 
 export const LocationsModalInput = () => {
     const {
@@ -139,7 +139,7 @@ export const LocationsModalInput = () => {
                     </View>
                 </Wrapper>
             </LocationsModalNameInput>
-            <Text style={{ fontFamily: 'Roboto' }}>fsafs</Text>
+            <Text>fsafs</Text>
             <LocationsModalNameContent>
                 <Wrapper>
                     {loading || error ? (

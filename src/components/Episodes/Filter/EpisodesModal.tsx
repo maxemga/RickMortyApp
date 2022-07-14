@@ -113,7 +113,7 @@ const EpisodesModalContainerTitle = styled.Text`
 
 const EpisodesModalContainerSubTitle = styled.Text`
     color: ${colors.blue.dim};
-    fontsize: ${config.textSizeContainerModalDescription};
+    font-size: ${config.textSizeContainerModalDescription};
 `;
 
 const EpisodesModalContainerContentElements = styled.View`
