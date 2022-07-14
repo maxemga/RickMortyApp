@@ -95,7 +95,8 @@ export const CharatersModalInput = () => {
                                         : charatersActiveSpecies
                                 }
                                 placeholder={'Search'}
-                                style={{ position: 'relative' }}></Input>
+                                style={{ position: 'relative' }}
+                            />
                             <View style={{ position: 'absolute', left: 15, top: 13 }}>
                                 <IconSearch />
                             </View>

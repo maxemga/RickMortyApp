@@ -1,40 +1,40 @@
-import { IUser, ILocation, IEpisode } from "src/type/types";
+import { IUser, ILocation, IEpisode } from 'src/type/types';
 
 export interface ISchemaUsers {
-  characters: {
-    info: {
-      next: number;
+    characters: {
+        info: {
+            next: number;
+        };
+        results: Array<IUser>;
     };
-    results: Array<IUser>;
-  };
-};
+}
 
 export interface ISchemaUser {
-  character: IUser;
-};
+    character: IUser;
+}
 
 export interface ISchemaLocations {
-  locations: {
-    info: {
-      next: number;
+    locations: {
+        info: {
+            next: number;
+        };
+        results: Array<ILocation>;
     };
-    results: Array<ILocation>;
-  };
-};
+}
 
 export interface ISchemaLocation {
-  location: ILocation;
-};
+    location: ILocation;
+}
 
 export interface ISchemaEpisodes {
-  episodes: {
-    info: {
-      next: number;
+    episodes: {
+        info: {
+            next: number;
+        };
+        results: Array<IEpisode>;
     };
-    results: Array<IEpisode>;
-  };
-};
+}
 
 export interface ISchemaEpisode {
-  episode: IEpisode;
-};
+    episode: IEpisode;
+}

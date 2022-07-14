@@ -97,11 +97,13 @@ export const EpisodesModalInput = () => {
                                     : episodesActiveEpisode
                             }
                             placeholder={'Search'}
-                            style={{ position: 'relative' }}></Input>
+                            style={{ position: 'relative' }}
+                        />
                         <View style={{ position: 'absolute', left: 15, top: 13 }}>
                             <IconSearch />
                         </View>
                         {!isRecord ? (
+                            // FIXME: Два компонента с одинаковыми стилями ↓
                             <TouchableOpacity
                                 style={{
                                     position: 'absolute',
@@ -114,6 +116,7 @@ export const EpisodesModalInput = () => {
                                 <IconDictation height="20" width="20" color="#AEAEB2" />
                             </TouchableOpacity>
                         ) : (
+                            // FIXME: Два компонента с одинаковыми стилями ↑
                             <TouchableOpacity
                                 style={{
                                     position: 'absolute',
