@@ -11,4 +11,4 @@ export enum Screens {
     EPISODES_CARD_SCREEN = 'EpisodesCard',
     EPISODES_MODAL_INPUT = 'EpisodesModalInput',
     EPISODES_MODAL = 'EpisodesModal',
-};
+}
