@@ -1,6 +1,5 @@
 import React from 'react';
-import { CharatersProfileComponent } from '../../components/Charaters/CharatersProfileComponent';
-
+import { CharatersProfileComponent } from 'src/components/Charaters/CharatersProfileComponent';
 export const CharatersProfilePage: React.FC = () => {
     return <CharatersProfileComponent />;
 };

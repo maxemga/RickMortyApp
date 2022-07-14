@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { View, TouchableOpacity, FlatList } from 'react-native';
-import { colors } from '../../../theme/config';
 import { ActivityIndicator } from 'react-native-paper';
 import { useQuery } from '@apollo/client';
-import { ISchemaEpisodes } from '../../../db/query/schema';
-import { GET_ALL_EPISODES } from '../../../db/query/requests';
-import { FilterContext } from '../../../context/filterContext';
-import { IFilterContext, ITypeModalContext } from '../../../type/types';
-import { TypeModalContext } from '../../../context/typeModalContext';
-import { EpisodesContainer } from '../EpisodesContainer';
 import Voice from '@react-native-community/voice';
-import { IconDictation } from '../../icons/ModalIcons/Dictation';
-import { IconSearch } from '../../icons/ModalIcons/Search';
+import { IconDictation } from 'src/components/icons/ModalIcons/Dictation';
+import { IconSearch } from 'src/components/icons/ModalIcons/Search';
+import { FilterContext } from 'src/context/filterContext';
+import { TypeModalContext } from 'src/context/typeModalContext';
+import { GET_ALL_EPISODES } from 'src/db/query/requests';
+import { ISchemaEpisodes } from 'src/db/query/schema';
+import { colors } from 'src/theme/config';
+import { IFilterContext, ITypeModalContext } from 'src/type/types';
+import { EpisodesContainer } from 'src/components/Episodes/EpisodesContainer';
 
 export const EpisodesModalInput = () => {
     const {

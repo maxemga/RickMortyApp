@@ -1,14 +1,14 @@
 import styled from 'styled-components/native';
 import React, { useContext } from 'react';
 import { FlatList } from 'react-native';
-import { useQuery } from '@apollo/client';
-import { GET_ALL_USERS } from '../../db/query/requests';
-import { CharatersContainer } from './CharatersCotainer';
 import { ActivityIndicator } from 'react-native-paper';
-import { colors } from '../../theme/config';
-import { ISchemaUsers } from '../../db/query/schema';
-import { IFilterContext } from '../../type/types';
-import { FilterContext } from '../../context/filterContext';
+import { useQuery } from '@apollo/client';
+import { FilterContext } from 'src/context/filterContext';
+import { GET_ALL_USERS } from 'src/db/query/requests';
+import { ISchemaUsers } from 'src/db/query/schema';
+import { colors } from 'src/theme/config';
+import { IFilterContext } from 'src/type/types';
+import { CharatersContainer } from 'src/components/Charaters/CharatersCotainer';
 
 export const CharatersComponent: React.FC = () => {
     const {

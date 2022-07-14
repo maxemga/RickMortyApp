@@ -3,12 +3,12 @@ import { useQuery } from '@apollo/client';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Image, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
-import { GET_SINGLE_USER } from '../../db/query/requests';
-import { colors, config } from '../../theme/config';
-import { ISchemaUser } from '../../db/query/schema';
-import { EpisodesContainer } from '../Episodes/EpisodesContainer';
-import { Screens } from '../Navigation/NavigationRoutes';
-import { EpisodesArrow } from '../icons/EpisodesIcons/arrow';
+import { GET_SINGLE_USER } from 'src/db/query/requests';
+import { ISchemaUser } from 'src/db/query/schema';
+import { colors, config, fonts } from 'src/theme/config';
+import { EpisodesContainer } from 'src/components/Episodes/EpisodesContainer';
+import { EpisodesArrow } from 'src/components/icons/EpisodesIcons/arrow';
+import { Screens } from 'src/components/Navigation/NavigationRoutes';
 
 export const CharatersProfileComponent = () => {
     const route = useRoute();
@@ -189,6 +189,7 @@ const CharatersContentImageCard = styled.View`
 `;
 
 const CharatersContentImageCardStatus = styled.Text`
+    font-family: ${fonts.roboto.default};
     color: ${colors.blue.dim};
 `;
 const CharatersContentImageCardName = styled.Text`
@@ -198,6 +199,7 @@ const CharatersContentImageCardName = styled.Text`
     text-align: center;
 `;
 const CharatersContentImageGender = styled.Text`
+    font-family: ${fonts.roboto.bold};
     font-weight: bold;
     color: ${colors.silver.bright}
     margin-top: 5px;
@@ -214,6 +216,7 @@ const CharasetInfoBlock = styled.View`
 `;
 
 const CharaterInfoTitle = styled.Text`
+    font-family: ${fonts.roboto.bold};
     color: ${colors.silver.bright};
     font-size: 22px;
     font-weight: bold;
@@ -231,12 +234,14 @@ const CharaterInfoContainer = styled.View`
 `;
 
 const CharasetInfoContainerTitle = styled.Text`
+    font-family: ${fonts.roboto.default};
     color: ${colors.blue.dark};
     font-weight: bold;
     font-size: ${config.textSizeContainerTitle};
 `;
 
 const CharasetInfoContainerSubTitle = styled.Text`
+    font-family: ${fonts.roboto.default};
     color: ${colors.blue.dim};
     font-size: 15px;
     margin-top: 3px;

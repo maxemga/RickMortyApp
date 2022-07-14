@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
-import { colors, config } from '../../../theme/config';
-import { Screens } from '../../Navigation/NavigationRoutes';
 import { useNavigation } from '@react-navigation/native';
-import { FilterContext } from '../../../context/filterContext';
-import { IFilterContext, ITypeModalContext } from '../../../type/types';
-import { TypeModalContext } from '../../../context/typeModalContext';
-import { IconModalActive } from '../../icons/ModalIcons/IconModalActive';
-import { IconModalNonActive } from '../../icons/ModalIcons/IconModalNonActive';
-import { EpisodesArrow } from '../../icons/EpisodesIcons/arrow';
+import { EpisodesArrow } from 'src/components/icons/EpisodesIcons/arrow';
+import { IconModalActive } from 'src/components/icons/ModalIcons/IconModalActive';
+import { IconModalNonActive } from 'src/components/icons/ModalIcons/IconModalNonActive';
+import { Screens } from 'src/components/Navigation/NavigationRoutes';
+import { FilterContext } from 'src/context/filterContext';
+import { TypeModalContext } from 'src/context/typeModalContext';
+import { colors, config } from 'src/theme/config';
+import { ITypeModalContext, IFilterContext } from 'src/type/types';
 
 export const CharatersModal = () => {
     const navigation = useNavigation();

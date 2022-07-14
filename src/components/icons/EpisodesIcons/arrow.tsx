@@ -1,6 +1,6 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
-import { colors } from '../../../theme/config';
+import { colors } from 'src/theme/config';
 
 export const EpisodesArrow = () => (
     <Svg width="6" height="8" viewBox="0 0 6 8" fill="none">

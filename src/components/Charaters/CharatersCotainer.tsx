@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 import { Image } from 'react-native';
-import { IActiveDataContext, IAllUser } from '../../type/types';
-import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
-import { Screens } from '../Navigation/NavigationRoutes';
-import { ActiveDataContext } from '../../context/activeData';
+import { ActiveDataContext } from 'src/context/activeData';
+import { config, colors, fonts } from 'src/theme/config';
+import { IAllUser, IActiveDataContext } from 'src/type/types';
+import { Screens } from 'src/components/Navigation/NavigationRoutes';
 
 export const CharatersContainer: React.FC<IAllUser> = React.memo(({ id, name, image, status }) => {
     const navigation = useNavigation();
@@ -57,12 +57,14 @@ const CharatersContainerContent = styled.View`
 `;
 
 const CharatersContainerTitle = styled.Text`
+    font-family: ${fonts.roboto.bold};
     color: ${colors.blue.dark};
     font-size: ${config.textSizeContainerTitle};
     font-weight: bold;
 `;
 
 const CharatersContainerDiscription = styled.Text`
+    font-family: ${fonts.roboto.default};
     color: ${colors.blue.dim};
     font-size: ${config.textSizeContainerDiscription};
 `;

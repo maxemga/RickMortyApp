@@ -2,13 +2,13 @@ import styled from 'styled-components/native';
 import React, { useContext } from 'react';
 import { FlatList } from 'react-native';
 import { useQuery } from '@apollo/client';
-import { GET_ALL_EPISODES } from '../../db/query/requests';
-import { ISchemaEpisodes } from '../../db/query/schema';
-import { EpisodesContainer } from './EpisodesContainer';
 import { ActivityIndicator } from 'react-native-paper';
-import { colors } from '../../theme/config';
-import { IFilterContext } from '../../type/types';
-import { FilterContext } from '../../context/filterContext';
+import { FilterContext } from 'src/context/filterContext';
+import { GET_ALL_EPISODES } from 'src/db/query/requests';
+import { ISchemaEpisodes } from 'src/db/query/schema';
+import { colors } from 'src/theme/config';
+import { IFilterContext } from 'src/type/types';
+import { EpisodesContainer } from 'src/components/Episodes/EpisodesContainer';
 
 export const EpisodesComponent: React.FC = () => {
     const { episodesActiveEpisode, episodesActiveName } = useContext<IFilterContext>(FilterContext);

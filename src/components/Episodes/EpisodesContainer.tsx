@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 import { View } from 'react-native';
-import { IActiveDataContext, IAllEpisode } from '../../type/types';
-import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
-import { Screens } from '../Navigation/NavigationRoutes';
-import { ActiveDataContext } from '../../context/activeData';
-import { EpisodesArrow } from '../icons/EpisodesIcons/arrow';
+import { ActiveDataContext } from 'src/context/activeData';
+import { colors, config, fonts } from 'src/theme/config';
+import { IAllEpisode, IActiveDataContext } from 'src/type/types';
+import { EpisodesArrow } from 'src/components/icons/EpisodesIcons/arrow';
+import { Screens } from 'src/components/Navigation/NavigationRoutes';
 
 export const EpisodesContainer: React.FC<IAllEpisode> = React.memo(
     ({ id, name, air_date, episode }) => {
@@ -56,13 +56,14 @@ const EpisodesContainerCount = styled.Text`
 `;
 
 const EpisodesContainerName = styled.Text`
+    font-family: ${fonts.roboto.default};
     color: ${colors.blue.dim};
     font-size: ${config.textSizeContainerDiscription};
     margin-top: 3px;
-    font-weight: 500;
 `;
 
 const EpisodesContainerDate = styled.Text`
+    font-family: ${fonts.roboto.default};
     color: ${colors.silver.bright};
     font-weight: bold;
     margin-top: 3px;

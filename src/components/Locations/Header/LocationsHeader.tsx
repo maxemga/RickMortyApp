@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import { Platform } from 'react-native';
+import { Screens } from 'src/components/Navigation/NavigationRoutes';
+import { FilterContext } from 'src/context/filterContext';
+import { colors } from 'src/theme/config';
+import { IFilterContext } from 'src/type/types';
 import styled from 'styled-components/native';
-import { FilterContext } from '../../../context/filterContext';
-import { colors } from '../../../theme/config';
-import { IFilterContext } from '../../../type/types';
-import { Screens } from '../../Navigation/NavigationRoutes';
 
 export const LocationsHeader: React.FC = () => {
     const navigation = useNavigation();
@@ -44,7 +44,6 @@ const ButtonText = styled.Text`
     font-size: 17px;
     font-weight: bold;
     margin-left: 5px;
-    ${Platform.OS == 'android' ? 'margin-top: 15px' : null}
 `;
 
 const ButtonIcon = styled.View`
@@ -55,6 +54,7 @@ const ButtonIcon = styled.View`
 `;
 
 const HeaderButton = styled.TouchableOpacity`
+    ${Platform.OS == 'android' ? 'margin-top: 15px' : null}
     justify-content: flex-end;
     align-items: center;
     flex-direction: row;

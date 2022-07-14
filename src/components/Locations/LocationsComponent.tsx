@@ -2,13 +2,13 @@ import styled from 'styled-components/native';
 import React, { useContext } from 'react';
 import { FlatList } from 'react-native';
 import { useQuery } from '@apollo/client';
-import { GET_ALL_LOCATIONS } from '../../db/query/requests';
-import { IFilterContext } from '../../type/types';
-import { ISchemaLocations } from '../../db/query/schema';
-import { LocationsContainer } from './LocationsContainer';
 import { ActivityIndicator } from 'react-native-paper';
-import { colors } from '../../theme/config';
-import { FilterContext } from '../../context/filterContext';
+import { FilterContext } from 'src/context/filterContext';
+import { GET_ALL_LOCATIONS } from 'src/db/query/requests';
+import { ISchemaLocations } from 'src/db/query/schema';
+import { colors } from 'src/theme/config';
+import { IFilterContext } from 'src/type/types';
+import { LocationsContainer } from 'src/components/Locations/LocationsContainer';
 
 export const LocationsComponent: React.FC = () => {
     const { locationsActiveDimension, locationsActiveName, locationsActiveType } =

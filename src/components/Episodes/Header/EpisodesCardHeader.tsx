@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import { Text } from 'react-native';
+import { ArrowBack } from 'src/components/icons/ModalIcons/Arrow';
+import { ActiveDataContext } from 'src/context/activeData';
+import { colors } from 'src/theme/config';
+import { IActiveDataContext } from 'src/type/types';
 import styled from 'styled-components/native';
-import { ActiveDataContext } from '../../../context/activeData';
-import { colors } from '../../../theme/config';
-import { IActiveDataContext } from '../../../type/types';
-import { ArrowBack } from '../../icons/ModalIcons/Arrow';
 
 export const EpisodesCardHeader: React.FC = () => {
     const navigation = useNavigation();

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Platform, Text, View } from 'react-native';
 import styled from 'styled-components/native';
-import { SwipeLine } from '../../../Elements/SwipeLine';
-import { colors } from '../../../../theme/config';
-import { IFilterContext } from '../../../../type/types';
-import { FilterContext } from '../../../../context/filterContext';
 import { useNavigation } from '@react-navigation/native';
+import { SwipeLine } from 'src/components/Elements/SwipeLine';
+import { FilterContext } from 'src/context/filterContext';
+import { colors } from 'src/theme/config';
+import { IFilterContext } from 'src/type/types';
 
 export const EpisodesModalHeader = () => {
     const navigation = useNavigation();

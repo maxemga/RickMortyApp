@@ -1,4 +1,4 @@
-import {IEpisode, ILocation, IUser} from '../../type/types';
+import { IUser, ILocation, IEpisode } from "src/type/types";
 
 export interface ISchemaUsers {
   characters: {

@@ -1,6 +1,6 @@
 import React from 'react';
+import { colors } from 'src/theme/config';
 import styled from 'styled-components/native';
-import { colors } from '../../theme/config';
 
 export const SwipeLine = () => <SwipeLineBlock />;
 

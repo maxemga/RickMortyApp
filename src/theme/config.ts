@@ -27,3 +27,10 @@ export const colors = {
   }, 
   black: '#000000'
 };
+
+export const fonts = {
+  roboto: {
+    default: 'Roboto-Regular',
+    bold: 'Roboto-Bold'
+  }
+}

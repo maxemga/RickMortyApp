@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { Text, View } from 'react-native';
 import styled from 'styled-components/native';
-import { SwipeLine } from '../../../Elements/SwipeLine';
-import { colors } from '../../../../theme/config';
 import { useNavigation } from '@react-navigation/native';
-import { Screens } from '../../../Navigation/NavigationRoutes';
-import { IFilterContext, ITypeModalContext } from '../../../../type/types';
-import { FilterContext } from '../../../../context/filterContext';
-import { TypeModalContext } from '../../../../context/typeModalContext';
-import { ArrowBack } from '../../../icons/ModalIcons/Arrow';
+import { SwipeLine } from 'src/components/Elements/SwipeLine';
+import { ArrowBack } from 'src/components/icons/ModalIcons/Arrow';
+import { Screens } from 'src/components/Navigation/NavigationRoutes';
+import { FilterContext } from 'src/context/filterContext';
+import { TypeModalContext } from 'src/context/typeModalContext';
+import { colors } from 'src/theme/config';
+import { IFilterContext, ITypeModalContext } from 'src/type/types';
 
 export const CharatersModalInputHeader = () => {
     const navigation = useNavigation();

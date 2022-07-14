@@ -3,11 +3,11 @@ import { useRoute } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
+import { GET_SINGLE_LOCATION } from 'src/db/query/requests';
+import { ISchemaLocation } from 'src/db/query/schema';
+import { colors, fonts } from 'src/theme/config';
 import styled from 'styled-components/native';
-import { GET_SINGLE_LOCATION } from '../../db/query/requests';
-import { ISchemaLocation } from '../../db/query/schema';
-import { colors } from '../../theme/config';
-import { CharatersContainer } from '../Charaters/CharatersCotainer';
+import { CharatersContainer } from 'src/components/Charaters/CharatersCotainer';
 
 export const LocaionsCardComponent = () => {
     const route = useRoute();
@@ -81,11 +81,13 @@ const LocationCardHeaderContent = styled.View`
 const LocationCardHeader = styled.View``;
 
 const LocationCardDate = styled.Text`
+    font-family: ${fonts.roboto.default};
     color: ${colors.blue.dim};
     font-size: 11px;
 `;
 
 const LocationCardName = styled.Text`
+    font-family: ${fonts.roboto.bold};
     color: ${colors.blue.dark};
     font-weight: bold;
     font-size: 28px;
@@ -94,6 +96,7 @@ const LocationCardName = styled.Text`
 `;
 
 const LocationCardNumber = styled.Text`
+    font-family: ${fonts.roboto.default};
     color: ${colors.silver.bright};
     font-weight: bold;
     font-size: 13px;
@@ -101,6 +104,7 @@ const LocationCardNumber = styled.Text`
 `;
 
 const LocationCardContentTitle = styled.Text`
+    font-family: ${fonts.roboto.default};
     padding-top: 20px;
     color: ${colors.silver.bright};
     font-size: 22px;

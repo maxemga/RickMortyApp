@@ -1,19 +1,15 @@
 import React from 'react';
-import { CharatersPage } from '../../screens/Charaters/CharatersPage';
 import { Screens } from './NavigationRoutes';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { colors } from '../../theme/config';
-import { LocationPage } from '../../screens/Locations/LocationPage';
-import { EpisodesPage } from '../../screens/Episodes/EpisodesPage';
-import { CharatersHeader } from '../Charaters/Header/CharatersHeader';
-import { LocationsHeader } from '../Locations/Header/LocationsHeader';
-import { EpisodesHeader } from '../Episodes/Header/EpisodesHeader';
-import { NavigationIconActiveCharater } from '../icons/NavigationIcons/Active/CharaterIconActive';
-import { NavigationIconActiveEpisode } from '../icons/NavigationIcons/Active/EpisodeIconActive';
-import { NavigationIconActiveLocation } from '../icons/NavigationIcons/Active/LocationIconActive';
-import { NavigationIconCharater } from '../icons/NavigationIcons/Inactive/CharaterIconinactive';
-import { NavigationIconEpisode } from '../icons/NavigationIcons/Inactive/EpisodeconInactive';
-import { NavigationIconLocation } from '../icons/NavigationIcons/Inactive/LocationIconInactive';
+import { colors } from 'src/theme/config';
+import { NavigationIconActiveCharater } from 'src/components/icons/NavigationIcons/Active/CharaterIconActive';
+import { NavigationIconActiveEpisode } from 'src/components/icons/NavigationIcons/Active/EpisodeIconActive';
+import { NavigationIconActiveLocation } from 'src/components/icons/NavigationIcons/Active/LocationIconActive';
+import { NavigationIconCharater } from 'src/components/icons/NavigationIcons/Inactive/CharaterIconinactive';
+import { NavigationIconEpisode } from 'src/components/icons/NavigationIcons/Inactive/EpisodeconInactive';
+import { NavigationIconLocation } from 'src/components/icons/NavigationIcons/Inactive/LocationIconInactive';
+import { LocationsHeader } from 'src/components/Locations/Header/LocationsHeader';
+import { CharatersScreen, EpisodeScreen, LocationScreen } from './StackNavigation';
 
 const Tabs = createBottomTabNavigator();
 
@@ -26,12 +22,10 @@ export const TabsNavigation = () => {
             }}>
             <Tabs.Screen
                 name={Screens.CHARATER_SCREEN}
-                component={CharatersPage}
+                component={CharatersScreen}
                 options={{
+                    headerShown: false,
                     tabBarLabel: `${Screens.CHARATER_SCREEN}`,
-                    header: () => {
-                        return <CharatersHeader />;
-                    },
                     tabBarIcon: ({ focused }) => {
                         return focused ? (
                             <NavigationIconActiveCharater />
@@ -41,14 +35,11 @@ export const TabsNavigation = () => {
                     },
                 }}
             />
-
             <Tabs.Screen
                 name={Screens.LOCATIONS_SCREEN}
-                component={LocationPage}
+                component={LocationScreen}
                 options={{
-                    header: () => {
-                        return <LocationsHeader />;
-                    },
+                    headerShown: false,
                     tabBarLabel: `${Screens.LOCATIONS_SCREEN}`,
                     tabBarIcon: ({ focused }) => {
                         return focused ? (
@@ -59,14 +50,11 @@ export const TabsNavigation = () => {
                     },
                 }}
             />
-
             <Tabs.Screen
                 name={Screens.EPISODE_SCREEN}
-                component={EpisodesPage}
+                component={EpisodeScreen}
                 options={{
-                    header: () => {
-                        return <EpisodesHeader />;
-                    },
+                    headerShown: false,
                     tabBarLabel: `${Screens.EPISODE_SCREEN}`,
                     tabBarIcon: ({ focused }) => {
                         return focused ? (

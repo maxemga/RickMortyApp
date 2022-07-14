@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { IActiveDataContext, IAllLocation } from '../../type/types';
 import styled from 'styled-components/native';
-import { colors, config } from '../../theme/config';
 import { useNavigation } from '@react-navigation/native';
-import { Screens } from '../Navigation/NavigationRoutes';
-import { ActiveDataContext } from '../../context/activeData';
-import { Platform } from 'react-native';
+import { ActiveDataContext } from 'src/context/activeData';
+import { colors, config, fonts } from 'src/theme/config';
+import { Screens } from 'src/components/Navigation/NavigationRoutes';
 
 export const LocationsContainer: React.FC<IAllLocation> = React.memo(({ id, name, type }) => {
     const navigation = useNavigation();
@@ -44,12 +43,14 @@ const LocationsContainerContent = styled.View`
 `;
 
 const LocationsContainerTitle = styled.Text`
+    font-family: ${fonts.roboto.default};
     color: ${colors.blue.dark};
     font-size: ${config.textSizeContainerTitle};
     font-weight: bold;
 `;
 
 const LocationsContainerDiscription = styled.Text`
+    font-family: ${fonts.roboto.default};
     color: ${colors.blue.dim};
     font-size: ${config.textSizeContainerDiscription};
 `;

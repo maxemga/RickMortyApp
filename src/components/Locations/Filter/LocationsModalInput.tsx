@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { View, TouchableOpacity, FlatList, Text } from 'react-native';
-import { colors } from '../../../theme/config';
 import { ActivityIndicator } from 'react-native-paper';
 import { useQuery } from '@apollo/client';
-import { ISchemaLocations } from '../../../db/query/schema';
-import { GET_ALL_LOCATIONS } from '../../../db/query/requests';
-import { FilterContext } from '../../../context/filterContext';
-import { IFilterContext, ITypeModalContext } from '../../../type/types';
-import { LocationsContainer } from '../LocationsContainer';
-import { TypeModalContext } from '../../../context/typeModalContext';
-import { IconDictation } from '../../icons/ModalIcons/Dictation';
-import { IconSearch } from '../../icons/ModalIcons/Search';
 import Voice from '@react-native-community/voice';
+import { IconDictation } from 'src/components/icons/ModalIcons/Dictation';
+import { IconSearch } from 'src/components/icons/ModalIcons/Search';
+import { FilterContext } from 'src/context/filterContext';
+import { TypeModalContext } from 'src/context/typeModalContext';
+import { GET_ALL_LOCATIONS } from 'src/db/query/requests';
+import { ISchemaLocations } from 'src/db/query/schema';
+import { colors } from 'src/theme/config';
+import { IFilterContext, ITypeModalContext } from 'src/type/types';
+import { LocationsContainer } from 'src/components/Locations/LocationsContainer';
 
 export const LocationsModalInput = () => {
     const {
@@ -47,6 +47,7 @@ export const LocationsModalInput = () => {
     const onSpeechResultsHandler = (e: any) => {
         if (activeTypeModal == 'Name') {
             setLocationsActiveName?.(e.value[0]);
+            console.log(e);
         } else if (activeTypeModal == 'Type') {
             setLocationsActiveType?.(e.value[0]);
         } else {
@@ -139,7 +140,6 @@ export const LocationsModalInput = () => {
                     </View>
                 </Wrapper>
             </LocationsModalNameInput>
-            <Text>fsafs</Text>
             <LocationsModalNameContent>
                 <Wrapper>
                     {loading || error ? (
