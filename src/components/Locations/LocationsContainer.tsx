@@ -13,6 +13,7 @@ export const LocationsContainer: React.FC<IAllLocation> = React.memo(({ id, name
     const openLocationCard = () => {
         navigation.navigate(Screens.LOCATIONS_CARD_SCREEN, {
             locationId: id,
+            screen: Screens.LOCATIONS_CARD_SCREEN,
         });
         setLocationsCardActiveName?.(name);
     };

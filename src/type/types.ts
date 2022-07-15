@@ -46,7 +46,8 @@ export interface IAllEpisode {
     id: number
     name: string
     air_date: string
-    episode: string
+    episode: string,
+    type?: string
 };
 
 export interface IFilterContext {

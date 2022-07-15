@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useRoute } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { GET_SINGLE_LOCATION } from 'src/db/query/requests';
@@ -13,9 +13,13 @@ export const LocaionsCardComponent = () => {
     const route = useRoute();
     const { data, loading, error } = useQuery<ISchemaLocation>(GET_SINGLE_LOCATION, {
         variables: {
-            id: route.params.locationId,
+            id: route.params?.locationId,
         },
     });
+
+    useEffect(() => {
+        console.log(route.params);
+    }, []);
 
     return (
         <LocationsCardBlock>

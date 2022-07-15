@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from '@apollo/client';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Image, TouchableOpacity, View } from 'react-native';
@@ -9,20 +9,28 @@ import { colors, config, fonts } from 'src/theme/config';
 import { EpisodesContainer } from 'src/components/Episodes/EpisodesContainer';
 import { EpisodesArrow } from 'src/components/icons/EpisodesIcons/arrow';
 import { Screens } from 'src/components/Navigation/NavigationRoutes';
+import { ActiveDataContext } from 'src/context/activeData';
+import { IActiveDataContext } from 'src/type/types';
 
 export const CharatersProfileComponent = () => {
     const route = useRoute();
     const navigation = useNavigation();
     const { data, loading, error } = useQuery<ISchemaUser>(GET_SINGLE_USER, {
         variables: {
-            id: route.params.characterId,
+            id: route.params?.characterId,
         },
     });
+    const { setLocationsCardActiveName } = useContext<IActiveDataContext>(ActiveDataContext);
 
     const openLocationCard = () => {
-        navigation.navigate(Screens.LOCATIONS_CARD_SCREEN, {
-            locationId: data?.character.location.id,
+        navigation.navigate(Screens.LOCATIONS_SCREEN, {
+            screen: Screens.LOCATIONS_CARD_SCREEN,
+            initial: false,
+            params: {
+                locationId: data?.character.location.id,
+            },
         });
+        setLocationsCardActiveName?.(data?.character.location.name);
     };
 
     return (
@@ -140,13 +148,13 @@ export const CharatersProfileComponent = () => {
                     </Wrapper>
                 </CharaterContentInfo>
 
-                <CharaterContentInfo style={{ paddingBottom: 50 }}>
+                <CharaterContentInfo style={{ paddingBottom: 20 }}>
                     <Wrapper>
                         <CharasetInfoBlock style={{ marginTop: 40 }}>
                             <CharaterInfoTitle>Episodes</CharaterInfoTitle>
                         </CharasetInfoBlock>
                         {data?.character.episode.map((el) => {
-                            return <EpisodesContainer key={el.id} {...el} />;
+                            return <EpisodesContainer type={'Charater'} key={el.id} {...el} />;
                         })}
                     </Wrapper>
                 </CharaterContentInfo>

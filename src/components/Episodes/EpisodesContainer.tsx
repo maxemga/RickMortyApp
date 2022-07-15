@@ -9,14 +9,25 @@ import { EpisodesArrow } from 'src/components/icons/EpisodesIcons/arrow';
 import { Screens } from 'src/components/Navigation/NavigationRoutes';
 
 export const EpisodesContainer: React.FC<IAllEpisode> = React.memo(
-    ({ id, name, air_date, episode }) => {
+    ({ id, name, air_date, episode, type }) => {
         const navigation = useNavigation();
         const { setEpisodesCardActiveName } = useContext<IActiveDataContext>(ActiveDataContext);
 
         const openEpisodeCard = () => {
-            navigation.navigate(Screens.EPISODES_CARD_SCREEN, {
-                episodeId: id,
-            });
+            if (type == 'Charater') {
+                navigation.navigate(Screens.EPISODE_SCREEN, {
+                    screen: Screens.EPISODES_CARD_SCREEN,
+                    initial: false,
+                    params: {
+                        episodeId: id,
+                    },
+                });
+            } else {
+                navigation.navigate(Screens.EPISODES_CARD_SCREEN, {
+                    episodeId: id,
+                });
+            }
+
             setEpisodesCardActiveName?.(name);
         };
 
