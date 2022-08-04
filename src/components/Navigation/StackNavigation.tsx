@@ -27,6 +27,9 @@ import { LocationPage } from 'src/screens/Locations/LocationPage';
 import { LocationsHeader } from '../Locations/Header/LocationsHeader';
 import { EpisodesPage } from 'src/screens/Episodes/EpisodesPage';
 import { EpisodesHeader } from '../Episodes/Header/EpisodesHeader';
+import { IThemeContext } from 'src/type/types';
+import { ThemeContext } from 'src/context/themeContext';
+import { colors } from 'src/theme/config';
 
 const Stack = createNativeStackNavigator();
 const CharaterStack = createNativeStackNavigator();
@@ -100,65 +103,83 @@ export const StackNavigation = () => {
     );
 };
 
-export const CharatersScreen = () => (
-    <CharaterStack.Navigator>
-        <CharaterStack.Screen
-            name={Screens.CHARATER_SCREEN}
-            component={CharatersPage}
-            options={{
-                header: () => {
-                    return <CharatersHeader />;
-                },
-            }}
-        />
-        <CharaterStack.Screen
-            name={Screens.CHARATER_PROFILE_SCREEN}
-            component={CharatersProfilePage}
-            options={{
-                header: () => <CharatersCardHeader />,
-            }}
-        />
-    </CharaterStack.Navigator>
-);
+export const CharatersScreen = () => {
+    const { isDarkMode } = useContext<IThemeContext>(ThemeContext);
+    return (
+        <CharaterStack.Navigator>
+            <CharaterStack.Screen
+                name={Screens.CHARATER_SCREEN}
+                component={CharatersPage}
+                options={{
+                    contentStyle: {
+                        backgroundColor: isDarkMode ? colors.black.dim : colors.white.lunar,
+                    },
+                    header: () => {
+                        return <CharatersHeader />;
+                    },
+                }}
+            />
+            <CharaterStack.Screen
+                name={Screens.CHARATER_PROFILE_SCREEN}
+                component={CharatersProfilePage}
+                options={{
+                    header: () => <CharatersCardHeader />,
+                }}
+            />
+        </CharaterStack.Navigator>
+    );
+};
 
-export const LocationScreen = () => (
-    <LocationStack.Navigator>
-        <LocationStack.Screen
-            name={Screens.LOCATIONS_SCREEN}
-            component={LocationPage}
-            options={{
-                header: () => {
-                    return <LocationsHeader />;
-                },
-            }}
-        />
-        <LocationStack.Screen
-            name={Screens.LOCATIONS_CARD_SCREEN}
-            options={{
-                header: () => <LocationsCardHeader />,
-            }}
-            component={LocationsCardPage}
-        />
-    </LocationStack.Navigator>
-);
+export const LocationScreen = () => {
+    const { isDarkMode } = useContext<IThemeContext>(ThemeContext);
+    return (
+        <LocationStack.Navigator>
+            <LocationStack.Screen
+                name={Screens.LOCATIONS_SCREEN}
+                component={LocationPage}
+                options={{
+                    contentStyle: {
+                        backgroundColor: isDarkMode ? colors.black.dim : colors.white.lunar,
+                    },
+                    header: () => {
+                        return <LocationsHeader />;
+                    },
+                }}
+            />
+            <LocationStack.Screen
+                name={Screens.LOCATIONS_CARD_SCREEN}
+                options={{
+                    header: () => <LocationsCardHeader />,
+                }}
+                component={LocationsCardPage}
+            />
+        </LocationStack.Navigator>
+    );
+};
 
-export const EpisodeScreen = () => (
-    <EpisodeStack.Navigator>
-        <EpisodeStack.Screen
-            name={Screens.EPISODE_SCREEN}
-            component={EpisodesPage}
-            options={{
-                header: () => {
-                    return <EpisodesHeader />;
-                },
-            }}
-        />
-        <EpisodeStack.Screen
-            name={Screens.EPISODES_CARD_SCREEN}
-            options={{
-                header: () => <EpisodesCardHeader />,
-            }}
-            component={EpisodesCardPage}
-        />
-    </EpisodeStack.Navigator>
-);
+export const EpisodeScreen = () => {
+    const { isDarkMode } = useContext<IThemeContext>(ThemeContext);
+    return (
+        <EpisodeStack.Navigator>
+            <EpisodeStack.Screen
+                name={Screens.EPISODE_SCREEN}
+                component={EpisodesPage}
+                options={{
+                    contentStyle: {
+                        backgroundColor: isDarkMode ? colors.black.dim : colors.white.lunar,
+                    },
+                    header: () => {
+                        return <EpisodesHeader />;
+                    },
+                }}
+            />
+            <EpisodeStack.Screen
+                name={Screens.EPISODES_CARD_SCREEN}
+                options={{
+                    header: () => <EpisodesCardHeader />,
+                }}
+                component={EpisodesCardPage}
+            />
+        </EpisodeStack.Navigator>
+    );
+};

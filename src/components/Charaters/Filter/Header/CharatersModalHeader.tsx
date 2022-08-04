@@ -5,7 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { SwipeLine } from 'src/components/Elements/SwipeLine';
 import { FilterContext } from 'src/context/filterContext';
 import { colors } from 'src/theme/config';
-import { IFilterContext } from 'src/type/types';
+import { IFilterContext, IThemeContext } from 'src/type/types';
+import { ThemeContext } from 'src/context/themeContext';
 
 export const CharatersModalHeader = () => {
     const navigation = useNavigation();

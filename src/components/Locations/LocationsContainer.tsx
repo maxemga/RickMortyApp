@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
-import { IActiveDataContext, IAllLocation } from '../../type/types';
+import { IActiveDataContext, IAllLocation, IThemeContext } from '../../type/types';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 import { ActiveDataContext } from 'src/context/activeData';
 import { colors, config, fonts } from 'src/theme/config';
 import { Screens } from 'src/components/Navigation/NavigationRoutes';
+import { ThemeContext } from 'src/context/themeContext';
 
 export const LocationsContainer: React.FC<IAllLocation> = React.memo(({ id, name, type }) => {
     const navigation = useNavigation();
     const { setLocationsCardActiveName } = useContext<IActiveDataContext>(ActiveDataContext);
+    const { isDarkMode } = useContext<IThemeContext>(ThemeContext);
 
     const openLocationCard = () => {
         navigation.navigate(Screens.LOCATIONS_CARD_SCREEN, {
@@ -19,10 +21,19 @@ export const LocationsContainer: React.FC<IAllLocation> = React.memo(({ id, name
     };
 
     return (
-        <LocationsContainerBlock onPress={() => openLocationCard()}>
+        <LocationsContainerBlock
+            onPress={() => openLocationCard()}
+            style={{
+                backgroundColor: isDarkMode ? colors.black.light : colors.white.lunar,
+                borderColor: isDarkMode ? colors.black.light : colors.silver.white,
+            }}>
             <LocationsContainerContent>
                 <LocationsContainerDiscription>{type}</LocationsContainerDiscription>
-                <LocationsContainerTitle numberOfLines={2}>{name}</LocationsContainerTitle>
+                <LocationsContainerTitle
+                    numberOfLines={2}
+                    style={{ color: isDarkMode ? colors.white.default : colors.blue.dark }}>
+                    {name}
+                </LocationsContainerTitle>
             </LocationsContainerContent>
         </LocationsContainerBlock>
     );

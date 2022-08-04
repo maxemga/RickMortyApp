@@ -4,14 +4,16 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ActiveDataContext } from 'src/context/activeData';
 import { colors, config, fonts } from 'src/theme/config';
-import { IAllEpisode, IActiveDataContext } from 'src/type/types';
+import { IAllEpisode, IActiveDataContext, IThemeContext } from 'src/type/types';
 import { EpisodesArrow } from 'src/components/icons/EpisodesIcons/arrow';
 import { Screens } from 'src/components/Navigation/NavigationRoutes';
+import { ThemeContext } from 'src/context/themeContext';
 
 export const EpisodesContainer: React.FC<IAllEpisode> = React.memo(
     ({ id, name, air_date, episode, type }) => {
         const navigation = useNavigation();
         const { setEpisodesCardActiveName } = useContext<IActiveDataContext>(ActiveDataContext);
+        const { isDarkMode } = useContext<IThemeContext>(ThemeContext);
 
         const openEpisodeCard = () => {
             if (type == 'Charater') {
@@ -35,7 +37,10 @@ export const EpisodesContainer: React.FC<IAllEpisode> = React.memo(
             <EpisodesContainerBlock onPress={() => openEpisodeCard()}>
                 <EpisodesContainerContent>
                     <View>
-                        <EpisodesContainerCount>{episode}</EpisodesContainerCount>
+                        <EpisodesContainerCount
+                            style={{ color: isDarkMode ? colors.white.default : colors.blue.dark }}>
+                            {episode}
+                        </EpisodesContainerCount>
                         <EpisodesContainerName>{name}</EpisodesContainerName>
                         <EpisodesContainerDate>{air_date}</EpisodesContainerDate>
                     </View>

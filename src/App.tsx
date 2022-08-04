@@ -4,6 +4,7 @@ import { ApolloProvider } from '@apollo/client';
 import { FilterProvider } from 'src/context/filterContext';
 import { TypeModalProvider } from 'src/context/typeModalContext';
 import { ActiveDataProvider } from 'src/context/activeData';
+import { ThemeProvider } from 'src/context/themeContext';
 import { client } from 'src/db';
 
 export const App = () => {
@@ -12,7 +13,9 @@ export const App = () => {
             <FilterProvider>
                 <TypeModalProvider>
                     <ActiveDataProvider>
-                        <StackNavigation />
+                        <ThemeProvider>
+                            <StackNavigation />
+                        </ThemeProvider>
                     </ActiveDataProvider>
                 </TypeModalProvider>
             </FilterProvider>

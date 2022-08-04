@@ -3,17 +3,20 @@ import React, { useContext } from 'react';
 import { Platform } from 'react-native';
 import { Screens } from 'src/components/Navigation/NavigationRoutes';
 import { FilterContext } from 'src/context/filterContext';
+import { ThemeContext } from 'src/context/themeContext';
 import { colors } from 'src/theme/config';
-import { IFilterContext } from 'src/type/types';
+import { IFilterContext, IThemeContext } from 'src/type/types';
 import styled from 'styled-components/native';
 
 export const LocationsHeader: React.FC = () => {
     const navigation = useNavigation();
     const { locationsActiveDimension, locationsActiveName, locationsActiveType } =
         useContext<IFilterContext>(FilterContext);
+    const { isDarkMode } = useContext<IThemeContext>(ThemeContext);
 
     return (
-        <HeaderBlock>
+        <HeaderBlock
+            style={{ backgroundColor: isDarkMode ? colors.black.bright : colors.white.dim }}>
             <Wrapper>
                 <HeaderButton onPress={() => navigation.navigate(Screens.LOCATIONS_MODAL)}>
                     {locationsActiveType || locationsActiveName || locationsActiveDimension ? (
@@ -22,7 +25,12 @@ export const LocationsHeader: React.FC = () => {
                     <ButtonText>Filter</ButtonText>
                 </HeaderButton>
                 <HeaderTitle>
-                    <HeaderTitleText>Locations</HeaderTitleText>
+                    <HeaderTitleText
+                        style={{
+                            color: isDarkMode ? colors.white.default : colors.blue.dark,
+                        }}>
+                        Locations
+                    </HeaderTitleText>
                 </HeaderTitle>
             </Wrapper>
         </HeaderBlock>

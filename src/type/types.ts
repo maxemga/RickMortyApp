@@ -88,3 +88,7 @@ export interface IActiveDataContext {
     episodesCardActiveName?: string,
     setEpisodesCardActiveName?: Dispatch<SetStateAction<string>>,
 };
+
+export interface IThemeContext {
+    isDarkMode?: boolean
+}

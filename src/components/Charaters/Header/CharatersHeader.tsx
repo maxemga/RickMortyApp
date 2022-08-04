@@ -1,23 +1,27 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
-import { Platform } from 'react-native';
+import { Platform, useColorScheme } from 'react-native';
 import { Screens } from 'src/components/Navigation/NavigationRoutes';
 import { FilterContext } from 'src/context/filterContext';
+import { ThemeContext } from 'src/context/themeContext';
 import { colors } from 'src/theme/config';
-import { IFilterContext } from 'src/type/types';
+import { IFilterContext, IThemeContext } from 'src/type/types';
 import styled from 'styled-components/native';
 
 export const CharatersHeader: React.FC = () => {
     const navigation = useNavigation();
+
     const {
         charatersActiveGender,
         charatersActiveName,
         charatersActiveSpecies,
         charatersActiveStatus,
     } = useContext<IFilterContext>(FilterContext);
+    const { isDarkMode } = useContext<IThemeContext>(ThemeContext);
 
     return (
-        <HeaderBlock>
+        <HeaderBlock
+            style={{ backgroundColor: isDarkMode ? colors.black.bright : colors.white.dim }}>
             <Wrapper>
                 <HeaderButton onPress={() => navigation.navigate(Screens.CHARATER_MODAL)}>
                     {charatersActiveGender ||
@@ -29,17 +33,19 @@ export const CharatersHeader: React.FC = () => {
                     <ButtonText>Filter</ButtonText>
                 </HeaderButton>
                 <HeaderTitle>
-                    <HeaderTitleText>Charaters</HeaderTitleText>
+                    <HeaderTitleText
+                        style={{
+                            color: isDarkMode ? colors.white.default : colors.blue.dark,
+                        }}>
+                        Charaters
+                    </HeaderTitleText>
                 </HeaderTitle>
             </Wrapper>
         </HeaderBlock>
     );
 };
 
-const HeaderBlock = styled.SafeAreaView`
-    background-color: ${colors.white.dim};
-    opacity: 0.92;
-`;
+const HeaderBlock = styled.SafeAreaView``;
 
 const Wrapper = styled.View`
     margin: 0 auto;
@@ -75,5 +81,7 @@ const HeaderTitle = styled.View`
 const HeaderTitleText = styled.Text`
     font-size: 34px;
     font-weight: bold;
-    color: ${colors.blue.dark};
+
+    color: ${({ isDarkMode }: { isDarkMode: any }) =>
+        isDarkMode ? colors.white.default : colors.blue.dark};
 `;

@@ -3,23 +3,31 @@ import React, { useContext } from 'react';
 import { Platform } from 'react-native';
 import { Screens } from 'src/components/Navigation/NavigationRoutes';
 import { FilterContext } from 'src/context/filterContext';
+import { ThemeContext } from 'src/context/themeContext';
 import { colors } from 'src/theme/config';
-import { IFilterContext } from 'src/type/types';
+import { IFilterContext, IThemeContext } from 'src/type/types';
 import styled from 'styled-components/native';
 
 export const EpisodesHeader: React.FC = () => {
     const navigation = useNavigation();
     const { episodesActiveEpisode, episodesActiveName } = useContext<IFilterContext>(FilterContext);
+    const { isDarkMode } = useContext<IThemeContext>(ThemeContext);
 
     return (
-        <HeaderBlock>
+        <HeaderBlock
+            style={{ backgroundColor: isDarkMode ? colors.black.bright : colors.white.dim }}>
             <Wrapper>
                 <HeaderButton onPress={() => navigation.navigate(Screens.EPISODES_MODAL)}>
                     {episodesActiveEpisode || episodesActiveName ? <ButtonIcon /> : null}
                     <ButtonText>Filter</ButtonText>
                 </HeaderButton>
                 <HeaderTitle>
-                    <HeaderTitleText>Episodes</HeaderTitleText>
+                    <HeaderTitleText
+                        style={{
+                            color: isDarkMode ? colors.white.default : colors.blue.dark,
+                        }}>
+                        Episodes
+                    </HeaderTitleText>
                 </HeaderTitle>
             </Wrapper>
         </HeaderBlock>

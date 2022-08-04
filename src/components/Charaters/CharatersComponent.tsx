@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { useQuery } from '@apollo/client';

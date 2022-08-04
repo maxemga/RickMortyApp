@@ -23,9 +23,15 @@ export const colors = {
   white: {
     default: '#FFFFFF',
     bright: '#F2F2F7',
-    dim: '#f8f8f8'
+    dim: '#f8f8f8',
+    lunar: '#F2F2F2'
   }, 
-  black: '#000000'
+  black: {
+    default: '#000000',
+    dim: '#1A1A1A',
+    bright: '#282828',
+    light: '#313131',
+  }
 };
 
 export const fonts = {

@@ -30,7 +30,7 @@ export const CharatersProfileComponent = () => {
                 locationId: data?.character.location.id,
             },
         });
-        setLocationsCardActiveName?.(data?.character.location.name);
+        setLocationsCardActiveName?.(data.character.location.name);
     };
 
     return (
